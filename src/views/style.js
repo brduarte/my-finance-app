@@ -6,6 +6,9 @@ export const MStyles = {
     whiteColor: '#ffffff',
     defaultBackgroundColor: '#ffff',
   },
+  border: {
+    defaultRadius: 8,
+  },
   fontFamilyPrimaryRegular: 'PlusJakartaSans-Regular',
   fontFamilyPrimaryBold: 'PlusJakartaSans-Bold',
   fontFamilyPrimarySemiBold: 'PlusJakartaSans-SemiBold',

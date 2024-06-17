@@ -6,12 +6,13 @@
  */
 
 import React from 'react';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, TextInput} from 'react-native';
 import {StatusBar} from 'react-native';
 import {MStyles} from './src/views/style';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
-import Login from './src/views/Login';
+import Onboarding from './src/views/Onboarding';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Login from './src/views/Login';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,7 +38,8 @@ function App(): React.JSX.Element {
           screenOptions={{
             headerShown: false,
           }}>
-          <Stack.Screen name="Init" component={Login} />
+          <Stack.Screen name="Onboarding" component={Onboarding} />
+          <Stack.Screen name="Login" component={Login} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

@@ -1,35 +1,43 @@
 import {StyleSheet} from 'react-native';
 import {MStyles} from '../style';
-
 export const styles = StyleSheet.create({
-  title: {
-    fontFamily: MStyles.fontFamilyPrimaryBold,
-    color: MStyles.colors.blackColor,
-    fontSize: 28,
-    marginBottom: 24,
-    marginTop: 74,
-  },
-  label: {
-    fontFamily: MStyles.fontFamilyPrimaryRegular,
-    fontSize: 13,
-    color: MStyles.colors.blackColor,
-    marginBottom: 12,
-  },
   container: {
     flex: 1,
+    flexDirection: 'column-reverse',
     marginHorizontal: 23,
   },
-  sections: {
-    marginBottom: 30,
+
+  image: {
+    width: 224,
+    height: 241,
+    alignSelf: 'center',
   },
   buttonLogin: {
     paddingHorizontal: 20,
     borderWidth: 1,
     borderColor: 'white',
     borderRadius: 8,
-    paddingVertical: 12,
+    paddingVertical: 10,
     marginBottom: 27,
     backgroundColor: MStyles.colors.primaryColor,
+  },
+  text: {
+    marginTop: 47.45,
+    marginBottom: 104,
+  },
+  title: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 18,
+    marginVertical: 8,
+    color: MStyles.colors.primaryColor,
+  },
+  content: {
+    fontSize: 24,
+    fontFamily: MStyles.fontFamilyPrimaryRegular,
+    color: MStyles.colors.blackColor,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   buttonText: {
     fontSize: 16,
