@@ -1,9 +1,21 @@
 import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {NativeSyntheticEvent, Text, TouchableOpacity, View} from 'react-native';
 import Input from '../../components/Input';
 import {styles} from './style';
+import {TextInputChangeEventData} from 'react-native/Libraries/Components/TextInput/TextInput';
 
-export default function Layout(): React.JSX.Element {
+type LoginProps = {
+  emailState: {
+    set: (value: string) => void;
+    value: string;
+  };
+  onBlurEmail: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
+};
+
+export default function Layout({
+  onBlurEmail,
+  emailState,
+}: LoginProps): React.JSX.Element {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Entrar</Text>
@@ -13,6 +25,9 @@ export default function Layout(): React.JSX.Element {
         <Input
           placeholder={'email@example.com'}
           keyboardType={'email-address'}
+          onBlur={onBlurEmail}
+          onChangeText={emailState.set}
+          value={emailState.value}
         />
       </View>
 
