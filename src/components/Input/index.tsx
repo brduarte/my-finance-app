@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {NativeSyntheticEvent, TextInput} from 'react-native';
+import {NativeSyntheticEvent, StyleProp, TextInput} from 'react-native';
 import {
   KeyboardTypeOptions,
   TextInputChangeEventData,
@@ -13,6 +13,8 @@ type Props = {
   type?: 'password';
   maxLength?: number;
   value?: string;
+  isError?: boolean;
+  errorText?: string;
   onChangeText?: (text: string) => void;
   onFocus?: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
   onBlur?: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
@@ -36,7 +38,17 @@ export default function Input({
     secureTextEntry = true;
   }
 
-  function handleFocus(e: NativeSyntheticEvent<TextInputChangeEventData>) {
+  function handleStyleChange() {
+    let result = styles.input;
+
+    if (isFocus) {
+      result = {...styles.input, ...styles.focus};
+    }
+
+    return result;
+  }
+
+  function handleFocus() {
     setFocus(true);
   }
 
@@ -56,7 +68,7 @@ export default function Input({
       onBlur={handleBlur}
       value={value}
       secureTextEntry={secureTextEntry}
-      style={isFocus ? {...styles.input, ...styles.focus} : styles.input}
+      style={handleStyleChange()}
       maxLength={maxLength}
     />
   );

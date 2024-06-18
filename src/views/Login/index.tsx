@@ -1,26 +1,30 @@
 import Layout from './Layout.tsx';
-import {NativeSyntheticEvent} from 'react-native';
-import {TextInputChangeEventData} from 'react-native/Libraries/Components/TextInput/TextInput';
-import {useState} from 'react';
+import React, {useState} from 'react';
+import AuthModel from '../../services/core/models/AuthModel.ts';
 import {EmailHelper} from '../../helpers/EmailHelper.ts';
+import {showMessage} from 'react-native-flash-message';
 
-export default function Login() {
-  const [email, setEmail] = useState<string>('');
+export default function Login(): React.JSX.Element {
+  const [authModel, setAuthModel] = useState<AuthModel>({
+    email: '',
+    password: '',
+  });
 
-  function handleEmail(email: string) {
-    setEmail(email);
+  function handleForm(text: string, key: string) {
+    setAuthModel({...authModel, [key]: text});
   }
 
-  function validateEmail(e: NativeSyntheticEvent<TextInputChangeEventData>) {
-    const emailIsValid = EmailHelper.validate(email);
+  function validateEmail() {
+    const emailIsValid = EmailHelper.validate(authModel.email);
 
-    console.log(emailIsValid);
+    if (!emailIsValid) {
+      showMessage({
+        message: 'E-mail Inválido',
+        description: 'Por favor, insira um e-mail válido para continuar.',
+        type: 'danger',
+      });
+    }
   }
 
-  return (
-    <Layout
-      onBlurEmail={validateEmail}
-      emailState={{set: setEmail, value: email}}
-    />
-  );
+  return <Layout handleForm={handleForm} onBlurEmail={validateEmail} />;
 }

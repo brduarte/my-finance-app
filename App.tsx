@@ -6,13 +6,14 @@
  */
 
 import React from 'react';
-import {SafeAreaView, TextInput} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import {StatusBar} from 'react-native';
 import {MStyles} from './src/views/style';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import Onboarding from './src/views/Onboarding';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from './src/views/Login';
+import FlashMessage from 'react-native-flash-message';
 
 const Stack = createNativeStackNavigator();
 
@@ -42,6 +43,7 @@ function App(): React.JSX.Element {
           <Stack.Screen name="Login" component={Login} />
         </Stack.Navigator>
       </NavigationContainer>
+      <FlashMessage accessible={true} position="top" />
     </SafeAreaView>
   );
 }

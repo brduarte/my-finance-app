@@ -7,10 +7,13 @@ export const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#E7EAEB',
     borderRadius: MStyles.border.defaultRadius,
-    fontSize: 13,
+    fontSize: 16,
     color: MStyles.colors.blackColor,
   },
   focus: {
     borderColor: MStyles.colors.blackColor,
+  },
+  error: {
+    borderColor: '#cb0000',
   },
 });

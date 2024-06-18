@@ -5,16 +5,13 @@ import {styles} from './style';
 import {TextInputChangeEventData} from 'react-native/Libraries/Components/TextInput/TextInput';
 
 type LoginProps = {
-  emailState: {
-    set: (value: string) => void;
-    value: string;
-  };
+  handleForm: (text: string, key: string) => void;
   onBlurEmail: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
 };
 
 export default function Layout({
   onBlurEmail,
-  emailState,
+  handleForm,
 }: LoginProps): React.JSX.Element {
   return (
     <View style={styles.container}>
@@ -26,8 +23,8 @@ export default function Layout({
           placeholder={'email@example.com'}
           keyboardType={'email-address'}
           onBlur={onBlurEmail}
-          onChangeText={emailState.set}
-          value={emailState.value}
+          isError={true}
+          onChangeText={text => handleForm(text, 'email')}
         />
       </View>
 
@@ -38,6 +35,7 @@ export default function Layout({
           placeholder={'*****'}
           keyboardType={'number-pad'}
           maxLength={8}
+          onChangeText={text => handleForm(text, 'password')}
         />
       </View>
 
