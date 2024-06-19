@@ -3,6 +3,10 @@ import React, {useState} from 'react';
 import AuthModel from '../../services/core/models/AuthModel.ts';
 import {EmailHelper} from '../../helpers/EmailHelper.ts';
 import {showMessage} from 'react-native-flash-message';
+import {IAuthService} from '../../services/core/interfaces/OauthServiceInterface.ts';
+import {AuthServiceMock} from '../../services/core/mocks/AuthServiceMock.ts';
+import {TokenModel} from '../../services/core/models/TokenModel.ts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login(): React.JSX.Element {
   const [authModel, setAuthModel] = useState<AuthModel>({
@@ -26,5 +30,26 @@ export default function Login(): React.JSX.Element {
     }
   }
 
-  return <Layout handleForm={handleForm} onBlurEmail={validateEmail} />;
+  async function handleOnFormSubmit() {
+    const authServer: IAuthService = new AuthServiceMock();
+
+    try {
+      const token: TokenModel = await authServer.token(authModel);
+      await AsyncStorage.setItem('session', JSON.stringify(token));
+    } catch (e) {
+      showMessage({
+        message: 'Falha ao entrar',
+        description: 'Verifique se seu usuário ou senha estão corretos.',
+        type: 'danger',
+      });
+    }
+  }
+
+  return (
+    <Layout
+      handleForm={handleForm}
+      onBlurEmail={validateEmail}
+      onFormSubmit={handleOnFormSubmit}
+    />
+  );
 }

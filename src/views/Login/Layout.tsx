@@ -7,11 +7,13 @@ import {TextInputChangeEventData} from 'react-native/Libraries/Components/TextIn
 type LoginProps = {
   handleForm: (text: string, key: string) => void;
   onBlurEmail: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
+  onFormSubmit: () => void;
 };
 
 export default function Layout({
   onBlurEmail,
   handleForm,
+  onFormSubmit,
 }: LoginProps): React.JSX.Element {
   return (
     <View style={styles.container}>
@@ -40,7 +42,7 @@ export default function Layout({
       </View>
 
       <View style={styles.sections}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onFormSubmit}>
           <View style={styles.buttonLogin}>
             <Text style={styles.buttonText}>Entrar</Text>
           </View>
