@@ -7,8 +7,11 @@ import {IAuthService} from '../../services/core/interfaces/OauthServiceInterface
 import {AuthServiceMock} from '../../services/core/mocks/AuthServiceMock.ts';
 import {TokenModel} from '../../services/core/models/TokenModel.ts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-export default function Login(): React.JSX.Element {
+export default function Login({
+  navigation,
+}: NativeStackScreenProps<any>): React.JSX.Element {
   const [authModel, setAuthModel] = useState<AuthModel>({
     email: '',
     password: '',
@@ -32,10 +35,18 @@ export default function Login(): React.JSX.Element {
 
   async function handleOnFormSubmit() {
     const authServer: IAuthService = new AuthServiceMock();
-
     try {
+      if (!authModel.email || !authModel.password) {
+        return showMessage({
+          message: 'Falha ao entrar',
+          description: 'Verifique se seu usuário ou senha estão corretos.',
+          type: 'danger',
+        });
+      }
+
       const token: TokenModel = await authServer.token(authModel);
       await AsyncStorage.setItem('session', JSON.stringify(token));
+      navigation.navigate('Main');
     } catch (e) {
       showMessage({
         message: 'Falha ao entrar',

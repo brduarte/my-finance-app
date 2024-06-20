@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, Text, View} from 'react-native';
 import {StatusBar} from 'react-native';
 import {MStyles} from './src/views/style';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
@@ -14,8 +14,12 @@ import Onboarding from './src/views/Onboarding';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from './src/views/Login';
 import FlashMessage from 'react-native-flash-message';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Home from './src/views/Home';
+import {LayoutGrid} from 'lucide-react-native';
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const MyTheme = {
   ...DefaultTheme,
@@ -25,26 +29,56 @@ const MyTheme = {
   },
 };
 
+function LoggedArea() {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarLabelStyle: {
+          fontSize: 13,
+          color: '#585858',
+        },
+      }}>
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarIcon: () => (
+            <LayoutGrid color={MStyles.colors.blackColor} size={20} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+
 function App(): React.JSX.Element {
   return (
-    <SafeAreaView
-      style={{flex: 1, backgroundColor: MStyles.colors.defaultBackgroundColor}}>
-      <StatusBar
-        backgroundColor={MStyles.colors.defaultBackgroundColor}
-        barStyle={'dark-content'}
-      />
+    <>
       <NavigationContainer theme={MyTheme}>
-        <Stack.Navigator
-          initialRouteName="Home"
-          screenOptions={{
-            headerShown: false,
+        <SafeAreaView
+          style={{
+            flex: 1,
+            backgroundColor: MStyles.colors.defaultBackgroundColor,
           }}>
-          <Stack.Screen name="Onboarding" component={Onboarding} />
-          <Stack.Screen name="Login" component={Login} />
-        </Stack.Navigator>
+          <StatusBar
+            backgroundColor={MStyles.colors.defaultBackgroundColor}
+            barStyle={'dark-content'}
+          />
+
+          <Stack.Navigator
+            initialRouteName="Onboarding"
+            screenOptions={{
+              headerShown: false,
+            }}>
+            <Stack.Screen name="Main" component={LoggedArea} />
+            <Stack.Screen name="Onboarding" component={Onboarding} />
+            <Stack.Screen name="Login" component={Login} />
+          </Stack.Navigator>
+        </SafeAreaView>
       </NavigationContainer>
       <FlashMessage accessible={true} position="top" />
-    </SafeAreaView>
+    </>
   );
 }
 
