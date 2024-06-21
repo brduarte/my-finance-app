@@ -18,6 +18,8 @@
 		971F0C0866A84CFA905E84E1 /* PlusJakartaSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A2DC22C0770A4C7BBDBF6131 /* PlusJakartaSans-Medium.ttf */; };
 		3E852DD93B0843AA9AC169F6 /* PlusJakartaSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5F3AD512A594F90A1EFF9DA /* PlusJakartaSans-Regular.ttf */; };
 		6B9253FD213B466F9D855311 /* PlusJakartaSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 309BF7D0A442492BABB02353 /* PlusJakartaSans-SemiBold.ttf */; };
+		1AAC3AD68FA348219AA89B7D /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1906164F832F4309ACC1D774 /* Inter-Bold.ttf */; };
+		70047744737946669D6DF58D /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A35A49E853D34F9B8B48AE89 /* Inter-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		A2DC22C0770A4C7BBDBF6131 /* PlusJakartaSans-Medium.ttf */ = {isa = PBXFileReference; name = "PlusJakartaSans-Medium.ttf"; path = "../src/assets/fonts/PlusJakartaSans-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		B5F3AD512A594F90A1EFF9DA /* PlusJakartaSans-Regular.ttf */ = {isa = PBXFileReference; name = "PlusJakartaSans-Regular.ttf"; path = "../src/assets/fonts/PlusJakartaSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		309BF7D0A442492BABB02353 /* PlusJakartaSans-SemiBold.ttf */ = {isa = PBXFileReference; name = "PlusJakartaSans-SemiBold.ttf"; path = "../src/assets/fonts/PlusJakartaSans-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1906164F832F4309ACC1D774 /* Inter-Bold.ttf */ = {isa = PBXFileReference; name = "Inter-Bold.ttf"; path = "../src/assets/fonts/Inter-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A35A49E853D34F9B8B48AE89 /* Inter-Regular.ttf */ = {isa = PBXFileReference; name = "Inter-Regular.ttf"; path = "../src/assets/fonts/Inter-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +170,8 @@
 				A2DC22C0770A4C7BBDBF6131 /* PlusJakartaSans-Medium.ttf */,
 				B5F3AD512A594F90A1EFF9DA /* PlusJakartaSans-Regular.ttf */,
 				309BF7D0A442492BABB02353 /* PlusJakartaSans-SemiBold.ttf */,
+				1906164F832F4309ACC1D774 /* Inter-Bold.ttf */,
+				A35A49E853D34F9B8B48AE89 /* Inter-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -270,6 +276,8 @@
 				971F0C0866A84CFA905E84E1 /* PlusJakartaSans-Medium.ttf in Resources */,
 				3E852DD93B0843AA9AC169F6 /* PlusJakartaSans-Regular.ttf in Resources */,
 				6B9253FD213B466F9D855311 /* PlusJakartaSans-SemiBold.ttf in Resources */,
+				1AAC3AD68FA348219AA89B7D /* Inter-Bold.ttf in Resources */,
+				70047744737946669D6DF58D /* Inter-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -55,17 +55,16 @@ function LoggedArea() {
 function App(): React.JSX.Element {
   return (
     <>
-      <NavigationContainer theme={MyTheme}>
-        <SafeAreaView
-          style={{
-            flex: 1,
-            backgroundColor: MStyles.colors.defaultBackgroundColor,
-          }}>
-          <StatusBar
-            backgroundColor={MStyles.colors.defaultBackgroundColor}
-            barStyle={'dark-content'}
-          />
-
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: MStyles.colors.defaultBackgroundColor,
+        }}>
+        <StatusBar
+          backgroundColor={MStyles.colors.blackColor}
+          barStyle={'light-content'}
+        />
+        <NavigationContainer theme={MyTheme}>
           <Stack.Navigator
             initialRouteName="Onboarding"
             screenOptions={{
@@ -75,9 +74,9 @@ function App(): React.JSX.Element {
             <Stack.Screen name="Onboarding" component={Onboarding} />
             <Stack.Screen name="Login" component={Login} />
           </Stack.Navigator>
-        </SafeAreaView>
-      </NavigationContainer>
-      <FlashMessage accessible={true} position="top" />
+        </NavigationContainer>
+        <FlashMessage accessible={true} position="top" />
+      </SafeAreaView>
     </>
   );
 }

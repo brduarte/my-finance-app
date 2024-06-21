@@ -3,46 +3,37 @@ import {MStyles} from '../style';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column-reverse',
-    marginHorizontal: 23,
+    backgroundColor: MStyles.colors.blackColor,
+    paddingHorizontal: 32,
   },
-
   image: {
-    width: 224,
-    height: 241,
-    alignSelf: 'center',
+    width: '100%',
   },
   buttonLogin: {
-    paddingHorizontal: 20,
     borderWidth: 1,
     borderColor: 'white',
     borderRadius: 8,
-    paddingVertical: 10,
-    marginBottom: 27,
-    backgroundColor: MStyles.colors.primaryColor,
+    paddingVertical: 14,
+    backgroundColor: MStyles.colors.whiteColor,
   },
   text: {
-    marginTop: 47.45,
-    marginBottom: 104,
+    marginBottom: 44,
   },
   title: {
-    fontWeight: 'bold',
-    textAlign: 'center',
-    fontSize: 18,
-    marginVertical: 8,
-    color: MStyles.colors.primaryColor,
-  },
-  content: {
-    fontSize: 24,
-    fontFamily: MStyles.fontFamilyPrimaryRegular,
-    color: MStyles.colors.blackColor,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  buttonText: {
-    fontSize: 16,
-    textAlign: 'center',
+    fontSize: 32,
     fontFamily: MStyles.fontFamilyPrimarySemiBold,
     color: MStyles.colors.whiteColor,
+  },
+  content: {
+    fontSize: 14,
+    marginTop: 4,
+    color: '#CFCFCF',
+  },
+  buttonText: {
+    fontSize: 18,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontFamily: MStyles.fontFamilyPrimaryRegular,
+    color: MStyles.colors.blackColor,
   },
 });

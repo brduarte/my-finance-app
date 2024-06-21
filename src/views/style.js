@@ -2,7 +2,7 @@ export const MStyles = {
   colors: {
     primaryColor: '#007b5d',
     secondaryColor: '#1b1b1b',
-    blackColor: '#1b1b1b',
+    blackColor: '#242424',
     whiteColor: '#ffffff',
     defaultBackgroundColor: '#ffff',
   },
@@ -13,4 +13,5 @@ export const MStyles = {
   fontFamilyPrimaryBold: 'PlusJakartaSans-Bold',
   fontFamilyPrimarySemiBold: 'PlusJakartaSans-SemiBold',
   fontFamilyPrimaryMedium: 'PlusJakartaSans-Medium',
+  fontFamilyInterRegular: 'Inter-Regular',
 };
