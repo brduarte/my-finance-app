@@ -58,20 +58,17 @@ function App(): React.JSX.Element {
       <SafeAreaView
         style={{
           flex: 1,
-          backgroundColor: MStyles.colors.defaultBackgroundColor,
+          backgroundColor: MStyles.colors.whiteColor,
         }}>
-        <StatusBar
-          backgroundColor={MStyles.colors.blackColor}
-          barStyle={'light-content'}
-        />
         <NavigationContainer theme={MyTheme}>
           <Stack.Navigator
             initialRouteName="Onboarding"
             screenOptions={{
               headerShown: false,
             }}>
-            <Stack.Screen name="Main" component={LoggedArea} />
             <Stack.Screen name="Onboarding" component={Onboarding} />
+
+            <Stack.Screen name="Main" component={LoggedArea} />
             <Stack.Screen name="Login" component={Login} />
           </Stack.Navigator>
         </NavigationContainer>

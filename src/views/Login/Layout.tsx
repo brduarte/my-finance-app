@@ -1,8 +1,15 @@
 import React from 'react';
-import {NativeSyntheticEvent, Text, TouchableOpacity, View} from 'react-native';
+import {
+  NativeSyntheticEvent,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Input from '../../components/Input';
 import {styles} from './style';
 import {TextInputChangeEventData} from 'react-native/Libraries/Components/TextInput/TextInput';
+import {MStyles} from '../style';
 
 type LoginProps = {
   handleForm: (text: string, key: string) => void;
@@ -17,6 +24,10 @@ export default function Layout({
 }: LoginProps): React.JSX.Element {
   return (
     <View style={styles.container}>
+      <StatusBar
+        backgroundColor={MStyles.colors.whiteColor}
+        barStyle={'dark-content'}
+      />
       <Text style={styles.title}>Entrar</Text>
 
       <View style={styles.sections}>

@@ -23,18 +23,17 @@ export const styles = StyleSheet.create({
     marginBottom: 30,
   },
   buttonLogin: {
-    paddingHorizontal: 20,
     borderWidth: 1,
     borderColor: 'white',
     borderRadius: 8,
-    paddingVertical: 12,
-    marginBottom: 27,
-    backgroundColor: MStyles.colors.primaryColor,
+    paddingVertical: 14,
+    backgroundColor: MStyles.colors.blackColor,
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 18,
     textAlign: 'center',
-    fontFamily: MStyles.fontFamilyPrimarySemiBold,
+    fontWeight: 'bold',
+    fontFamily: MStyles.fontFamilyPrimaryRegular,
     color: MStyles.colors.whiteColor,
   },
 });

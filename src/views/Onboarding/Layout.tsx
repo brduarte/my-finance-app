@@ -1,6 +1,7 @@
-import React from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import React, {useEffect, useLayoutEffect} from 'react';
+import {Image, StatusBar, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './style';
+import {MStyles} from '../style';
 
 type LoginProps = {
   navigation: () => any;
@@ -9,6 +10,10 @@ type LoginProps = {
 export default function Layout({navigation}: LoginProps): React.JSX.Element {
   return (
     <View style={styles.container}>
+      <StatusBar
+        backgroundColor={MStyles.colors.blackColor}
+        barStyle={'light-content'}
+      />
       <Image
         resizeMode="contain"
         style={styles.image}
