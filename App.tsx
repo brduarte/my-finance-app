@@ -6,8 +6,7 @@
  */
 
 import React from 'react';
-import {SafeAreaView, Text, View} from 'react-native';
-import {StatusBar} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import {MStyles} from './src/views/style';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import Onboarding from './src/views/Onboarding';
@@ -54,27 +53,25 @@ function LoggedArea() {
 
 function App(): React.JSX.Element {
   return (
-    <>
-      <SafeAreaView
-        style={{
-          flex: 1,
-          backgroundColor: MStyles.colors.whiteColor,
-        }}>
-        <NavigationContainer theme={MyTheme}>
-          <Stack.Navigator
-            initialRouteName="Onboarding"
-            screenOptions={{
-              headerShown: false,
-            }}>
-            <Stack.Screen name="Onboarding" component={Onboarding} />
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: MStyles.colors.whiteColor,
+      }}>
+      <NavigationContainer theme={MyTheme}>
+        <Stack.Navigator
+          initialRouteName="Onboarding"
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <Stack.Screen name="Onboarding" component={Onboarding} />
 
-            <Stack.Screen name="Main" component={LoggedArea} />
-            <Stack.Screen name="Login" component={Login} />
-          </Stack.Navigator>
-        </NavigationContainer>
-        <FlashMessage accessible={true} position="top" />
-      </SafeAreaView>
-    </>
+          <Stack.Screen name="Main" component={LoggedArea} />
+          <Stack.Screen name="Login" component={Login} />
+        </Stack.Navigator>
+      </NavigationContainer>
+      <FlashMessage accessible={true} position="top" />
+    </SafeAreaView>
   );
 }
 
