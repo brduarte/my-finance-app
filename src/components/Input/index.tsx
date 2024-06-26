@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {NativeSyntheticEvent, StyleProp, TextInput} from 'react-native';
+import {NativeSyntheticEvent, TextInput} from 'react-native';
 import {
   KeyboardTypeOptions,
   TextInputChangeEventData,
