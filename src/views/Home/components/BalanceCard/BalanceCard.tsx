@@ -5,7 +5,7 @@ import {MStyles} from '../../../style';
 
 type BalanceCardProps = {
   total: number;
-  action?: () => {};
+  action?: () => void;
 };
 
 export default function BalanceCard(
@@ -18,6 +18,7 @@ export default function BalanceCard(
       resizeMode="stretch"
       style={styles.container}>
       <Text style={styles.cardTitle}>Total Balance</Text>
+
       <Text style={styles.value}>
         {props.total
           ? props.total.toLocaleString('pt-br', {
@@ -34,10 +35,10 @@ export default function BalanceCard(
         <View style={styles.walletBottom}>
           <Text style={styles.walletBottomText}>My Wallet</Text>
           <ArrowRight
-            size={32}
+            size={25}
             color={MStyles.colors.blackColor}
             strokeWidth={2.5}
-            style={{backgroundColor: '#fff', padding: 8, borderRadius: 100}}
+            style={{backgroundColor: '#fff', padding: 10, borderRadius: 100}}
           />
         </View>
       </TouchableOpacity>
