@@ -13,7 +13,7 @@ export default function Layout(props: Props): React.JSX.Element {
   return (
     <View style={styles.container}>
       <View style={styles.session}>
-        <HeaderProfile />
+        <HeaderProfile name={'Bruno Duarte'} />
       </View>
       <View style={styles.session}>
         <BalanceCard
