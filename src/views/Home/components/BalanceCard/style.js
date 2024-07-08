@@ -18,6 +18,11 @@ export const styles = StyleSheet.create({
   backgroundImage: {
     borderRadius: 10,
   },
+  icon: {
+    backgroundColor: MStyles.colors.whiteColor,
+    padding: 4,
+    borderRadius: 20,
+  },
   walletBottom: {
     alignSelf: 'flex-end',
     flexDirection: 'row',
@@ -31,7 +36,6 @@ export const styles = StyleSheet.create({
     marginRight: 8,
     color: MStyles.colors.whiteColor,
   },
-
   walletBottomTextIcon: {
     backgroundColor: MStyles.colors.whiteColor,
     borderRadius: 100,

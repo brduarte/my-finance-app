@@ -18,7 +18,7 @@ export default function BalanceCard(
       source={require('../../../../assets/imgs/balance.png')}
       resizeMode="stretch"
       style={styles.container}>
-      <Text style={styles.cardTitle}>Total Balance</Text>
+      <Text style={styles.cardTitle}>Saldo Total</Text>
 
       <Text style={styles.value}>
         {props.total
@@ -35,12 +35,14 @@ export default function BalanceCard(
       <TouchableOpacity onPress={props.action}>
         <View style={styles.walletBottom}>
           <Text style={styles.walletBottomText}>Minha Carteira</Text>
-          <ArrowRight
-            size={25}
-            color={MStyles.colors.blackColor}
-            strokeWidth={2.5}
-            style={{backgroundColor: '#fff', padding: 10, borderRadius: 100}}
-          />
+          <Text style={styles.icon}>
+            <ArrowRight
+              size={25}
+              color={MStyles.colors.blackColor}
+              strokeWidth={3}
+              style={{padding: 10, borderRadius: 100}}
+            />
+          </Text>
         </View>
       </TouchableOpacity>
     </ImageBackground>
