@@ -15,7 +15,7 @@ import Login from './src/views/Login';
 import FlashMessage from 'react-native-flash-message';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from './src/views/Home';
-import {LayoutGrid} from 'lucide-react-native';
+import {HomeIcon} from 'lucide-react-native';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -43,7 +43,11 @@ function LoggedArea() {
         component={Home}
         options={{
           tabBarIcon: () => (
-            <LayoutGrid color={MStyles.colors.blackColor} size={20} />
+            <HomeIcon
+              strokeWidth={2.5}
+              color={MStyles.colors.blackColor}
+              size={20}
+            />
           ),
         }}
       />

@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
   value: {
     color: MStyles.colors.whiteColor,
     fontFamily: MStyles.fontFamilyPrimarySemiBold,
-    fontSize: 32,
+    fontSize: 30,
   },
   cardTitle: {
     fontFamily: MStyles.fontFamilyInterRegular,

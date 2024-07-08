@@ -16,7 +16,7 @@ export default function BalanceCard(
     <ImageBackground
       imageStyle={styles.backgroundImage}
       source={require('../../../../assets/imgs/balance.png')}
-      resizeMode="stretch"
+      resizeMode="cover"
       style={styles.container}>
       <Text style={styles.cardTitle}>Saldo Total</Text>
 
@@ -40,7 +40,6 @@ export default function BalanceCard(
               size={25}
               color={MStyles.colors.blackColor}
               strokeWidth={3}
-              style={{padding: 10, borderRadius: 100}}
             />
           </Text>
         </View>
