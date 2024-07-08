@@ -12,6 +12,7 @@ type TransactionsListProps = {
 
 const Item = (transaction: TransactionsModel): React.JSX.Element => {
   let valueStyle = {...styles.valueText, color: MStyles.colors.greenColor};
+  let subText = 'Recebe em:';
   let value = transaction.amount.toLocaleString('pt-br', {
     style: 'currency',
     currency: 'BRL',
@@ -23,7 +24,7 @@ const Item = (transaction: TransactionsModel): React.JSX.Element => {
 
   if (transaction.type === TransactionTypeEnum.DEBIT) {
     valueStyle = {...valueStyle, color: MStyles.colors.redColor};
-    value = `${value}`;
+    subText = 'Vence em:';
     icon = (
       <ArrowDown strokeWidth={3} size={24} color={MStyles.colors.redColor} />
     );
@@ -34,7 +35,7 @@ const Item = (transaction: TransactionsModel): React.JSX.Element => {
       <View style={styles.iconSession}>{icon}</View>
       <View style={styles.text}>
         <Text style={styles.itemTile}>{transaction.name}</Text>
-        <Text>Vence em: 30/01/2025</Text>
+        <Text>{`${subText} 30/01/2025`}</Text>
       </View>
       <View style={styles.value}>
         <Text style={valueStyle}>{value}</Text>
