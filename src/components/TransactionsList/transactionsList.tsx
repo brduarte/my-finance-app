@@ -4,7 +4,7 @@ import {TransactionsModel} from '../../services/core/models/Transactions.ts';
 import {TransactionTypeEnum} from '../../services/core/enums/TransactionTypeEnum.ts';
 import {MStyles} from '../../views/style';
 import React from 'react';
-import {ArrowDown, ArrowUp, ChevronDown, ChevronUp} from 'lucide-react-native';
+import {ArrowDown, ArrowUp} from 'lucide-react-native';
 
 type TransactionsListProps = {
   transactions: TransactionsModel[];
