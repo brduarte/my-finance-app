@@ -4,6 +4,8 @@ export const MStyles = {
     secondaryColor: '#1b1b1b',
     blackColor: '#242424',
     whiteColor: '#ffffff',
+    redColor: '#E25C5C',
+    greenColor: '#469B88',
     defaultBackgroundColor: '#ffff',
   },
   border: {
