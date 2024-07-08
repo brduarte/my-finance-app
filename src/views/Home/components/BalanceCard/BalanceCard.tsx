@@ -2,6 +2,7 @@ import {ImageBackground, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './style';
 import {ArrowRight} from 'lucide-react-native';
 import {MStyles} from '../../../style';
+import React from 'react';
 
 type BalanceCardProps = {
   total: number;
@@ -33,7 +34,7 @@ export default function BalanceCard(
 
       <TouchableOpacity onPress={props.action}>
         <View style={styles.walletBottom}>
-          <Text style={styles.walletBottomText}>My Wallet</Text>
+          <Text style={styles.walletBottomText}>Minha Carteira</Text>
           <ArrowRight
             size={25}
             color={MStyles.colors.blackColor}

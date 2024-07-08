@@ -16,4 +16,6 @@ export const MStyles = {
   fontFamilyPrimarySemiBold: 'PlusJakartaSans-SemiBold',
   fontFamilyPrimaryMedium: 'PlusJakartaSans-Medium',
   fontFamilyInterRegular: 'Inter-Regular',
+  fontFamilyInterBold: 'Inter-Bold',
+  fontFamilyInterSemiBold: 'Inter-SemiBold',
 };

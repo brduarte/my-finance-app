@@ -39,7 +39,11 @@ export default function Home(): React.JSX.Element {
 
   return (
     <Layout
-      totalBalance={1000}
+      resume={{
+        revenue: 13000,
+        balance: 9000,
+        expenditures: 4000,
+      }}
       transactions={transactions}
       actionBtnCardTotalBalance={redirectToWalletPage}
     />
