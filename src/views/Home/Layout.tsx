@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {SectionList, Text, View, VirtualizedList} from 'react-native';
 import BalanceCard from './components/BalanceCard/BalanceCard.tsx';
 import {styles} from './styles';
 import {HeaderProfile} from '../../components/HeaderProfile';
@@ -13,20 +13,48 @@ type Props = {
 };
 
 export default function Layout(props: Props): React.JSX.Element {
-  return (
-    <View style={styles.container}>
-      <View style={styles.session}>
-        <HeaderProfile name={'Bruno Duarte'} />
-      </View>
-      <View style={styles.session}>
+  const DATA = [
+    {
+      data: [<HeaderProfile name={'Bruno Duarte'} />],
+    },
+    {
+      data: [
         <BalanceCard
           total={props.totalBalance}
           action={props.actionBtnCardTotalBalance}
-        />
-      </View>
-      <View style={styles.session}>
-        <TransactionsList transactions={props.transactions} />
-      </View>
+        />,
+      ],
+    },
+    {
+      title: 'Transações',
+      data: [<TransactionsList transactions={props.transactions} />],
+    },
+    {
+      title: 'Transações',
+      data: [<TransactionsList transactions={props.transactions} />],
+    },
+    {
+      title: 'Transações',
+      data: [<TransactionsList transactions={props.transactions} />],
+    },
+  ];
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.session} />
+
+      <SectionList
+        sections={DATA}
+        keyExtractor={(item, index) => index + index.toString()}
+        renderItem={({item}) => <View style={styles.session}>{item}</View>}
+        renderSectionHeader={({section: {title}}) => {
+          return title ? (
+            <Text style={styles.sessionTitle}>{title}</Text>
+          ) : (
+            <></>
+          );
+        }}
+      />
     </View>
   );
 }

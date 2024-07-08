@@ -11,22 +11,22 @@ type TransactionsListProps = {
 };
 
 const Item = (transaction: TransactionsModel): React.JSX.Element => {
-  let valueStyle = styles.valueText;
+  let valueStyle = {...styles.valueText, color: MStyles.colors.greenColor};
   let value = transaction.amount.toLocaleString('pt-br', {
     style: 'currency',
     currency: 'BRL',
   });
 
   let icon: React.JSX.Element = (
-    <ArrowUp size={24} color={MStyles.colors.greenColor} />
+    <ArrowUp strokeWidth={3} size={24} color={MStyles.colors.greenColor} />
   );
 
   if (transaction.type === TransactionTypeEnum.DEBIT) {
     valueStyle = {...valueStyle, color: MStyles.colors.redColor};
     value = `${value}`;
-    icon = <ArrowDown size={24} color={MStyles.colors.redColor} />;
-  } else {
-    valueStyle = {...valueStyle, color: MStyles.colors.greenColor};
+    icon = (
+      <ArrowDown strokeWidth={3} size={24} color={MStyles.colors.redColor} />
+    );
   }
 
   return (
@@ -34,7 +34,7 @@ const Item = (transaction: TransactionsModel): React.JSX.Element => {
       <View style={styles.iconSession}>{icon}</View>
       <View style={styles.text}>
         <Text style={styles.itemTile}>{transaction.name}</Text>
-        <Text>By Bruno</Text>
+        <Text>Vence em: 30/01/2025</Text>
       </View>
       <View style={styles.value}>
         <Text style={valueStyle}>{value}</Text>
