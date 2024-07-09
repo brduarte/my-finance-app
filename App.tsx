@@ -15,7 +15,7 @@ import Login from './src/views/Login';
 import FlashMessage from 'react-native-flash-message';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from './src/views/Home';
-import {HomeIcon} from 'lucide-react-native';
+import {HomeIcon, PlusIcon} from 'lucide-react-native';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -40,6 +40,33 @@ function LoggedArea() {
       }}>
       <Tab.Screen
         name="Home"
+        component={Home}
+        options={{
+          tabBarIcon: () => (
+            <HomeIcon
+              strokeWidth={2.5}
+              color={MStyles.colors.blackColor}
+              size={20}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="add"
+        component={Home}
+        options={{
+          title: '',
+          tabBarIcon: () => (
+            <PlusIcon
+              strokeWidth={2.5}
+              color={MStyles.colors.blackColor}
+              size={20}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Cards"
         component={Home}
         options={{
           tabBarIcon: () => (
