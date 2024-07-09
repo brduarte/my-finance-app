@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {MStyles} from '../../../style';
+import {FontSizeHelper} from '../../../../helpers/FontSizeHelper';
 
 export const styles = StyleSheet.create({
   container: {

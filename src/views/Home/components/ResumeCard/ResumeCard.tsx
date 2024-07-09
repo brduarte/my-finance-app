@@ -16,7 +16,7 @@ export function ResumeCard({
   return (
     <ImageBackground
       source={require('../../../../assets/imgs/resumeBackground.png')}
-      resizeMode="cover"
+      resizeMode="stretch"
       borderRadius={9}
       style={styles.container}>
       <View style={styles.session}>

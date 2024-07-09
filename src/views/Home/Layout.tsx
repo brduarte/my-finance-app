@@ -42,20 +42,11 @@ export default function Layout({
       title: 'Transações',
       data: [<TransactionsList transactions={transactions} />],
     },
-    {
-      title: 'Transações',
-      data: [<TransactionsList transactions={transactions} />],
-    },
-    {
-      title: 'Transações',
-      data: [<TransactionsList transactions={transactions} />],
-    },
   ];
 
   return (
     <View style={styles.container}>
       <View style={styles.session} />
-
       <SectionList
         sections={DATA}
         keyExtractor={(item, index) => index + index.toString()}

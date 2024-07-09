@@ -16,7 +16,7 @@ export default function BalanceCard(
     <ImageBackground
       imageStyle={styles.backgroundImage}
       source={require('../../../../assets/imgs/balance.png')}
-      resizeMode="cover"
+      resizeMode="stretch"
       style={styles.container}>
       <Text style={styles.cardTitle}>Saldo Total</Text>
 
