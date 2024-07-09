@@ -1,11 +1,17 @@
 import React, {useState} from 'react';
 
-import {NativeSyntheticEvent, TextInput} from 'react-native';
+import {NativeSyntheticEvent, StyleProp, TextInput} from 'react-native';
 import {
   KeyboardTypeOptions,
   TextInputChangeEventData,
 } from 'react-native/Libraries/Components/TextInput/TextInput';
 import {styles} from './style';
+import {
+  ImageStyle,
+  TextStyle,
+  ViewStyle,
+} from 'react-native/Libraries/StyleSheet/StyleSheetTypes';
+import {MStyles} from '../../views/style';
 
 type Props = {
   placeholder?: string;
@@ -16,6 +22,7 @@ type Props = {
   isError?: boolean;
   errorText?: string;
   onChangeText?: (text: string) => void;
+  style?: StyleProp<TextStyle>;
   onFocus?: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
   onBlur?: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
   onChanged?: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
@@ -27,6 +34,7 @@ export default function Input({
   onChangeText,
   onBlur,
   value,
+  style,
   keyboardType,
   maxLength,
 }: Props): React.JSX.Element {
@@ -39,10 +47,12 @@ export default function Input({
   }
 
   function handleStyleChange() {
-    let result = styles.input;
+    // @ts-ignore
+    let result = {...styles.input, ...style};
 
     if (isFocus) {
-      result = {...styles.input, ...styles.focus};
+      // @ts-ignore
+      result = {...styles.input, ...style, ...styles.focus};
     }
 
     return result;

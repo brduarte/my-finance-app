@@ -1,12 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import Layout from './Layout.tsx';
 import {TransactionsModel} from '../../services/core/models/Transactions.ts';
+import {useBottomSheet} from '../../contexts/BottomSheetContext.tsx';
 
 export default function Home(): React.JSX.Element {
   const [transactions, setTransactions] = useState<TransactionsModel[]>([]);
+  const bottomSheet = useBottomSheet();
 
   function redirectToWalletPage() {
     console.log('redirectToWalletPage');
+    bottomSheet.open();
   }
 
   function loadTransactions() {

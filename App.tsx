@@ -16,6 +16,10 @@ import FlashMessage from 'react-native-flash-message';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from './src/views/Home';
 import {HomeIcon, PlusIcon} from 'lucide-react-native';
+import CreateAccountForm from './src/views/CreateAccountForm';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {BottomSheetProvider} from './src/contexts/BottomSheetContext.tsx';
+import {ModalSheet} from './src/views/Home/components/ModalSheet';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -42,6 +46,7 @@ function LoggedArea() {
         name="Home"
         component={Home}
         options={{
+          tabBarItemStyle: {display: 'none'},
           tabBarIcon: () => (
             <HomeIcon
               strokeWidth={2.5}
@@ -54,26 +59,29 @@ function LoggedArea() {
       <Tab.Screen
         name="add"
         component={Home}
+        listeners={({navigation}) => ({
+          tabPress: e => {
+            e.preventDefault();
+            navigation.navigate('CreateAccountForm');
+          },
+        })}
         options={{
-          title: '',
+          tabBarLabelStyle: {
+            display: 'none',
+          },
+          tabBarIconStyle: {
+            marginTop: 2,
+            backgroundColor: MStyles.colors.blackColor,
+            borderWidth: 1,
+            width: 45,
+            borderRadius: 10,
+            justifyContent: 'center',
+          },
           tabBarIcon: () => (
             <PlusIcon
-              strokeWidth={2.5}
-              color={MStyles.colors.blackColor}
-              size={20}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Cards"
-        component={Home}
-        options={{
-          tabBarIcon: () => (
-            <HomeIcon
-              strokeWidth={2.5}
-              color={MStyles.colors.blackColor}
-              size={20}
+              strokeWidth={3}
+              color={MStyles.colors.whiteColor}
+              size={25}
             />
           ),
         }}
@@ -89,18 +97,43 @@ function App(): React.JSX.Element {
         flex: 1,
         backgroundColor: MStyles.colors.whiteColor,
       }}>
-      <NavigationContainer theme={MyTheme}>
-        <Stack.Navigator
-          initialRouteName="Onboarding"
-          screenOptions={{
-            headerShown: false,
-          }}>
-          <Stack.Screen name="Onboarding" component={Onboarding} />
+      <GestureHandlerRootView style={{flex: 1}}>
+        <BottomSheetProvider>
+          <NavigationContainer theme={MyTheme}>
+            <Stack.Navigator
+              initialRouteName="Onboarding"
+              screenOptions={{
+                headerShown: false,
+              }}>
+              <Stack.Group>
+                <Stack.Screen name="Onboarding" component={Onboarding} />
+                <Stack.Screen name="Main" component={LoggedArea} />
+                <Stack.Screen name="Login" component={Login} />
+              </Stack.Group>
+              <Stack.Group
+                screenOptions={{
+                  presentation: 'modal',
+                  animation: 'slide_from_bottom',
+                  title: 'Lançamentos ',
+                  headerShown: true,
+                  headerTitleStyle: {
+                    fontSize: 18,
+                    color: MStyles.colors.blackColor,
+                    fontFamily: MStyles.fontFamilyInterSemiBold,
+                  },
+                  headerShadowVisible: false,
+                }}>
+                <Stack.Screen
+                  name="CreateAccountForm"
+                  component={CreateAccountForm}
+                />
+              </Stack.Group>
+            </Stack.Navigator>
+          </NavigationContainer>
+          <ModalSheet />
+        </BottomSheetProvider>
+      </GestureHandlerRootView>
 
-          <Stack.Screen name="Main" component={LoggedArea} />
-          <Stack.Screen name="Login" component={Login} />
-        </Stack.Navigator>
-      </NavigationContainer>
       <FlashMessage accessible={true} position="top" />
     </SafeAreaView>
   );
