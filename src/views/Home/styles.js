@@ -1,5 +1,10 @@
 import {StyleSheet} from 'react-native';
 import {MStyles} from '../style';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../helpers/MetricsHelper';
 
 export const styles = StyleSheet.create({
   container: {
@@ -7,13 +12,14 @@ export const styles = StyleSheet.create({
   },
   sessionTitle: {
     fontFamily: MStyles.fontFamilyPrimarySemiBold,
-    fontSize: 20,
+    fontSize: moderateScale(20),
     color: MStyles.colors.blackColor,
-    paddingHorizontal: 21,
-    marginBottom: 10,
+    marginBottom: verticalScale(16),
+    paddingHorizontal: horizontalScale(21),
   },
+
   session: {
-    marginVertical: 5,
-    paddingHorizontal: 21,
+    marginBottom: verticalScale(32),
+    paddingHorizontal: horizontalScale(21),
   },
 });

@@ -1,19 +1,22 @@
 import {StyleSheet} from 'react-native';
 import {MStyles} from '../../../style';
 import {FontSizeHelper} from '../../../../helpers/FontSizeHelper';
+import {moderateScale, verticalScale} from '../../../../helpers/MetricsHelper';
 
 export const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    marginBottom: verticalScale(16),
+    paddingHorizontal: verticalScale(16),
+    paddingVertical: verticalScale(16),
   },
   value: {
     color: MStyles.colors.whiteColor,
     fontFamily: MStyles.fontFamilyPrimarySemiBold,
-    fontSize: 30,
+    fontSize: moderateScale(30),
   },
   cardTitle: {
     fontFamily: MStyles.fontFamilyInterRegular,
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: MStyles.colors.whiteColor,
   },
   backgroundImage: {
@@ -21,25 +24,27 @@ export const styles = StyleSheet.create({
   },
   icon: {
     backgroundColor: MStyles.colors.whiteColor,
-    padding: 4,
+    paddingHorizontal: verticalScale(4),
+    paddingVertical: verticalScale(4),
     borderRadius: 20,
   },
   walletBottom: {
     alignSelf: 'flex-end',
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 14,
+    marginTop: verticalScale(14),
     color: MStyles.colors.whiteColor,
   },
   walletBottomText: {
     fontFamily: MStyles.fontFamilyInterRegular,
-    fontSize: 12,
+    fontSize: moderateScale(12),
     marginRight: 8,
     color: MStyles.colors.whiteColor,
   },
   walletBottomTextIcon: {
     backgroundColor: MStyles.colors.whiteColor,
     borderRadius: 100,
-    padding: 12,
+    paddingHorizontal: verticalScale(12),
+    paddingVertical: verticalScale(12),
   },
 });

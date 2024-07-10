@@ -28,29 +28,34 @@ export default function Layout({
     },
     {
       data: [
-        <BalanceCard
-          total={resume.balance}
-          action={actionBtnCardTotalBalance}
-        />,
-        <ResumeCard
-          revenue={resume.revenue}
-          expenditure={resume.expenditures}
-        />,
+        <View style={styles.session}>
+          <BalanceCard
+            total={resume.balance}
+            action={actionBtnCardTotalBalance}
+          />
+          <ResumeCard
+            revenue={resume.revenue}
+            expenditure={resume.expenditures}
+          />
+        </View>,
       ],
     },
     {
       title: 'Transações',
-      data: [<TransactionsList transactions={transactions} />],
+      data: [
+        <View style={styles.session}>
+          <TransactionsList transactions={transactions} />
+        </View>,
+      ],
     },
   ];
 
   return (
     <View style={styles.container}>
-      <View style={styles.session} />
       <SectionList
         sections={DATA}
         keyExtractor={(item, index) => index + index.toString()}
-        renderItem={({item}) => <View style={styles.session}>{item}</View>}
+        renderItem={({item}) => <>{item}</>}
         renderSectionHeader={({section: {title}}) => {
           return title ? (
             <Text style={styles.sessionTitle}>{title}</Text>

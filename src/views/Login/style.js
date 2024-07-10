@@ -1,39 +1,43 @@
 import {StyleSheet} from 'react-native';
 import {MStyles} from '../style';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../helpers/MetricsHelper';
 
 export const styles = StyleSheet.create({
   title: {
     fontFamily: MStyles.fontFamilyPrimaryBold,
     color: MStyles.colors.blackColor,
-    fontSize: 28,
-    marginBottom: 24,
-    marginTop: 74,
+    fontSize: moderateScale(28),
+    marginBottom: verticalScale(24),
+    marginTop: verticalScale(74),
   },
   label: {
     fontFamily: MStyles.fontFamilyPrimaryRegular,
-    fontSize: 13,
+    fontSize: moderateScale(13),
     color: MStyles.colors.blackColor,
-    marginBottom: 12,
+    marginBottom: verticalScale(12),
   },
   container: {
     flex: 1,
-    marginHorizontal: 23,
+    marginHorizontal: horizontalScale(23),
   },
   sections: {
-    marginBottom: 30,
+    marginBottom: verticalScale(30),
   },
   buttonLogin: {
     borderWidth: 1,
     borderColor: 'white',
     borderRadius: 8,
-    paddingVertical: 14,
+    paddingVertical: verticalScale(14),
     backgroundColor: MStyles.colors.blackColor,
   },
   buttonText: {
-    fontSize: 18,
+    fontSize: moderateScale(18),
     textAlign: 'center',
-    fontWeight: 'bold',
-    fontFamily: MStyles.fontFamilyPrimaryRegular,
+    fontFamily: MStyles.fontFamilyPrimarySemiBold,
     color: MStyles.colors.whiteColor,
   },
 });

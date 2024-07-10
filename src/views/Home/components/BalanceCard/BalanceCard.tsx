@@ -3,6 +3,8 @@ import {styles} from './style';
 import {ArrowRight} from 'lucide-react-native';
 import {MStyles} from '../../../style';
 import React from 'react';
+import {MoneyHelper} from '../../../../helpers/MoneyHelper.ts';
+import {moderateScale} from '../../../../helpers/MetricsHelper.ts';
 
 type BalanceCardProps = {
   total: number;
@@ -22,14 +24,8 @@ export default function BalanceCard(
 
       <Text style={styles.value}>
         {props.total
-          ? props.total.toLocaleString('pt-br', {
-              style: 'currency',
-              currency: 'BRL',
-            })
-          : (0).toLocaleString('pt-br', {
-              style: 'currency',
-              currency: 'BRL',
-            })}
+          ? MoneyHelper.intToReal(props.total)
+          : MoneyHelper.intToReal(0)}
       </Text>
 
       <TouchableOpacity onPress={props.action}>
@@ -37,7 +33,7 @@ export default function BalanceCard(
           <Text style={styles.walletBottomText}>Minha Carteira</Text>
           <Text style={styles.icon}>
             <ArrowRight
-              size={25}
+              size={moderateScale(25)}
               color={MStyles.colors.blackColor}
               strokeWidth={3}
             />

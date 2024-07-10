@@ -1,13 +1,19 @@
 import {StyleSheet} from 'react-native';
 import {MStyles} from '../../views/style';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../helpers/MetricsHelper';
 
 export const styles = StyleSheet.create({
   input: {
-    padding: 19,
+    paddingHorizontal: horizontalScale(19),
+    paddingVertical: verticalScale(19),
     borderWidth: 2,
     borderColor: '#E7EAEB',
     borderRadius: MStyles.border.defaultRadius,
-    fontSize: 16,
+    fontSize: moderateScale(16),
     color: MStyles.colors.blackColor,
   },
   focus: {
