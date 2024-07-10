@@ -20,6 +20,11 @@ import CreateAccountForm from './src/views/CreateAccountForm';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {BottomSheetProvider} from './src/contexts/BottomSheetContext.tsx';
 import {ModalSheet} from './src/views/Home/components/ModalSheet';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from './src/helpers/MetricsHelper.ts';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -38,8 +43,11 @@ function LoggedArea() {
       screenOptions={{
         headerShown: false,
         tabBarLabelStyle: {
-          fontSize: 13,
+          fontSize: moderateScale(13),
           color: '#585858',
+        },
+        tabBarStyle: {
+          paddingVertical: verticalScale(5),
         },
       }}>
       <Tab.Screen
@@ -70,10 +78,10 @@ function LoggedArea() {
             display: 'none',
           },
           tabBarIconStyle: {
-            marginTop: 2,
+            marginHorizontal: horizontalScale(2),
             backgroundColor: MStyles.colors.blackColor,
             borderWidth: 1,
-            width: 45,
+            width: moderateScale(45),
             borderRadius: 10,
             justifyContent: 'center',
           },
@@ -81,7 +89,7 @@ function LoggedArea() {
             <PlusIcon
               strokeWidth={3}
               color={MStyles.colors.whiteColor}
-              size={25}
+              size={moderateScale(25)}
             />
           ),
         }}

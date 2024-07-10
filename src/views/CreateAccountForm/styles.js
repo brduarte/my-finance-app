@@ -1,32 +1,39 @@
 import {StyleSheet} from 'react-native';
 import {MStyles as Mstyles, MStyles} from '../style';
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../helpers/MetricsHelper';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 21,
+    paddingHorizontal: horizontalScale(21),
   },
   session: {
-    marginVertical: 5,
+    marginVertical: verticalScale(5),
   },
   label: {
-    marginBottom: 10,
+    marginBottom: verticalScale(10),
     color: Mstyles.colors.blackColor,
   },
   inputMoney: {
-    fontSize: 20,
+    fontSize: moderateScale(20),
     fontFamily: MStyles.fontFamilyInterSemiBold,
   },
   selectType: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 16,
+    paddingHorizontal: horizontalScale(16),
+    paddingVertical: verticalScale(16),
     borderRadius: 9,
     backgroundColor: '#f2f2f2',
   },
   selectItemIcon: {
-    padding: 10,
-    marginRight: 12,
+    paddingHorizontal: horizontalScale(10),
+    paddingVertical: verticalScale(10),
+    marginRight: verticalScale(12),
     borderWidth: 1.5,
     borderRadius: 100,
     borderColor: '#bfbcbc',
@@ -43,8 +50,8 @@ export const styles = StyleSheet.create({
   selectItemTagText: {
     color: MStyles.colors.blackColor,
     fontFamily: MStyles.fontFamilyInterSemiBold,
-    paddingHorizontal: 15,
-    paddingVertical: 8,
+    paddingHorizontal: horizontalScale(15),
+    paddingVertical: horizontalScale(8),
     borderRadius: 20,
     backgroundColor: '#d5d1d1',
   },
