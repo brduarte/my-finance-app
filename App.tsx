@@ -30,7 +30,6 @@ import {
   verticalScale,
 } from './src/helpers/MetricsHelper.ts';
 import InputSelectModal from './src/modals/InputSelectModal';
-import {styles} from './src/navigate/modal/styles';
 import {ModalHeader} from './src/navigate/modal/ModalHeader.tsx';
 
 const Stack = createNativeStackNavigator();
@@ -129,19 +128,23 @@ function App(): React.JSX.Element {
                 screenOptions={{
                   presentation: 'modal',
                   animation: 'slide_from_bottom',
-                  title: '',
                   headerShown: true,
                   headerShadowVisible: false,
                   headerBackTitleVisible: false,
                   headerBackVisible: false,
                   headerTitle: ModalHeader,
-                  // headerLeft: ModalHeaderLeft,
                 }}>
                 <Stack.Screen
                   name="CreateAccountForm"
+                  options={{
+                    title: 'Novo Registro de Conta',
+                  }}
                   component={CreateAccountForm}
                 />
                 <Stack.Screen
+                  options={{
+                    headerShadowVisible: false,
+                  }}
                   name="InputSelectModal"
                   component={InputSelectModal}
                 />

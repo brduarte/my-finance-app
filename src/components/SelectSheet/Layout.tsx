@@ -40,7 +40,6 @@ export function Layout({onPress}: LayoutProps): React.JSX.Element {
 
 export function LayoutOptionsList({optionsList}: SelectItemProps) {
   const navigation = useNavigation();
-
   navigation.setOptions({
     title: 'Escolha o tipo de conta?',
   });

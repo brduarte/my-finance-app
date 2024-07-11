@@ -17,13 +17,7 @@ export function ModalHeader({children}: ModalHeaderProps): React.JSX.Element {
       <TouchableOpacity style={styles.backButton} onPress={navigation.goBack}>
         <X color={MStyles.colors.greyColor} strokeWidth={2.5} />
       </TouchableOpacity>
-      {children ? (
-        <Text accessible={true} style={styles.title}>
-          {children}
-        </Text>
-      ) : (
-        <></>
-      )}
+      {children ? <Text style={styles.title}>{children}</Text> : <></>}
     </View>
   );
 }
