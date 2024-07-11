@@ -6,25 +6,31 @@
  */
 
 import React from 'react';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, TouchableOpacity} from 'react-native';
 import {MStyles} from './src/views/style';
-import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
+import {
+  DefaultTheme,
+  NavigationContainer,
+  useNavigation,
+} from '@react-navigation/native';
 import Onboarding from './src/views/Onboarding';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from './src/views/Login';
 import FlashMessage from 'react-native-flash-message';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from './src/views/Home';
-import {HomeIcon, PlusIcon} from 'lucide-react-native';
+import {HomeIcon, PlusIcon, X} from 'lucide-react-native';
 import CreateAccountForm from './src/views/CreateAccountForm';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {BottomSheetProvider} from './src/contexts/BottomSheetContext.tsx';
-import {ModalSheet} from './src/views/Home/components/ModalSheet';
+import {ModalSheet} from './src/components/ModalSheet';
 import {
   horizontalScale,
   moderateScale,
   verticalScale,
 } from './src/helpers/MetricsHelper.ts';
+import InputSelectModal from './src/modals/InputSelectModal';
+import {ModalHeaderLeft} from './src/navigate/modal/ModalHeader.tsx';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -122,18 +128,24 @@ function App(): React.JSX.Element {
                 screenOptions={{
                   presentation: 'modal',
                   animation: 'slide_from_bottom',
-                  title: 'Lançamentos ',
+                  title: 'Lançamentos',
                   headerShown: true,
+                  headerShadowVisible: false,
+                  headerBackTitleVisible: false,
                   headerTitleStyle: {
                     fontSize: 18,
                     color: MStyles.colors.blackColor,
                     fontFamily: MStyles.fontFamilyInterSemiBold,
                   },
-                  headerShadowVisible: false,
+                  headerLeft: ModalHeaderLeft,
                 }}>
                 <Stack.Screen
                   name="CreateAccountForm"
                   component={CreateAccountForm}
+                />
+                <Stack.Screen
+                  name="InputSelectModal"
+                  component={InputSelectModal}
                 />
               </Stack.Group>
             </Stack.Navigator>

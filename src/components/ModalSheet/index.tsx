@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {useBottomSheet} from '../../../../contexts/BottomSheetContext.tsx';
+import {useBottomSheet} from '../../contexts/BottomSheetContext.tsx';
 import {Layout} from './Layout.tsx';
 
 export function ModalSheet() {

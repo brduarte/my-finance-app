@@ -8,7 +8,6 @@ export default function Home(): React.JSX.Element {
   const bottomSheet = useBottomSheet();
 
   function redirectToWalletPage() {
-    console.log('redirectToWalletPage');
     bottomSheet.open();
   }
 

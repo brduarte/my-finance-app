@@ -1,23 +1,37 @@
 import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Text, View} from 'react-native';
 import {styles} from './styles';
 import Input from '../../components/Input';
 import {MoneyHelper} from '../../helpers/MoneyHelper.ts';
-import {HandCoins} from 'lucide-react-native';
-import {MStyles} from '../style';
+
+import {SelectSheet} from '../../components/SelectSheet';
+import {BookDown, BookUp} from 'lucide-react-native';
 
 type LayoutProps = {
   inputValue: {
     handleInputValueChange: (value: string) => void;
     value: string;
   };
-  openModalToSelectTypeTransaction: () => void;
 };
 
-export default function Layout({
-  inputValue,
-  openModalToSelectTypeTransaction,
-}: LayoutProps): React.JSX.Element {
+export default function Layout({inputValue}: LayoutProps): React.JSX.Element {
+  const optionsTypeAccount = [
+    {
+      name: 'A pagar',
+      value: 1,
+      description:
+        "Contas 'A pagar' irão criar uma ou mais transações de débito no seu extrato.",
+      icon: BookDown,
+    },
+    {
+      name: 'A receber',
+      value: 1,
+      description:
+        "Contas 'A receber' irão criar uma ou mais transações de crédito.",
+      icon: BookUp,
+    },
+  ];
+
   return (
     <View style={styles.container}>
       <View style={styles.session}>
@@ -33,17 +47,7 @@ export default function Layout({
 
       <View style={styles.session}>
         <Text style={styles.label}>Tipo de Lançamento</Text>
-        <TouchableOpacity
-          style={styles.selectType}
-          onPress={openModalToSelectTypeTransaction}>
-          <View style={styles.selectItemIcon}>
-            <HandCoins color={MStyles.colors.blackColor} />
-          </View>
-          <Text style={styles.selectItemText}>A Pagar</Text>
-          <View style={styles.selectItemTag}>
-            <Text style={styles.selectItemTagText}>Mudar</Text>
-          </View>
-        </TouchableOpacity>
+        <SelectSheet optionsList={optionsTypeAccount} />
       </View>
     </View>
   );
