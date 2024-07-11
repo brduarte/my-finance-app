@@ -42,12 +42,11 @@ export function LayoutOptionsList({optionsList}: SelectItemProps) {
   const navigation = useNavigation();
 
   navigation.setOptions({
-    title: 'Que tipo de entreda você quer fazer?',
+    title: 'Escolha o tipo de conta?',
   });
 
   return (
     <View style={styles.selectOptionItemContainer}>
-      <Text>Qual tipo de Transação</Text>
       <FlatList data={optionsList} renderItem={LayoutItem} />
     </View>
   );

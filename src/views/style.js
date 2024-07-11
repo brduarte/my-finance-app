@@ -1,4 +1,4 @@
-import {horizontalScale, verticalScale} from '../helpers/MetricsHelper';
+import {horizontalScale} from '../helpers/MetricsHelper';
 
 export const MStyles = {
   colors: {
@@ -8,8 +8,8 @@ export const MStyles = {
     whiteColor: '#ffffff',
     redColor: '#E25C5C',
     greenColor: '#469B88',
-    greyColor: '#595957',
-    greyColorBackground: '#f6f6f7',
+    greyColor: '#4a4f53',
+    greyColorBackground: '#e0e6e9',
     defaultBackgroundColor: '#ffff',
   },
   border: {

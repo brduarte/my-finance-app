@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import {SafeAreaView, TouchableOpacity} from 'react-native';
+import {SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
 import {MStyles} from './src/views/style';
 import {
   DefaultTheme,
@@ -30,7 +30,8 @@ import {
   verticalScale,
 } from './src/helpers/MetricsHelper.ts';
 import InputSelectModal from './src/modals/InputSelectModal';
-import {ModalHeaderLeft} from './src/navigate/modal/ModalHeader.tsx';
+import {styles} from './src/navigate/modal/styles';
+import {ModalHeader} from './src/navigate/modal/ModalHeader.tsx';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -128,16 +129,13 @@ function App(): React.JSX.Element {
                 screenOptions={{
                   presentation: 'modal',
                   animation: 'slide_from_bottom',
-                  title: 'Lançamentos',
+                  title: '',
                   headerShown: true,
                   headerShadowVisible: false,
                   headerBackTitleVisible: false,
-                  headerTitleStyle: {
-                    fontSize: 18,
-                    color: MStyles.colors.blackColor,
-                    fontFamily: MStyles.fontFamilyInterSemiBold,
-                  },
-                  headerLeft: ModalHeaderLeft,
+                  headerBackVisible: false,
+                  headerTitle: ModalHeader,
+                  // headerLeft: ModalHeaderLeft,
                 }}>
                 <Stack.Screen
                   name="CreateAccountForm"
@@ -153,7 +151,6 @@ function App(): React.JSX.Element {
           <ModalSheet />
         </BottomSheetProvider>
       </GestureHandlerRootView>
-
       <FlashMessage accessible={true} position="top" />
     </SafeAreaView>
   );
