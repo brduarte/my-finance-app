@@ -73,3 +73,39 @@ export const styles = StyleSheet.create({
     fontSize: moderateScale(12),
   },
 });
+
+export const disabledStyles = StyleSheet.create({
+  selectType: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: horizontalScale(16),
+    paddingVertical: verticalScale(16),
+    borderRadius: 9,
+    backgroundColor: '#f0f0f0',
+  },
+  selectItemIcon: {
+    paddingHorizontal: horizontalScale(10),
+    paddingVertical: verticalScale(10),
+    marginRight: verticalScale(12),
+    borderWidth: 1.5,
+    borderRadius: 100,
+    borderColor: '#e0e0e0',
+  },
+  selectItemText: {
+    color: '#a0a0a0',
+    fontFamily: MStyles.fontFamilyInterSemiBold,
+  },
+  selectItemTag: {
+    flex: 1,
+    alignItems: 'flex-end',
+    fontFamily: MStyles.fontFamilyInterSemiBold,
+  },
+  selectItemTagText: {
+    color: '#a0a0a0',
+    fontFamily: MStyles.fontFamilyInterSemiBold,
+    paddingHorizontal: horizontalScale(15),
+    paddingVertical: horizontalScale(8),
+    borderRadius: 20,
+    backgroundColor: '#e0e0e0',
+  },
+});

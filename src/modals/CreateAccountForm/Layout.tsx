@@ -5,7 +5,7 @@ import Input from '../../components/Input';
 import {MoneyHelper} from '../../helpers/MoneyHelper.ts';
 
 import {SelectSheet} from '../../components/SelectSheet';
-import {BookDown, BookUp} from 'lucide-react-native';
+import {BookDown, BookUp, Hospital, X} from 'lucide-react-native';
 
 type LayoutProps = {
   inputValue: {
@@ -47,7 +47,13 @@ export default function Layout({inputValue}: LayoutProps): React.JSX.Element {
 
       <View style={styles.session}>
         <Text style={styles.label}>Tipo de Lançamento</Text>
-        <SelectSheet optionsList={optionsTypeAccount} />
+        <SelectSheet
+          optionsList={optionsTypeAccount}
+          noSelectedValue={{
+            text: 'Escolha uma opção',
+            icon: X,
+          }}
+        />
       </View>
     </View>
   );

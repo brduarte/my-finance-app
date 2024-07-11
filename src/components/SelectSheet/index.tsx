@@ -4,9 +4,15 @@ import React from 'react';
 
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {LucideIcon} from 'lucide-react-native';
 
 type SelectSheetProps = {
   onChange?: (value: string) => void;
+  value?: () => void;
+  noSelectedValue?: {
+    text: string;
+    icon?: LucideIcon;
+  };
   optionsList: SelectItemsProps[];
 };
 
@@ -17,6 +23,7 @@ export type RootStackParamList = {
 export function SelectSheet({
   onChange,
   optionsList,
+  noSelectedValue,
 }: SelectSheetProps): React.JSX.Element {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -27,5 +34,11 @@ export function SelectSheet({
     });
   }
 
-  return <Layout onPress={onPress} onChange={onChange} />;
+  return (
+    <Layout
+      onPress={onPress}
+      onChange={onChange}
+      noSelectedValue={noSelectedValue}
+    />
+  );
 }

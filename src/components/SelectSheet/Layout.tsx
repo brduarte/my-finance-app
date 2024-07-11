@@ -1,7 +1,7 @@
-import React, {useLayoutEffect} from 'react';
-import {styles} from './styles';
+import React from 'react';
+import {disabledStyles, styles} from './styles';
 import {FlatList, Text, TouchableOpacity, View} from 'react-native';
-import {HandCoins, LucideIcon} from 'lucide-react-native';
+import {LucideIcon, X} from 'lucide-react-native';
 import {MStyles} from '../../views/style';
 import {moderateScale} from '../../helpers/MetricsHelper.ts';
 import {ListRenderItemInfo} from '@react-native/virtualized-lists/Lists/VirtualizedList';
@@ -9,6 +9,7 @@ import {useNavigation} from '@react-navigation/native';
 
 type LayoutProps = {
   onPress?: () => void;
+  noSelectedValue?: {text: string; icon?: LucideIcon};
   onChange?: (value: string) => void;
 };
 
@@ -24,15 +25,37 @@ type SelectItemProps = {
   optionsList: SelectItemsProps[];
 };
 
-export function Layout({onPress}: LayoutProps): React.JSX.Element {
+export function Layout({
+  onPress,
+  noSelectedValue,
+}: LayoutProps): React.JSX.Element {
+  const baseStyle = false ? styles : disabledStyles;
+  const iconColor = false ? MStyles.colors.blackColor : '#a0a0a0';
+
   return (
-    <TouchableOpacity style={styles.selectType} onPress={onPress}>
-      <View style={styles.selectItemIcon}>
-        <HandCoins color={MStyles.colors.blackColor} />
-      </View>
-      <Text style={styles.selectItemText}>A Pagar</Text>
-      <View style={styles.selectItemTag}>
-        <Text style={styles.selectItemTagText}>Mudar</Text>
+    <TouchableOpacity style={baseStyle.selectType} onPress={onPress}>
+      {noSelectedValue ? (
+        <>
+          <View style={baseStyle.selectItemIcon}>
+            {noSelectedValue.icon ? (
+              <noSelectedValue.icon color={iconColor} />
+            ) : (
+              <></>
+            )}
+          </View>
+          <Text style={baseStyle.selectItemText}>{noSelectedValue.text}</Text>
+        </>
+      ) : (
+        <>
+          <View style={baseStyle.selectItemIcon}>
+            <X color={MStyles.colors.blackColor} />
+          </View>
+          <Text style={baseStyle.selectItemText}>Escolha uma opção</Text>
+        </>
+      )}
+
+      <View style={baseStyle.selectItemTag}>
+        <Text style={baseStyle.selectItemTagText}>Selecionar</Text>
       </View>
     </TouchableOpacity>
   );

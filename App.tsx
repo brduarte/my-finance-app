@@ -20,7 +20,7 @@ import FlashMessage from 'react-native-flash-message';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from './src/views/Home';
 import {HomeIcon, PlusIcon, X} from 'lucide-react-native';
-import CreateAccountForm from './src/views/CreateAccountForm';
+import CreateAccountForm from './src/modals/CreateAccountForm';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {BottomSheetProvider} from './src/contexts/BottomSheetContext.tsx';
 import {ModalSheet} from './src/components/ModalSheet';

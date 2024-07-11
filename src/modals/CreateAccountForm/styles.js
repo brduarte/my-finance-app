@@ -4,7 +4,7 @@ import {
   moderateScale,
   verticalScale,
 } from '../../helpers/MetricsHelper';
-import {MStyles} from '../style';
+import {MStyles} from '../../views/style';
 
 export const styles = StyleSheet.create({
   container: {
@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     marginVertical: verticalScale(5),
   },
   label: {
-    marginBottom: verticalScale(10),
+    marginBottom: verticalScale(5),
     color: MStyles.colors.blackColor,
   },
   inputMoney: {
