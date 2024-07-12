@@ -99,11 +99,7 @@ function LayoutItem({item, onPress, navigate}: LayoutOptionsListItemProps) {
       }}>
       {item.icon ? (
         <View style={styles.selectOptionItemIcon}>
-          <item.icon
-            size={moderateScale(28)}
-            strokeWidth={2.5}
-            color={MStyles.colors.greyColor}
-          />
+          <item.icon strokeWidth={2.2} color={MStyles.colors.greyColor} />
         </View>
       ) : (
         <></>
