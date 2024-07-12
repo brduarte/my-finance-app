@@ -9,10 +9,8 @@ import {
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingHorizontal: horizontalScale(12),
-    paddingVertical: verticalScale(12),
-    backgroundColor: '#f5f7f9',
-    marginBottom: verticalScale(12),
+    paddingVertical: verticalScale(8),
+    marginBottom: verticalScale(5),
     borderRadius: 8,
   },
   value: {
@@ -25,10 +23,15 @@ export const styles = StyleSheet.create({
     color: MStyles.colors.blackColor,
   },
   iconSession: {
+    width: 45,
+    height: 45,
+    alignItems: 'center',
     marginRight: 12,
     paddingHorizontal: horizontalScale(8),
     paddingVertical: verticalScale(8),
     justifyContent: 'center',
+    backgroundColor: MStyles.colors.greyColorBackground,
+    borderRadius: 40,
   },
   text: {
     flex: 1,

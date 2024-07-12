@@ -19,14 +19,18 @@ const Item = (transaction: TransactionsModel): React.JSX.Element => {
   });
 
   let icon: React.JSX.Element = (
-    <ArrowUp strokeWidth={3} size={24} color={MStyles.colors.greenColor} />
+    <ArrowUp strokeWidth={2.5} size={24} color={MStyles.colors.blackColor} />
   );
 
   if (transaction.type === TransactionTypeEnum.DEBIT) {
     valueStyle = {...valueStyle, color: MStyles.colors.redColor};
     subText = 'Vence em:';
     icon = (
-      <ArrowDown strokeWidth={3} size={24} color={MStyles.colors.redColor} />
+      <ArrowDown
+        strokeWidth={2.5}
+        size={24}
+        color={MStyles.colors.blackColor}
+      />
     );
   }
 

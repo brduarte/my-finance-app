@@ -11,7 +11,6 @@ export default function CreateAccountForm(): React.JSX.Element {
 
   function handleInputTypeAccountChange(value: number) {
     setTypeAccountId(value);
-    console.log(typeAccountId);
   }
 
   return (
