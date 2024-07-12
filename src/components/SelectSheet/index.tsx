@@ -7,8 +7,8 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {LucideIcon} from 'lucide-react-native';
 
 type SelectSheetProps = {
-  onChange?: (value: string) => void;
-  value?: () => void;
+  onSelect?: (value: string | number) => void;
+  value?: number | string;
   noSelectedValue?: {
     text: string;
     icon?: LucideIcon;
@@ -21,24 +21,40 @@ export type RootStackParamList = {
 };
 
 export function SelectSheet({
-  onChange,
+  onSelect,
   optionsList,
   noSelectedValue,
+  value,
 }: SelectSheetProps): React.JSX.Element {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   function onPress() {
     navigation.navigate('InputSelectModal', {
-      component: <LayoutOptionsList optionsList={optionsList} />,
+      component: (
+        <LayoutOptionsList optionsList={optionsList} onSelect={onSelect} />
+      ),
     });
+  }
+
+  function handleTemplateSelected() {
+    if (!value) {
+      return noSelectedValue;
+    }
+
+    let templateSelected = optionsList.find(item => item.value === value);
+
+    return {
+      text: templateSelected?.name || '',
+      icon: templateSelected?.icon,
+    };
   }
 
   return (
     <Layout
       onPress={onPress}
-      onChange={onChange}
-      noSelectedValue={noSelectedValue}
+      selected={handleTemplateSelected()}
+      value={value}
     />
   );
 }

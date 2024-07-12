@@ -1,20 +1,27 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
 import {styles} from './styles';
 import Input from '../../components/Input';
 import {MoneyHelper} from '../../helpers/MoneyHelper.ts';
 
 import {SelectSheet} from '../../components/SelectSheet';
-import {BookDown, BookUp, Hospital, X} from 'lucide-react-native';
+import {BookDown, BookUp, X} from 'lucide-react-native';
 
 type LayoutProps = {
   inputValue: {
     handleInputValueChange: (value: string) => void;
-    value: string;
+    value?: string;
+  };
+  inputTypeAccount: {
+    handleInputTypeAccountChange: (value: any) => void;
+    value?: number;
   };
 };
 
-export default function Layout({inputValue}: LayoutProps): React.JSX.Element {
+export default function Layout({
+  inputValue,
+  inputTypeAccount,
+}: LayoutProps): React.JSX.Element {
   const optionsTypeAccount = [
     {
       name: 'A pagar',
@@ -25,7 +32,7 @@ export default function Layout({inputValue}: LayoutProps): React.JSX.Element {
     },
     {
       name: 'A receber',
-      value: 1,
+      value: 2,
       description:
         "Contas 'A receber' irão criar uma ou mais transações de crédito.",
       icon: BookUp,
@@ -33,7 +40,7 @@ export default function Layout({inputValue}: LayoutProps): React.JSX.Element {
   ];
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.session}>
         <Text style={styles.label}>Valor</Text>
         <Input
@@ -41,7 +48,9 @@ export default function Layout({inputValue}: LayoutProps): React.JSX.Element {
           style={styles.inputMoney}
           placeholder={'0'}
           onChangeText={inputValue.handleInputValueChange}
-          value={MoneyHelper.stringToReal(inputValue.value)}
+          value={MoneyHelper.stringToReal(
+            inputValue.value ? inputValue.value : '0',
+          )}
         />
       </View>
 
@@ -49,12 +58,14 @@ export default function Layout({inputValue}: LayoutProps): React.JSX.Element {
         <Text style={styles.label}>Tipo de Lançamento</Text>
         <SelectSheet
           optionsList={optionsTypeAccount}
+          value={inputTypeAccount.value}
+          onSelect={inputTypeAccount.handleInputTypeAccountChange}
           noSelectedValue={{
             text: 'Escolha uma opção',
             icon: X,
           }}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 }

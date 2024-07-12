@@ -101,11 +101,11 @@ export const disabledStyles = StyleSheet.create({
     fontFamily: MStyles.fontFamilyInterSemiBold,
   },
   selectItemTagText: {
-    color: '#a0a0a0',
+    color: MStyles.colors.blackColor,
     fontFamily: MStyles.fontFamilyInterSemiBold,
     paddingHorizontal: horizontalScale(15),
     paddingVertical: horizontalScale(8),
     borderRadius: 20,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: '#d5d1d1',
   },
 });

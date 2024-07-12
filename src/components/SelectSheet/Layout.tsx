@@ -9,8 +9,8 @@ import {useNavigation} from '@react-navigation/native';
 
 type LayoutProps = {
   onPress?: () => void;
-  noSelectedValue?: {text: string; icon?: LucideIcon};
-  onChange?: (value: string) => void;
+  value?: number | string;
+  selected?: {text: string; icon?: LucideIcon};
 };
 
 export type SelectItemsProps = {
@@ -20,30 +20,34 @@ export type SelectItemsProps = {
   icon?: LucideIcon;
 };
 
-type SelectItemProps = {
-  onChange?: (value: string) => void;
+type LayoutOptionsListProps = {
+  onSelect?: (value: string | number) => void;
   optionsList: SelectItemsProps[];
+};
+
+type LayoutOptionsListItemProps = {
+  onPress?: (value: string | number) => void;
+  item: SelectItemsProps;
+  navigate: any;
 };
 
 export function Layout({
   onPress,
-  noSelectedValue,
+  selected,
+  value,
 }: LayoutProps): React.JSX.Element {
-  const baseStyle = false ? styles : disabledStyles;
-  const iconColor = false ? MStyles.colors.blackColor : '#a0a0a0';
+  const baseStyle = value ? styles : disabledStyles;
+  const iconColor = value ? MStyles.colors.blackColor : '#a0a0a0';
+  const tagText = value ? 'Mudar' : 'Selecionar';
 
   return (
     <TouchableOpacity style={baseStyle.selectType} onPress={onPress}>
-      {noSelectedValue ? (
+      {selected ? (
         <>
           <View style={baseStyle.selectItemIcon}>
-            {noSelectedValue.icon ? (
-              <noSelectedValue.icon color={iconColor} />
-            ) : (
-              <></>
-            )}
+            {selected.icon ? <selected.icon color={iconColor} /> : <></>}
           </View>
-          <Text style={baseStyle.selectItemText}>{noSelectedValue.text}</Text>
+          <Text style={baseStyle.selectItemText}>{selected.text}</Text>
         </>
       ) : (
         <>
@@ -55,13 +59,16 @@ export function Layout({
       )}
 
       <View style={baseStyle.selectItemTag}>
-        <Text style={baseStyle.selectItemTagText}>Selecionar</Text>
+        <Text style={baseStyle.selectItemTagText}>{tagText}</Text>
       </View>
     </TouchableOpacity>
   );
 }
 
-export function LayoutOptionsList({optionsList}: SelectItemProps) {
+export function LayoutOptionsList({
+  optionsList,
+  onSelect,
+}: LayoutOptionsListProps) {
   const navigation = useNavigation();
   navigation.setOptions({
     title: 'Escolha o tipo de conta?',
@@ -69,14 +76,27 @@ export function LayoutOptionsList({optionsList}: SelectItemProps) {
 
   return (
     <View style={styles.selectOptionItemContainer}>
-      <FlatList data={optionsList} renderItem={LayoutItem} />
+      <FlatList
+        data={optionsList}
+        renderItem={({item}: ListRenderItemInfo<SelectItemsProps>) => (
+          <LayoutItem item={item} onPress={onSelect} navigate={navigation} />
+        )}
+      />
     </View>
   );
 }
 
-function LayoutItem({item}: ListRenderItemInfo<SelectItemsProps>) {
+function LayoutItem({item, onPress, navigate}: LayoutOptionsListItemProps) {
   return (
-    <TouchableOpacity style={styles.selectOptionItem}>
+    <TouchableOpacity
+      style={styles.selectOptionItem}
+      onPress={() => {
+        onPress
+          ? onPress(item.value)
+          : console.log('No Action implemented to selection');
+
+        navigate.goBack();
+      }}>
       {item.icon ? (
         <View style={styles.selectOptionItemIcon}>
           <item.icon

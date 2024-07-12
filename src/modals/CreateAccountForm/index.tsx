@@ -1,12 +1,26 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Layout from './Layout.tsx';
 
 export default function CreateAccountForm(): React.JSX.Element {
-  const [value, setValue] = useState<string>('0');
+  const [value, setValue] = useState<string>();
+  const [typeAccountId, setTypeAccountId] = useState<number>();
 
   function handleInputValueChange(value: string) {
     setValue(value);
   }
 
-  return <Layout inputValue={{value, handleInputValueChange}} />;
+  function handleInputTypeAccountChange(value: number) {
+    setTypeAccountId(value);
+    console.log(typeAccountId);
+  }
+
+  return (
+    <Layout
+      inputValue={{value, handleInputValueChange}}
+      inputTypeAccount={{
+        value: typeAccountId,
+        handleInputTypeAccountChange,
+      }}
+    />
+  );
 }
