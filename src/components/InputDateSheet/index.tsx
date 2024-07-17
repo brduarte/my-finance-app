@@ -1,6 +1,6 @@
-import {Text, TextInput, View} from 'react-native';
+import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {styles} from './style';
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {useBottomSheet} from '../../contexts/BottomSheetContext.tsx';
 import {Calendar} from 'react-native-calendars';
 import {MStyles} from '../../views/style';
@@ -17,21 +17,13 @@ export function InputDateSheet({
   const [selected, setSelected] = useState('2024-07-16');
   const modal = useBottomSheet();
 
+  useEffect(() => {
+    modal.setChildren(<DataPickerContentModal />);
+  }, [selected]);
+
   function onTouchStart() {
     setFocus(true);
     modal.open();
-    modal.setChildren(
-      <Calendar
-        theme={{selectedDayBackgroundColor: MStyles.colors.blackColor}}
-        current={selected}
-        markedDates={{
-          [selected]: {
-            selected: true,
-          },
-        }}
-        onDayPress={day => setSelected(day.dateString)}
-      />,
-    );
   }
 
   function handleStyleFocus() {
@@ -46,6 +38,28 @@ export function InputDateSheet({
 
   function handleBlur() {
     setFocus(false);
+  }
+
+  function DataPickerContentModal(): React.JSX.Element {
+    return (
+      <>
+        <Calendar
+          theme={{selectedDayBackgroundColor: MStyles.colors.blackColor}}
+          current={selected}
+          markedDates={{
+            [selected]: {
+              selected: true,
+            },
+          }}
+          onDayPress={day => setSelected(day.dateString)}
+        />
+        <TouchableOpacity>
+          <View style={styles.buttonConfirm}>
+            <Text style={styles.buttonText}>Confirmar</Text>
+          </View>
+        </TouchableOpacity>
+      </>
+    );
   }
 
   return (

@@ -1,6 +1,9 @@
 import React, {useCallback, useMemo} from 'react';
 import {styles} from './style.js';
-import BottomSheet from '@gorhom/bottom-sheet';
+import BottomSheet, {
+  BottomSheetView,
+  useBottomSheetDynamicSnapPoints,
+} from '@gorhom/bottom-sheet';
 
 export type ModalSheetProps = {
   bottomSheetRef?: React.Ref<BottomSheet>;
@@ -16,16 +19,17 @@ export function Layout({bottomSheetRef, children}: ModalSheetProps) {
     }
   }, []);
 
-  const snapPoints = useMemo(() => ['10%', '25%', '50%'], []);
+  const snapPoints = useMemo(() => ['25%'], []);
 
   return (
     <BottomSheet
       style={styles.container}
       ref={bottomSheetRef}
       index={0}
+      enableDynamicSizing={true}
       snapPoints={snapPoints}
       onChange={handleSheetChanges}>
-      {children}
+      <BottomSheetView>{children}</BottomSheetView>
     </BottomSheet>
   );
 }

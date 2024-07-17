@@ -23,4 +23,17 @@ export const styles = StyleSheet.create({
   error: {
     borderColor: '#cb0000',
   },
+  buttonText: {
+    fontSize: moderateScale(18),
+    textAlign: 'center',
+    fontFamily: MStyles.fontFamilyInterSemiBold,
+    color: MStyles.colors.whiteColor,
+  },
+  buttonConfirm: {
+    borderRadius: 8,
+    paddingVertical: verticalScale(14),
+    backgroundColor: MStyles.colors.greenColor,
+    marginBottom: verticalScale(20),
+    marginTop: verticalScale(20),
+  },
 });
