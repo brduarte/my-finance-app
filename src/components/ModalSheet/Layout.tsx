@@ -22,7 +22,7 @@ export function Layout({bottomSheetRef, children}: ModalSheetProps) {
     <BottomSheet
       style={styles.container}
       ref={bottomSheetRef}
-      index={-1}
+      index={0}
       snapPoints={snapPoints}
       onChange={handleSheetChanges}>
       {children}

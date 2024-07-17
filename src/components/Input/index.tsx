@@ -6,12 +6,7 @@ import {
   TextInputChangeEventData,
 } from 'react-native/Libraries/Components/TextInput/TextInput';
 import {styles} from './style';
-import {
-  ImageStyle,
-  TextStyle,
-  ViewStyle,
-} from 'react-native/Libraries/StyleSheet/StyleSheetTypes';
-import {MStyles} from '../../views/style';
+import {TextStyle} from 'react-native/Libraries/StyleSheet/StyleSheetTypes';
 
 type Props = {
   placeholder?: string;

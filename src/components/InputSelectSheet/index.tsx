@@ -17,7 +17,7 @@ type SelectSheetProps = {
 };
 
 export type RootStackParamList = {
-  InputSelectModal: {component: React.JSX.Element} | undefined;
+  InputSelectModal: {component: React.JSX.Element};
 };
 
 export function SelectSheet({

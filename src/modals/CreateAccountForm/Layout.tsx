@@ -4,8 +4,9 @@ import {styles} from './styles';
 import Input from '../../components/Input';
 import {MoneyHelper} from '../../helpers/MoneyHelper.ts';
 
-import {SelectSheet} from '../../components/SelectSheet';
+import {SelectSheet} from '../../components/InputSelectSheet';
 import {BookDown, BookUp, X} from 'lucide-react-native';
+import {InputDateSheet} from '../../components/InputDateSheet';
 
 type LayoutProps = {
   inputValue: {
@@ -65,6 +66,11 @@ export default function Layout({
             icon: X,
           }}
         />
+      </View>
+
+      <View style={styles.session}>
+        <Text style={styles.label}>Primeiro Pagamento em:</Text>
+        <InputDateSheet />
       </View>
     </ScrollView>
   );

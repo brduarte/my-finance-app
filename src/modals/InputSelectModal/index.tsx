@@ -9,5 +9,9 @@ type InputSelectModal = {
 export default function InputSelectModal({
   route,
 }: InputSelectModal): React.JSX.Element {
-  return <View style={styles.container}>{route.params.component}</View>;
+  return (
+    <View style={styles.container}>
+      {route.params.component ? route.params.component : <></>}
+    </View>
+  );
 }

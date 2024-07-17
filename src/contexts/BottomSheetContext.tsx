@@ -36,8 +36,8 @@ export function BottomSheetProvider({children}: IBottomSheetProvider) {
     return bottomSheetRef;
   }
 
-  function setChildren(children: React.JSX.Element) {
-    setContent(children);
+  function setChildren(element: React.JSX.Element) {
+    setContent(element);
   }
 
   function getChildren(): React.JSX.Element {

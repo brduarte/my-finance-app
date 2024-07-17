@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Layout from './Layout.tsx';
 
 export default function CreateAccountForm(): React.JSX.Element {
