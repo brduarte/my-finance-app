@@ -1,0 +1,191 @@
+diff --git a/node_modules/@gorhom/bottom-sheet/src/components/bottomSheet/BottomSheet.tsx b/node_modules/@gorhom/bottom-sheet/src/components/bottomSheet/BottomSheet.tsx
+index f20e3dc..d9dda96 100644
+--- a/node_modules/@gorhom/bottom-sheet/src/components/bottomSheet/BottomSheet.tsx
++++ b/node_modules/@gorhom/bottom-sheet/src/components/bottomSheet/BottomSheet.tsx
+@@ -21,6 +21,8 @@ import Animated, {
+   useWorkletCallback,
+   WithSpringConfig,
+   WithTimingConfig,
++  // @ts-expect-error Module '"react-native-reanimated"' has no exported member 'ReduceMotion'
++  ReduceMotion,
+ } from 'react-native-reanimated';
+ import { State } from 'react-native-gesture-handler';
+ import {
+@@ -77,7 +79,7 @@ import {
+   DEFAULT_DYNAMIC_SIZING,
+   DEFAULT_ACCESSIBLE,
+   DEFAULT_ACCESSIBILITY_LABEL,
+-  DEFAULT_ACCESSIBILITY_ROLE
++  DEFAULT_ACCESSIBILITY_ROLE,
+ } from './constants';
+ import type { BottomSheetMethods, Insets } from '../../types';
+ import type { BottomSheetProps, AnimateToPositionType } from './types';
+@@ -98,8 +100,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
+     //#region extract props
+     const {
+       // animations configurations
+-      animationConfigs: _providedAnimationConfigs,
+-
++      animationConfigs,
+       // configurations
+       index: _providedIndex = 0,
+       snapPoints: _providedSnapPoints,
+@@ -172,6 +173,21 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
+     } = props;
+     //#endregion
+ 
++    //#region animations configurations
++    const _providedAnimationConfigs = useMemo(() => {
++      if (!animationConfigs) {
++        return undefined;
++      }
++
++      if (ReduceMotion) {
++        // @ts-expect-error Property 'reduceMotion' does not exist on type 'WithSpringConfig | WithTimingConfig'.
++        animationConfigs.reduceMotion = ReduceMotion.Never;
++      }
++
++      return animationConfigs;
++    }, [animationConfigs]);
++    //#endregion
++
+     //#region layout variables
+     /**
+      * This variable is consider an internal variable,
+@@ -333,7 +349,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
+       const extendedPositionWithKeyboard = Math.max(
+         0,
+         animatedContainerHeight.value -
+-          (animatedSheetHeight.value + keyboardHeightInContainer)
++        (animatedSheetHeight.value + keyboardHeightInContainer)
+       );
+ 
+       // detect if keyboard is open and the sheet is in temporary position
+@@ -483,11 +499,11 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
+ 
+       const currentIndex = isLayoutCalculated.value
+         ? interpolate(
+-            animatedPosition.value,
+-            adjustedSnapPoints,
+-            adjustedSnapPointsIndexes,
+-            Extrapolate.CLAMP
+-          )
++          animatedPosition.value,
++          adjustedSnapPoints,
++          adjustedSnapPointsIndexes,
++          Extrapolate.CLAMP
++        )
+         : -1;
+ 
+       /**
+@@ -722,6 +738,10 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
+          * force animation configs from parameters, if provided
+          */
+         if (configs !== undefined) {
++          if (ReduceMotion) {
++            // @ts-expect-error Property 'reduceMotion' does not exist on type 'WithSpringConfig | WithTimingConfig'.
++            configs.reduceMotion = ReduceMotion.Never;
++          }
+           animatedPosition.value = animate({
+             point: position,
+             configs,
+@@ -1403,9 +1423,9 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
+          */
+         animatedKeyboardHeightInContainer.value = $modal
+           ? Math.abs(
+-              _keyboardHeight -
+-                Math.abs(bottomInset - animatedContainerOffset.value.bottom)
+-            )
++            _keyboardHeight -
++            Math.abs(bottomInset - animatedContainerOffset.value.bottom)
++          )
+           : Math.abs(_keyboardHeight - animatedContainerOffset.value.bottom);
+ 
+         const hasActiveGesture =
+@@ -1514,11 +1534,11 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
+         _handleGestureState: animatedHandleGestureState.value,
+       }),
+       ({
+-        _animatedIndex,
+-        _animationState,
+-        _contentGestureState,
+-        _handleGestureState,
+-      }) => {
++         _animatedIndex,
++         _animationState,
++         _contentGestureState,
++         _handleGestureState,
++       }) => {
+         /**
+          * exit the method if animation state is not stopped.
+          */
+diff --git a/node_modules/@gorhom/bottom-sheet/src/constants.ts b/node_modules/@gorhom/bottom-sheet/src/constants.ts
+index cc8fb9f..e8780b6 100644
+--- a/node_modules/@gorhom/bottom-sheet/src/constants.ts
++++ b/node_modules/@gorhom/bottom-sheet/src/constants.ts
+@@ -1,5 +1,6 @@
+ import { Dimensions, Platform } from 'react-native';
+-import Animated, { Easing } from 'react-native-reanimated';
++// @ts-expect-error Module '"react-native-reanimated"' has no exported member 'ReduceMotion'
++import Animated, { Easing, ReduceMotion } from 'react-native-reanimated';
+ 
+ const { height: WINDOW_HEIGHT, width: WINDOW_WIDTH } = Dimensions.get('window');
+ const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('screen');
+@@ -72,11 +73,13 @@ const ANIMATION_CONFIGS_IOS = {
+   overshootClamping: true,
+   restDisplacementThreshold: 10,
+   restSpeedThreshold: 10,
++  ...(ReduceMotion ? { reduceMotion: ReduceMotion.Never } : {}),
+ };
+ 
+ const ANIMATION_CONFIGS_ANDROID = {
+   duration: ANIMATION_DURATION,
+   easing: ANIMATION_EASING,
++  ...(ReduceMotion ? { reduceMotion: ReduceMotion.Never } : {}),
+ };
+ 
+ const ANIMATION_CONFIGS =
+diff --git a/node_modules/@gorhom/bottom-sheet/src/utilities/animate.ts b/node_modules/@gorhom/bottom-sheet/src/utilities/animate.ts
+index 81fec5b..c83e8dc 100644
+--- a/node_modules/@gorhom/bottom-sheet/src/utilities/animate.ts
++++ b/node_modules/@gorhom/bottom-sheet/src/utilities/animate.ts
+@@ -4,8 +4,6 @@ import {
+   withTiming,
+   withSpring,
+   AnimationCallback,
+-  // @ts-ignore
+-  ReduceMotion,
+ } from 'react-native-reanimated';
+ import { ANIMATION_CONFIGS, ANIMATION_METHOD } from '../constants';
+ 
+@@ -17,25 +15,17 @@ interface AnimateParams {
+ }
+ 
+ export const animate = ({
+-  point,
+-  configs = undefined,
+-  velocity = 0,
+-  onComplete,
+-}: AnimateParams) => {
++                          point,
++                          configs = undefined,
++                          velocity = 0,
++                          onComplete,
++                        }: AnimateParams) => {
+   'worklet';
+ 
+   if (!configs) {
+     configs = ANIMATION_CONFIGS;
+   }
+ 
+-  // Users might have an accessibililty setting to reduce motion turned on.
+-  // This prevents the animation from running when presenting the sheet, which results in
+-  // the bottom sheet not even appearing so we need to override it to ensure the animation runs.
+-  if (ReduceMotion) {
+-    // @ts-ignore
+-    configs.reduceMotion = ReduceMotion.Never;
+-  }
+-
+   // detect animation type
+   const type =
+     'duration' in configs || 'easing' in configs
