@@ -7,6 +7,7 @@ import {MStyles} from '../../views/style';
 import {format} from 'date-fns';
 import {DateHelper} from '../../helpers/DateHelper.ts';
 import {log} from 'react-native-reanimated-carousel/lib/typescript/utils/log';
+import {moderateScale} from '../../helpers/MetricsHelper.ts';
 
 type InputDateSheetProps = {
   placeholder?: Date;
@@ -61,7 +62,15 @@ export function InputDateSheet({
           parcelamento selecionado.
         </Text>
         <Calendar
-          theme={{selectedDayBackgroundColor: MStyles.colors.blackColor}}
+          theme={{
+            selectedDayBackgroundColor: MStyles.colors.blackColor,
+            arrowColor: MStyles.colors.blackColor,
+            textDayStyle: {
+              color: MStyles.colors.blackColor,
+            },
+            todayTextColor: MStyles.colors.greenColor,
+            textDayFontSize: moderateScale(18),
+          }}
           current={currentDate}
           markedDates={{
             [currentDate]: {
