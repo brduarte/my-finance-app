@@ -44,10 +44,10 @@ export default function Login({
       });
     }
 
-    const token: TokenModel = await authServer.token(authModel);
-
-    await AsyncStorage.setItem('session', JSON.stringify(token));
-    navigation.navigate('Main');
+    authServer.token(authModel).then(async (token: TokenModel) => {
+      await AsyncStorage.setItem('session', JSON.stringify(token));
+      navigation.navigate('Main');
+    });
   }
 
   return (
