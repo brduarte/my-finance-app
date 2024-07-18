@@ -1,0 +1,36 @@
+import axios from 'axios';
+import {showMessage} from 'react-native-flash-message';
+
+export abstract class BaseService {
+  public request() {
+    const client = axios.create({
+      baseURL: 'http://172.17.137.224:3005',
+    });
+
+    client.interceptors.response.use(
+      function (response) {
+        // Any status code that lie within the range of 2xx cause this function to trigger
+        // Do something with response data
+        return response;
+      },
+      function (error) {
+        // Any status codes that falls outside the range of 2xx cause this function to trigger
+        // Do something with response error
+
+        switch (error.response.data.message) {
+          case 'Active your account. Check your email.':
+            showMessage({
+              message: 'Verifique Suas Credenciais',
+              description: 'Ative sua conta. Verifique seu e-mail.',
+              type: 'danger',
+            });
+            break;
+        }
+
+        return Promise.reject(error);
+      },
+    );
+
+    return client;
+  }
+}
