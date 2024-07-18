@@ -1,12 +1,10 @@
 import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {styles} from './style';
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useBottomSheet} from '../../contexts/BottomSheetContext.tsx';
 import {Calendar} from 'react-native-calendars';
 import {MStyles} from '../../views/style';
-import {format} from 'date-fns';
 import {DateHelper} from '../../helpers/DateHelper.ts';
-import {log} from 'react-native-reanimated-carousel/lib/typescript/utils/log';
 import {moderateScale} from '../../helpers/MetricsHelper.ts';
 
 type InputDateSheetProps = {
