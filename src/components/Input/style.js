@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
     borderColor: '#E7EAEB',
     borderRadius: MStyles.border.defaultRadius,
     fontSize: moderateScale(16),
+    fontFamily: MStyles.fontFamilyInterRegular,
     color: MStyles.colors.blackColor,
   },
   focus: {

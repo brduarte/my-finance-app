@@ -71,7 +71,7 @@ export default function Input({
       onChangeText={onChangeText}
       onFocus={handleFocus}
       onBlur={handleBlur}
-      value={value}
+      value={value?.toString()}
       secureTextEntry={secureTextEntry}
       style={handleStyleChange()}
       maxLength={maxLength}

@@ -111,7 +111,7 @@ function App(): React.JSX.Element {
         <BottomSheetProvider>
           <NavigationContainer theme={MyTheme}>
             <Stack.Navigator
-              initialRouteName="CreateAccountForm"
+              initialRouteName="Onboarding"
               screenOptions={{
                 headerShown: false,
               }}>

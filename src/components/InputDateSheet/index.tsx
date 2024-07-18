@@ -1,4 +1,4 @@
-import {Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {Keyboard, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {styles} from './style';
 import React, {useEffect, useState} from 'react';
 import {useBottomSheet} from '../../contexts/BottomSheetContext.tsx';
@@ -28,6 +28,7 @@ export function InputDateSheet({
   }, [value]);
 
   function onTouchStart() {
+    Keyboard.dismiss();
     setFocus(true);
     modal.open();
   }

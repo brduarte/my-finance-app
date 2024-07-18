@@ -14,6 +14,11 @@ export const styles = StyleSheet.create({
   session: {
     marginVertical: verticalScale(5),
   },
+
+  sessionColum: {
+    flexDirection: 'row',
+    marginVertical: verticalScale(5),
+  },
   label: {
     marginBottom: verticalScale(5),
     color: MStyles.colors.blackColor,
@@ -21,5 +26,19 @@ export const styles = StyleSheet.create({
   inputMoney: {
     fontSize: moderateScale(20),
     fontFamily: MStyles.fontFamilyInterSemiBold,
+  },
+
+  buttonConfirm: {
+    borderRadius: 8,
+    paddingVertical: verticalScale(14),
+    backgroundColor: MStyles.colors.greenColor,
+    marginBottom: verticalScale(20),
+    marginTop: verticalScale(20),
+  },
+  buttonText: {
+    fontSize: moderateScale(18),
+    textAlign: 'center',
+    fontFamily: MStyles.fontFamilyInterSemiBold,
+    color: MStyles.colors.whiteColor,
   },
 });

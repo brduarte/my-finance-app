@@ -4,7 +4,8 @@ import Layout from './Layout.tsx';
 export default function CreateAccountForm(): React.JSX.Element {
   const [value, setValue] = useState<string>();
   const [typeAccountId, setTypeAccountId] = useState<number>();
-  const [firstDate, setFistDate] = useState<Date>();
+  const [firstDate, setFistDate] = useState<Date>(new Date());
+  const [installments, setInstallments] = useState<number>(1);
 
   function handleInputValueChange(value: string) {
     setValue(value);
@@ -18,12 +19,20 @@ export default function CreateAccountForm(): React.JSX.Element {
     setFistDate(value);
   }
 
+  function handleInputInstallmentChange(value: string) {
+    setInstallments(+value);
+  }
+
   return (
     <Layout
       inputValue={{value, handleInputValueChange}}
       inputDate={{
         value: firstDate,
         handleInputDateChange: handleInputFirstDate,
+      }}
+      inputInstallment={{
+        handleInputInstallmentChange,
+        value: installments?.toString(),
       }}
       inputTypeAccount={{
         value: typeAccountId,

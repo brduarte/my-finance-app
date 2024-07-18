@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, Text, View} from 'react-native';
+import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './styles';
 import Input from '../../components/Input';
 import {MoneyHelper} from '../../helpers/MoneyHelper.ts';
@@ -21,12 +21,17 @@ type LayoutProps = {
     handleInputDateChange: (value: any) => void;
     value?: Date;
   };
+  inputInstallment: {
+    handleInputInstallmentChange: (value: string) => void;
+    value?: string;
+  };
 };
 
 export default function Layout({
   inputValue,
   inputTypeAccount,
   inputDate,
+  inputInstallment,
 }: LayoutProps): React.JSX.Element {
   const optionsTypeAccount = [
     {
@@ -61,6 +66,11 @@ export default function Layout({
       </View>
 
       <View style={styles.session}>
+        <Text style={styles.label}>Nome:</Text>
+        <Input placeholder={'Conta de Luz'} />
+      </View>
+
+      <View style={styles.session}>
         <Text style={styles.label}>Tipo de conta:</Text>
         <SelectSheet
           optionsList={optionsTypeAccount}
@@ -73,14 +83,32 @@ export default function Layout({
         />
       </View>
 
-      <View style={styles.session}>
-        <Text style={styles.label}>Primeiro pagamento em:</Text>
-        <InputDateSheet
-          placeholder={new Date()}
-          value={inputDate.value}
-          onChange={inputDate.handleInputDateChange}
-        />
+      <View style={styles.sessionColum}>
+        <View style={{flex: 1}}>
+          <Text style={styles.label}>Parcelas:</Text>
+          <Input
+            maxLength={4}
+            keyboardType="numeric"
+            placeholder={'1'}
+            value={inputInstallment.value}
+            onChangeText={inputInstallment.handleInputInstallmentChange}
+          />
+        </View>
+        <View style={{flex: 3, marginLeft: 5}}>
+          <Text style={styles.label}>Primeiro pagamento em:</Text>
+          <InputDateSheet
+            placeholder={new Date()}
+            value={inputDate.value}
+            onChange={inputDate.handleInputDateChange}
+          />
+        </View>
       </View>
+
+      <TouchableOpacity>
+        <View style={styles.buttonConfirm}>
+          <Text style={styles.buttonText}>Confirmar</Text>
+        </View>
+      </TouchableOpacity>
     </ScrollView>
   );
 }
