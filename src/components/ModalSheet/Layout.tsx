@@ -1,9 +1,6 @@
 import React, {useCallback, useMemo} from 'react';
 import {styles} from './style.js';
-import BottomSheet, {
-  BottomSheetView,
-  useBottomSheetDynamicSnapPoints,
-} from '@gorhom/bottom-sheet';
+import BottomSheet, {BottomSheetView} from '@gorhom/bottom-sheet';
 
 export type ModalSheetProps = {
   bottomSheetRef?: React.Ref<BottomSheet>;

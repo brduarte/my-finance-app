@@ -4,22 +4,29 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {useBottomSheet} from '../../contexts/BottomSheetContext.tsx';
 import {Calendar} from 'react-native-calendars';
 import {MStyles} from '../../views/style';
+import {format} from 'date-fns';
+import {DateHelper} from '../../helpers/DateHelper.ts';
+import {log} from 'react-native-reanimated-carousel/lib/typescript/utils/log';
 
 type InputDateSheetProps = {
   placeholder?: Date;
+  value?: Date;
   locale?: 'pt-BR';
+  onChange?: (date: Date) => void;
 };
 
 export function InputDateSheet({
   placeholder,
+  onChange,
+  value,
 }: InputDateSheetProps): React.JSX.Element {
   const [isFocus, setFocus] = useState<boolean>(false);
-  const [selected, setSelected] = useState('2024-07-16');
   const modal = useBottomSheet();
+  const currentDate = DateHelper.toUsa(value || new Date());
 
   useEffect(() => {
     modal.setChildren(<DataPickerContentModal />);
-  }, [selected]);
+  }, [value]);
 
   function onTouchStart() {
     setFocus(true);
@@ -40,20 +47,34 @@ export function InputDateSheet({
     setFocus(false);
   }
 
+  function handleConfirm() {
+    modal.close();
+  }
+
   function DataPickerContentModal(): React.JSX.Element {
     return (
       <>
+        <Text style={styles.titleDatePicker}>Selecione a data inicial</Text>
+        <Text>
+          A data do primeiro pagamento servirá para definir a data de
+          recebimento/vencimentos futuros, conforme o tipo de contas e o
+          parcelamento selecionado.
+        </Text>
         <Calendar
           theme={{selectedDayBackgroundColor: MStyles.colors.blackColor}}
-          current={selected}
+          current={currentDate}
           markedDates={{
-            [selected]: {
+            [currentDate]: {
               selected: true,
             },
           }}
-          onDayPress={day => setSelected(day.dateString)}
+          onDayPress={date => {
+            onChange
+              ? onChange(new Date(date.year, date.month - 1, date.day))
+              : console.log('No action implemented');
+          }}
         />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleConfirm}>
           <View style={styles.buttonConfirm}>
             <Text style={styles.buttonText}>Confirmar</Text>
           </View>
@@ -66,7 +87,9 @@ export function InputDateSheet({
     <TextInput
       focusable={false}
       showSoftInputOnFocus={false}
+      value={value ? DateHelper.toBr(value) : undefined}
       caretHidden={true}
+      placeholder={placeholder ? DateHelper.toBr(placeholder) : undefined}
       style={handleStyleFocus()}
       onPress={onTouchStart}
       onBlur={handleBlur}

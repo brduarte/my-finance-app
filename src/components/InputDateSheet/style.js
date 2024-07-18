@@ -36,4 +36,9 @@ export const styles = StyleSheet.create({
     marginBottom: verticalScale(20),
     marginTop: verticalScale(20),
   },
+  titleDatePicker: {
+    fontSize: moderateScale(28),
+    color: MStyles.colors.blackColor,
+    fontFamily: MStyles.fontFamilyInterBold,
+  },
 });

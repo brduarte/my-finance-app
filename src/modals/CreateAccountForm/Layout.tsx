@@ -17,11 +17,16 @@ type LayoutProps = {
     handleInputTypeAccountChange: (value: any) => void;
     value?: number;
   };
+  inputDate: {
+    handleInputDateChange: (value: any) => void;
+    value?: Date;
+  };
 };
 
 export default function Layout({
   inputValue,
   inputTypeAccount,
+  inputDate,
 }: LayoutProps): React.JSX.Element {
   const optionsTypeAccount = [
     {
@@ -43,7 +48,7 @@ export default function Layout({
   return (
     <ScrollView style={styles.container}>
       <View style={styles.session}>
-        <Text style={styles.label}>Valor</Text>
+        <Text style={styles.label}>Valor da conta:</Text>
         <Input
           keyboardType={'numeric'}
           style={styles.inputMoney}
@@ -56,7 +61,7 @@ export default function Layout({
       </View>
 
       <View style={styles.session}>
-        <Text style={styles.label}>Tipo de Lançamento</Text>
+        <Text style={styles.label}>Tipo de conta:</Text>
         <SelectSheet
           optionsList={optionsTypeAccount}
           value={inputTypeAccount.value}
@@ -69,8 +74,12 @@ export default function Layout({
       </View>
 
       <View style={styles.session}>
-        <Text style={styles.label}>Primeiro Pagamento em:</Text>
-        <InputDateSheet />
+        <Text style={styles.label}>Primeiro pagamento em:</Text>
+        <InputDateSheet
+          placeholder={new Date()}
+          value={inputDate.value}
+          onChange={inputDate.handleInputDateChange}
+        />
       </View>
     </ScrollView>
   );

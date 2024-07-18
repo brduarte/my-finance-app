@@ -6,13 +6,9 @@
  */
 
 import React from 'react';
-import {SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import {MStyles} from './src/views/style';
-import {
-  DefaultTheme,
-  NavigationContainer,
-  useNavigation,
-} from '@react-navigation/native';
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import Onboarding from './src/views/Onboarding';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from './src/views/Login';

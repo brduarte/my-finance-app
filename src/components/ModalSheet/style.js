@@ -1,8 +1,10 @@
 import {StyleSheet} from 'react-native';
+import {horizontalScale} from '../../helpers/MetricsHelper';
+import {MStyles} from '../../views/style';
 
 export const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 8,
+    paddingHorizontal: horizontalScale(MStyles.padding.horizontal),
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
