@@ -1,15 +1,28 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Layout from './Layout.tsx';
 import {TransactionsModel} from '../../services/core/models/TransactionsModel.ts';
 import {useBottomSheet} from '../../contexts/BottomSheetContext.tsx';
 import {UserModel} from '../../services/core/models/UserModel.ts';
 import {useAuthProfileContext} from '../../contexts/AuthProfileContext.tsx';
+import {RefreshControl} from 'react-native';
 
 export default function Home(): React.JSX.Element {
+  const [refreshing, setRefreshing] = React.useState(false);
+
   const [transactions, setTransactions] = useState<TransactionsModel[]>([]);
   const [user, setUser] = useState<UserModel>();
   const bottomSheet = useBottomSheet();
   const authSession = useAuthProfileContext();
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    authSession
+      .getProfile()
+      .then(response => setUser(response))
+      .finally(() => {
+        setRefreshing(false);
+      });
+  }, [authSession]);
 
   useEffect(() => {
     authSession.getProfile().then(response => setUser(response));
@@ -33,7 +46,6 @@ export default function Home(): React.JSX.Element {
         amount: 680.31,
         type: 'CREDIT',
       },
-
       {
         id: 'fdcc1622-8182-4828-9dc1-a9472c1e85e9',
         name: 'Jason Robinson',
@@ -52,6 +64,9 @@ export default function Home(): React.JSX.Element {
       user={user}
       transactions={transactions}
       actionBtnCardTotalBalance={redirectToWalletPage}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
     />
   );
 }

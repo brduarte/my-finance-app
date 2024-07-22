@@ -22,7 +22,7 @@ export class MoneyHelper {
   }
 
   static intToDecimal(value: number = 0) {
-    return value > 0 ? value / 100 : value;
+    return value !== 0 ? value / 100 : value;
   }
 
   static realToInt(value: string) {

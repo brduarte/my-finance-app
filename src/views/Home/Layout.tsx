@@ -12,6 +12,7 @@ import {MStyles} from '../style';
 
 type Props = {
   user?: UserModel;
+  refreshControl?: React.JSX.Element;
   transactions: TransactionsModel[];
   actionBtnCardTotalBalance: () => void;
 };
@@ -19,6 +20,7 @@ type Props = {
 export default function Layout({
   user,
   transactions,
+  refreshControl,
   actionBtnCardTotalBalance,
 }: Props): React.JSX.Element {
   const DATA = [
@@ -57,6 +59,8 @@ export default function Layout({
       />
       <View style={styles.container}>
         <SectionList
+          refreshing={true}
+          refreshControl={refreshControl}
           sections={DATA}
           keyExtractor={(item, index) => index + index.toString()}
           renderItem={({item}) => <>{item}</>}
