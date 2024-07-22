@@ -1,41 +1,40 @@
 import React from 'react';
-import {SectionList, Text, View} from 'react-native';
+import {SectionList, StatusBar, Text, View} from 'react-native';
 import BalanceCard from './components/BalanceCard/BalanceCard.tsx';
 import {styles} from './styles';
 import {HeaderProfile} from '../../components/HeaderProfile';
 import {TransactionsList} from '../../components/TransactionsList/transactionsList.tsx';
 import {TransactionsModel} from '../../services/core/models/Transactions.ts';
 import {ResumeCard} from './components/ResumeCard/ResumeCard.tsx';
+import {UserModel} from '../../services/core/models/UserModel.ts';
+import {MoneyHelper} from '../../helpers/MoneyHelper.ts';
+import {MStyles} from '../style';
 
 type Props = {
-  resume: {
-    balance: number;
-    revenue: number;
-    expenditures: number;
-  };
+  user?: UserModel;
   transactions: TransactionsModel[];
   actionBtnCardTotalBalance: () => void;
 };
 
 export default function Layout({
-  resume,
+  user,
   transactions,
   actionBtnCardTotalBalance,
 }: Props): React.JSX.Element {
   const DATA = [
     {
-      data: [<HeaderProfile name={'Bruno Duarte'} />],
+      data: [<HeaderProfile name={user?.name || ''} />],
     },
     {
       data: [
         <View style={styles.session}>
           <BalanceCard
-            total={resume.balance}
+            total={MoneyHelper.intToDecimal(user?.resume.balance)}
             action={actionBtnCardTotalBalance}
           />
           <ResumeCard
-            revenue={resume.revenue}
-            expenditure={resume.expenditures}
+            revenue={MoneyHelper.intToDecimal(user?.resume.revenue)}
+            expenditure={MoneyHelper.intToDecimal(user?.resume.expenses)}
           />
         </View>,
       ],
@@ -51,19 +50,25 @@ export default function Layout({
   ];
 
   return (
-    <View style={styles.container}>
-      <SectionList
-        sections={DATA}
-        keyExtractor={(item, index) => index + index.toString()}
-        renderItem={({item}) => <>{item}</>}
-        renderSectionHeader={({section: {title}}) => {
-          return title ? (
-            <Text style={styles.sessionTitle}>{title}</Text>
-          ) : (
-            <></>
-          );
-        }}
+    <>
+      <StatusBar
+        backgroundColor={MStyles.colors.whiteColor}
+        barStyle={'dark-content'}
       />
-    </View>
+      <View style={styles.container}>
+        <SectionList
+          sections={DATA}
+          keyExtractor={(item, index) => index + index.toString()}
+          renderItem={({item}) => <>{item}</>}
+          renderSectionHeader={({section: {title}}) => {
+            return title ? (
+              <Text style={styles.sessionTitle}>{title}</Text>
+            ) : (
+              <></>
+            );
+          }}
+        />
+      </View>
+    </>
   );
 }

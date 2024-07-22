@@ -5,9 +5,11 @@ import {BaseService} from './BaseService.ts';
 
 export class OAuthService extends BaseService implements IAuthService {
   async token(oauth: AuthModel): Promise<TokenModel> {
-    return this.request().post('/oauth/token', {
+    const {data} = await this.request().post('/oauth/token', {
       grant_type: 'password',
       ...oauth,
     });
+
+    return data;
   }
 }

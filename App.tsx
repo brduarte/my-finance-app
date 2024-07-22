@@ -27,6 +27,10 @@ import {
 } from './src/helpers/MetricsHelper.ts';
 import InputSelectModal from './src/modals/InputSelectModal';
 import {ModalHeader} from './src/navigate/modal/ModalHeader.tsx';
+import {
+  AuthProfileProvider,
+  useAuthProfileContext,
+} from './src/contexts/AuthProfileContext.tsx';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -100,7 +104,17 @@ function LoggedArea() {
   );
 }
 
+export function Main(): React.JSX.Element {
+  return (
+    <AuthProfileProvider>
+      <App />
+    </AuthProfileProvider>
+  );
+}
+
 function App(): React.JSX.Element {
+  const useAuth = useAuthProfileContext();
+
   return (
     <SafeAreaView
       style={{
@@ -116,9 +130,15 @@ function App(): React.JSX.Element {
                 headerShown: false,
               }}>
               <Stack.Group>
-                <Stack.Screen name="Onboarding" component={Onboarding} />
-                <Stack.Screen name="Main" component={LoggedArea} />
-                <Stack.Screen name="Login" component={Login} />
+                {useAuth.isLogged() ? (
+                  <Stack.Screen name="Main" component={LoggedArea} />
+                ) : (
+                  <>
+                    <Stack.Screen name="Onboarding" component={Onboarding} />
+                    <Stack.Screen name="Login" component={Login} />
+                    <Stack.Screen name="Main" component={LoggedArea} />
+                  </>
+                )}
               </Stack.Group>
               <Stack.Group
                 screenOptions={{
@@ -154,5 +174,3 @@ function App(): React.JSX.Element {
     </SafeAreaView>
   );
 }
-
-export default App;

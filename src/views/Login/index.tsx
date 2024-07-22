@@ -1,13 +1,10 @@
 import Layout from './Layout.tsx';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AuthModel from '../../services/core/models/AuthModel.ts';
 import {EmailHelper} from '../../helpers/EmailHelper.ts';
 import {showMessage} from 'react-native-flash-message';
-import {IAuthService} from '../../services/core/interfaces/OauthServiceInterface.ts';
-import {TokenModel} from '../../services/core/models/TokenModel.ts';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {OAuthService} from '../../services/core/services/OauthService.ts';
+import {useAuthProfileContext} from '../../contexts/AuthProfileContext.tsx';
 
 export default function Login({
   navigation,
@@ -16,6 +13,8 @@ export default function Login({
     email: '',
     password: '',
   });
+
+  const useAuthProfile = useAuthProfileContext();
 
   function handleForm(text: string, key: string) {
     setAuthModel({...authModel, [key]: text});
@@ -34,8 +33,6 @@ export default function Login({
   }
 
   async function handleOnFormSubmit() {
-    const authServer: IAuthService = new OAuthService();
-
     if (!authModel.email || !authModel.password) {
       return showMessage({
         message: 'Falha ao entrar',
@@ -44,10 +41,8 @@ export default function Login({
       });
     }
 
-    authServer.token(authModel).then(async (token: TokenModel) => {
-      await AsyncStorage.setItem('session', JSON.stringify(token));
-      navigation.navigate('Main');
-    });
+    await useAuthProfile.signIn(authModel);
+    navigation.navigate('Main');
   }
 
   return (

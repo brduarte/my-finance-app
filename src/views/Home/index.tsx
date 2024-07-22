@@ -2,10 +2,18 @@ import React, {useEffect, useState} from 'react';
 import Layout from './Layout.tsx';
 import {TransactionsModel} from '../../services/core/models/Transactions.ts';
 import {useBottomSheet} from '../../contexts/BottomSheetContext.tsx';
+import {UserModel} from '../../services/core/models/UserModel.ts';
+import {useAuthProfileContext} from '../../contexts/AuthProfileContext.tsx';
 
 export default function Home(): React.JSX.Element {
   const [transactions, setTransactions] = useState<TransactionsModel[]>([]);
+  const [user, setUser] = useState<UserModel>();
   const bottomSheet = useBottomSheet();
+  const authSession = useAuthProfileContext();
+
+  useEffect(() => {
+    authSession.getProfile().then(response => setUser(response));
+  }, [authSession]);
 
   function redirectToWalletPage() {
     bottomSheet.open();
@@ -41,11 +49,7 @@ export default function Home(): React.JSX.Element {
 
   return (
     <Layout
-      resume={{
-        revenue: 13000,
-        balance: 9000,
-        expenditures: 4000,
-      }}
+      user={user}
       transactions={transactions}
       actionBtnCardTotalBalance={redirectToWalletPage}
     />
