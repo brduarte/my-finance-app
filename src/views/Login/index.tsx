@@ -1,5 +1,5 @@
 import Layout from './Layout.tsx';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import AuthModel from '../../services/core/models/AuthModel.ts';
 import {EmailHelper} from '../../helpers/EmailHelper.ts';
 import {showMessage} from 'react-native-flash-message';
