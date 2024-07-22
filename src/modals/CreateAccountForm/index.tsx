@@ -10,14 +10,14 @@ import {useNavigation} from '@react-navigation/native';
 export default function CreateAccountForm(): React.JSX.Element {
   const navigate = useNavigation();
 
-  const [amount, setAmount] = useState<string>();
+  const [amount, setAmount] = useState<string>('R$ 0,00');
   const [typeAccountId, setTypeAccountId] = useState<string>();
   const [firstDate, setFistDate] = useState<Date>(new Date());
   const [installments, setInstallments] = useState<number>(1);
   const [name, setName] = useState<string>();
 
   function handleInputValueChange(value: string) {
-    setAmount(value);
+    setAmount(MoneyHelper.stringToReal(value));
   }
 
   function handleInputTypeAccountChange(value: string) {
@@ -44,9 +44,10 @@ export default function CreateAccountForm(): React.JSX.Element {
     }
 
     try {
+      console.log('aqui', amount);
       await accountService.create({
         name: name,
-        amount: MoneyHelper.stringToInt(amount),
+        amount: MoneyHelper.brToInt(amount),
         dueDate: DateHelper.toUsa(firstDate),
         type: typeAccountId as AccountTypeEnum,
         recurrence: Number(installments),
@@ -56,14 +57,6 @@ export default function CreateAccountForm(): React.JSX.Element {
     } catch (e) {
       console.log(e);
     }
-
-    console.log({
-      name: name,
-      amount: MoneyHelper.stringToInt(amount),
-      dueDate: firstDate.toDateString(),
-      type: AccountTypeEnum.PAYABLE,
-      recurrence: Number(installments),
-    });
   }
 
   return (

@@ -66,9 +66,7 @@ export default function Layout({
           style={styles.inputMoney}
           placeholder={'0'}
           onChangeText={inputValue.handleInputValueChange}
-          value={MoneyHelper.stringToReal(
-            inputValue.value ? inputValue.value : '0',
-          )}
+          value={inputValue.value}
         />
       </View>
 

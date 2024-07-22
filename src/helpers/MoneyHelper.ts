@@ -15,10 +15,11 @@ export class MoneyHelper {
     });
   }
 
-  static stringToInt(value: string) {
-    const valueSerialize = Number(value.replace(/\D/g, ''));
+  static brToInt(value: string) {
+    let valueSerialize = value.replace(/R\$/, '').trim();
+    const number = Number(valueSerialize.replace(/\D/g, '.'));
 
-    return valueSerialize * 100;
+    return number * 100;
   }
 
   static intToDecimal(value: number = 0) {
