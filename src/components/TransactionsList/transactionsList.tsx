@@ -1,6 +1,6 @@
 import {View, Text, FlatList} from 'react-native';
 import {styles} from './styles';
-import {TransactionsModel} from '../../services/core/models/Transactions.ts';
+import {TransactionsModel} from '../../services/core/models/TransactionsModel.ts';
 import {TransactionTypeEnum} from '../../services/core/enums/TransactionTypeEnum.ts';
 import {MStyles} from '../../views/style';
 import React from 'react';

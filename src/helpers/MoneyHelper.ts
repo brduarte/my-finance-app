@@ -15,6 +15,12 @@ export class MoneyHelper {
     });
   }
 
+  static stringToInt(value: string) {
+    const valueSerialize = Number(value.replace(/\D/g, ''));
+
+    return valueSerialize * 100;
+  }
+
   static intToDecimal(value: number = 0) {
     return value > 0 ? value / 100 : value;
   }

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Layout from './Layout.tsx';
-import {TransactionsModel} from '../../services/core/models/Transactions.ts';
+import {TransactionsModel} from '../../services/core/models/TransactionsModel.ts';
 import {useBottomSheet} from '../../contexts/BottomSheetContext.tsx';
 import {UserModel} from '../../services/core/models/UserModel.ts';
 import {useAuthProfileContext} from '../../contexts/AuthProfileContext.tsx';

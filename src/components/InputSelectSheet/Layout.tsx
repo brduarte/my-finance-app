@@ -3,7 +3,6 @@ import {disabledStyles, styles} from './styles';
 import {FlatList, Text, TouchableOpacity, View} from 'react-native';
 import {LucideIcon, X} from 'lucide-react-native';
 import {MStyles} from '../../views/style';
-import {moderateScale} from '../../helpers/MetricsHelper.ts';
 import {ListRenderItemInfo} from '@react-native/virtualized-lists/Lists/VirtualizedList';
 import {useNavigation} from '@react-navigation/native';
 

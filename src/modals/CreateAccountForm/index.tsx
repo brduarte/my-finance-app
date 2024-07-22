@@ -1,14 +1,23 @@
 import React, {useState} from 'react';
 import Layout from './Layout.tsx';
+import {IAccountService} from '../../services/core/interfaces/AccountServiceInterface.ts';
+import {AccountService} from '../../services/core/services/AccountService.ts';
+import {AccountTypeEnum} from '../../services/core/enums/AccountTypeEnum.ts';
+import {MoneyHelper} from '../../helpers/MoneyHelper.ts';
+import {DateHelper} from '../../helpers/DateHelper.ts';
+import {useNavigation} from '@react-navigation/native';
 
 export default function CreateAccountForm(): React.JSX.Element {
-  const [value, setValue] = useState<string>();
+  const navigate = useNavigation();
+
+  const [amount, setAmount] = useState<string>();
   const [typeAccountId, setTypeAccountId] = useState<number>();
   const [firstDate, setFistDate] = useState<Date>(new Date());
   const [installments, setInstallments] = useState<number>(1);
+  const [name, setName] = useState<string>();
 
   function handleInputValueChange(value: string) {
-    setValue(value);
+    setAmount(value);
   }
 
   function handleInputTypeAccountChange(value: number) {
@@ -23,9 +32,52 @@ export default function CreateAccountForm(): React.JSX.Element {
     setInstallments(+value);
   }
 
+  function handleInputNameChange(value: string) {
+    setName(value);
+  }
+
+  async function handleSummit() {
+    const accountService: IAccountService = new AccountService();
+
+    if (!amount || !name) {
+      return;
+    }
+
+    try {
+      console.log({
+        name: name,
+        amount: MoneyHelper.stringToInt(amount),
+        dueDate: firstDate.toDateString(),
+        type: AccountTypeEnum.PAYABLE,
+        recurrence: Number(installments),
+      });
+
+      await accountService.create({
+        name: name,
+        amount: MoneyHelper.stringToInt(amount),
+        dueDate: DateHelper.toUsa(firstDate),
+        type: AccountTypeEnum.PAYABLE,
+        recurrence: Number(installments),
+      });
+
+      navigate.goBack();
+    } catch (e) {
+      console.log(e);
+    }
+
+    console.log({
+      name: name,
+      amount: MoneyHelper.stringToInt(amount),
+      dueDate: firstDate.toDateString(),
+      type: AccountTypeEnum.PAYABLE,
+      recurrence: Number(installments),
+    });
+  }
+
   return (
     <Layout
-      inputValue={{value, handleInputValueChange}}
+      handleSummit={handleSummit}
+      inputValue={{value: amount, handleInputValueChange}}
       inputDate={{
         value: firstDate,
         handleInputDateChange: handleInputFirstDate,
@@ -37,6 +89,10 @@ export default function CreateAccountForm(): React.JSX.Element {
       inputTypeAccount={{
         value: typeAccountId,
         handleInputTypeAccountChange,
+      }}
+      inputName={{
+        value: name,
+        handleInputNameChange,
       }}
     />
   );

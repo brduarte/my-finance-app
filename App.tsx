@@ -154,7 +154,7 @@ function App(): React.JSX.Element {
                 <Stack.Screen
                   name="CreateAccountForm"
                   options={{
-                    title: 'Novo Registro de Conta',
+                    title: 'Novo registro de conta',
                   }}
                   component={CreateAccountForm}
                 />

@@ -13,6 +13,10 @@ type LayoutProps = {
     handleInputValueChange: (value: string) => void;
     value?: string;
   };
+  inputName: {
+    handleInputNameChange: (value: any) => void;
+    value?: string;
+  };
   inputTypeAccount: {
     handleInputTypeAccountChange: (value: any) => void;
     value?: number;
@@ -25,6 +29,7 @@ type LayoutProps = {
     handleInputInstallmentChange: (value: string) => void;
     value?: string;
   };
+  handleSummit: () => void;
 };
 
 export default function Layout({
@@ -32,18 +37,20 @@ export default function Layout({
   inputTypeAccount,
   inputDate,
   inputInstallment,
+  inputName,
+  handleSummit,
 }: LayoutProps): React.JSX.Element {
   const optionsTypeAccount = [
     {
       name: 'A pagar',
-      value: 1,
+      value: 'PAYABLE',
       description:
         "Contas 'A pagar' irão criar uma ou mais transações de débito no seu extrato.",
       icon: BookDown,
     },
     {
       name: 'A receber',
-      value: 2,
+      value: 'RECEIVABLE',
       description:
         "Contas 'A receber' irão criar uma ou mais transações de crédito.",
       icon: BookUp,
@@ -67,7 +74,11 @@ export default function Layout({
 
       <View style={styles.session}>
         <Text style={styles.label}>Nome:</Text>
-        <Input placeholder={'Conta de Luz'} />
+        <Input
+          placeholder={'Conta de Luz'}
+          value={inputName.value}
+          onChangeText={inputName.handleInputNameChange}
+        />
       </View>
 
       <View style={styles.session}>
@@ -104,7 +115,7 @@ export default function Layout({
         </View>
       </View>
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleSummit}>
         <View style={styles.buttonConfirm}>
           <Text style={styles.buttonText}>Confirmar</Text>
         </View>

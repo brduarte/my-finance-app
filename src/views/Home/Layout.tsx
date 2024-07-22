@@ -4,7 +4,7 @@ import BalanceCard from './components/BalanceCard/BalanceCard.tsx';
 import {styles} from './styles';
 import {HeaderProfile} from '../../components/HeaderProfile';
 import {TransactionsList} from '../../components/TransactionsList/transactionsList.tsx';
-import {TransactionsModel} from '../../services/core/models/Transactions.ts';
+import {TransactionsModel} from '../../services/core/models/TransactionsModel.ts';
 import {ResumeCard} from './components/ResumeCard/ResumeCard.tsx';
 import {UserModel} from '../../services/core/models/UserModel.ts';
 import {MoneyHelper} from '../../helpers/MoneyHelper.ts';
