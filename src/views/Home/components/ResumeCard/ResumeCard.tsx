@@ -20,7 +20,7 @@ export function ResumeCard({
       borderRadius={9}
       style={styles.container}>
       <View style={styles.session}>
-        <ArrowDown
+        <ArrowUp
           strokeWidth={3}
           size={24}
           color={MStyles.colors.greenColor}
@@ -38,7 +38,7 @@ export function ResumeCard({
       </View>
       <Text style={styles.line} />
       <View style={styles.session}>
-        <ArrowUp
+        <ArrowDown
           strokeWidth={3}
           size={24}
           color={MStyles.colors.redColor}

@@ -53,6 +53,7 @@ function LoggedArea() {
           color: '#585858',
         },
         tabBarStyle: {
+          paddingBottom: verticalScale(5),
           paddingVertical: verticalScale(5),
         },
       }}>

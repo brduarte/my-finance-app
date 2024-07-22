@@ -5,7 +5,7 @@ import {moderateScale, verticalScale} from '../../../../helpers/MetricsHelper';
 
 export const styles = StyleSheet.create({
   container: {
-    marginBottom: verticalScale(16),
+    marginBottom: verticalScale(10),
     paddingHorizontal: verticalScale(16),
     paddingVertical: verticalScale(16),
   },
