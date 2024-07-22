@@ -5,6 +5,7 @@ import {TransactionTypeEnum} from '../../services/core/enums/TransactionTypeEnum
 import {MStyles} from '../../views/style';
 import React from 'react';
 import {ArrowDown, ArrowUp} from 'lucide-react-native';
+import {DateHelper} from '../../helpers/DateHelper.ts';
 
 type TransactionsListProps = {
   transactions: TransactionsModel[];
@@ -39,7 +40,9 @@ const Item = (transaction: TransactionsModel): React.JSX.Element => {
       <View style={styles.iconSession}>{icon}</View>
       <View style={styles.text}>
         <Text style={styles.itemTile}>{transaction.name}</Text>
-        <Text>{`${subText} 30/01/2025`}</Text>
+        <Text>{`${subText} ${DateHelper.toBr(
+          new Date(transaction.dueDate),
+        )}`}</Text>
       </View>
       <View style={styles.value}>
         <Text style={valueStyle}>{value}</Text>
@@ -59,10 +62,11 @@ export function TransactionsList({
           type={item.type}
           name={item.name}
           amount={item.amount}
+          dueDate={item.dueDate}
           id={item.id}
         />
       )}
-      keyExtractor={item => item.id}
+      keyExtractor={item => item.name}
     />
   );
 }

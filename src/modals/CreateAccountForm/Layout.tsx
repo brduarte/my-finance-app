@@ -19,7 +19,7 @@ type LayoutProps = {
   };
   inputTypeAccount: {
     handleInputTypeAccountChange: (value: any) => void;
-    value?: number;
+    value?: string;
   };
   inputDate: {
     handleInputDateChange: (value: any) => void;

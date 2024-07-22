@@ -11,7 +11,7 @@ export default function CreateAccountForm(): React.JSX.Element {
   const navigate = useNavigation();
 
   const [amount, setAmount] = useState<string>();
-  const [typeAccountId, setTypeAccountId] = useState<number>();
+  const [typeAccountId, setTypeAccountId] = useState<string>();
   const [firstDate, setFistDate] = useState<Date>(new Date());
   const [installments, setInstallments] = useState<number>(1);
   const [name, setName] = useState<string>();
@@ -20,7 +20,7 @@ export default function CreateAccountForm(): React.JSX.Element {
     setAmount(value);
   }
 
-  function handleInputTypeAccountChange(value: number) {
+  function handleInputTypeAccountChange(value: string) {
     setTypeAccountId(value);
   }
 
@@ -39,24 +39,16 @@ export default function CreateAccountForm(): React.JSX.Element {
   async function handleSummit() {
     const accountService: IAccountService = new AccountService();
 
-    if (!amount || !name) {
+    if (!amount || !name || !typeAccountId) {
       return;
     }
 
     try {
-      console.log({
-        name: name,
-        amount: MoneyHelper.stringToInt(amount),
-        dueDate: firstDate.toDateString(),
-        type: AccountTypeEnum.PAYABLE,
-        recurrence: Number(installments),
-      });
-
       await accountService.create({
         name: name,
         amount: MoneyHelper.stringToInt(amount),
         dueDate: DateHelper.toUsa(firstDate),
-        type: AccountTypeEnum.PAYABLE,
+        type: typeAccountId as AccountTypeEnum,
         recurrence: Number(installments),
       });
 
