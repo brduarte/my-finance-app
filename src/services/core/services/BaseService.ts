@@ -6,7 +6,7 @@ import {TokenModel} from '../models/TokenModel.ts';
 export abstract class BaseService {
   public request() {
     const client = axios.create({
-      baseURL: 'http://172.17.137.224:3005',
+      baseURL: 'https://2olroskl47.execute-api.us-east-1.amazonaws.com/hml',
     });
 
     client.interceptors.request.use(
