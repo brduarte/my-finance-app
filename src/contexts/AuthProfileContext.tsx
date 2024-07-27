@@ -35,7 +35,9 @@ export function AuthProfileProvider({children}: AuthProfileContextProps) {
     AsyncStorage.getItem('jwt-key')
       .then(response => {
         if (response) {
-          setIsLogged(true);
+          getProfile().then(() => {
+            setIsLogged(true);
+          });
         } else {
           setIsLogged(false);
         }

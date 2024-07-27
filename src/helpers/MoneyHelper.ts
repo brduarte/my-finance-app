@@ -16,9 +16,8 @@ export class MoneyHelper {
   }
 
   static brToInt(value: string) {
-    let valueSerialize = value.replace(/R\$/, '').trim();
+    let valueSerialize = value.replace(/[R$.,]+/g, '').trim();
     const number = Number(valueSerialize.replace(/\D/g, '.'));
-
     return number * 100;
   }
 
