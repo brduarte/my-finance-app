@@ -6,7 +6,6 @@
  */
 
 import React from 'react';
-import {SafeAreaView} from 'react-native';
 import {MStyles} from './src/views/style';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import Onboarding from './src/views/Onboarding';
@@ -15,8 +14,7 @@ import Login from './src/views/Login';
 import FlashMessage from 'react-native-flash-message';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from './src/views/Home';
-import {HomeIcon, PlusIcon, X} from 'lucide-react-native';
-import CreateAccountForm from './src/modals/CreateAccountForm';
+import {HomeIcon, PlusIcon} from 'lucide-react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {BottomSheetProvider} from './src/contexts/BottomSheetContext.tsx';
 import {ModalSheet} from './src/components/ModalSheet';
@@ -26,11 +24,11 @@ import {
   verticalScale,
 } from './src/helpers/MetricsHelper.ts';
 import InputSelectModal from './src/modals/InputSelectModal';
-import {ModalHeader} from './src/navigate/modal/ModalHeader.tsx';
 import {
   AuthProfileProvider,
   useAuthProfileContext,
 } from './src/contexts/AuthProfileContext.tsx';
+import CreateAccountForm from './src/modals/CreateAccountForm';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -53,7 +51,6 @@ function LoggedArea() {
           color: '#585858',
         },
         tabBarStyle: {
-          paddingBottom: verticalScale(5),
           paddingVertical: verticalScale(5),
         },
       }}>
@@ -108,7 +105,10 @@ function LoggedArea() {
 export function Main(): React.JSX.Element {
   return (
     <AuthProfileProvider>
-      <App />
+      <NavigationContainer theme={MyTheme}>
+        <App />
+      </NavigationContainer>
+      <FlashMessage accessible={true} position="top" />
     </AuthProfileProvider>
   );
 }
@@ -117,61 +117,55 @@ function App(): React.JSX.Element {
   const useAuth = useAuthProfileContext();
 
   return (
-    <SafeAreaView
+    <GestureHandlerRootView
       style={{
         flex: 1,
-        backgroundColor: MStyles.colors.whiteColor,
       }}>
-      <GestureHandlerRootView style={{flex: 1}}>
-        <BottomSheetProvider>
-          <NavigationContainer theme={MyTheme}>
-            <Stack.Navigator
-              initialRouteName="Onboarding"
-              screenOptions={{
-                headerShown: false,
-              }}>
-              <Stack.Group>
-                {useAuth.isLogged() ? (
-                  <Stack.Screen name="Main" component={LoggedArea} />
-                ) : (
-                  <>
-                    <Stack.Screen name="Onboarding" component={Onboarding} />
-                    <Stack.Screen name="Login" component={Login} />
-                    <Stack.Screen name="Main" component={LoggedArea} />
-                  </>
-                )}
-              </Stack.Group>
-              <Stack.Group
-                screenOptions={{
-                  presentation: 'modal',
-                  animation: 'slide_from_bottom',
-                  headerShown: true,
-                  headerShadowVisible: false,
-                  headerBackTitleVisible: false,
-                  headerBackVisible: false,
-                  headerTitle: ModalHeader,
-                }}>
+      <BottomSheetProvider>
+        <Stack.Navigator
+          initialRouteName="Onboarding"
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <Stack.Group>
+            {useAuth.isLogged() ? (
+              <>
+                <Stack.Screen name="Main" component={LoggedArea} />
                 <Stack.Screen
-                  name="CreateAccountForm"
                   options={{
-                    title: 'Novo registro de conta',
+                    animation: 'slide_from_bottom',
                   }}
+                  name="CreateAccountForm"
                   component={CreateAccountForm}
                 />
-                <Stack.Screen
-                  options={{
-                    headerShadowVisible: false,
-                  }}
-                  name="InputSelectModal"
-                  component={InputSelectModal}
-                />
-              </Stack.Group>
-            </Stack.Navigator>
-          </NavigationContainer>
-          <ModalSheet />
-        </BottomSheetProvider>
-      </GestureHandlerRootView>
-      <FlashMessage accessible={true} position="top" />
-    </SafeAreaView>
+              </>
+            ) : (
+              <>
+                <Stack.Screen name="Onboarding" component={Onboarding} />
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="Main" component={LoggedArea} />
+              </>
+            )}
+          </Stack.Group>
+          <Stack.Group
+            screenOptions={{
+              presentation: 'modal',
+              animation: 'slide_from_bottom',
+              headerShown: false,
+            }}>
+            <Stack.Screen
+              options={{
+                headerShown: false,
+                headerShadowVisible: false,
+              }}
+              name="InputSelectModal"
+              component={InputSelectModal}
+            />
+          </Stack.Group>
+        </Stack.Navigator>
+
+        <ModalSheet />
+      </BottomSheetProvider>
+    </GestureHandlerRootView>
   );
 }

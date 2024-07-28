@@ -44,7 +44,6 @@ export default function CreateAccountForm(): React.JSX.Element {
     }
 
     try {
-      console.log('aqui', amount);
       await accountService.create({
         name: name,
         amount: MoneyHelper.brToInt(amount),

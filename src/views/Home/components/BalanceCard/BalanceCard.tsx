@@ -31,13 +31,13 @@ export default function BalanceCard(
       <TouchableOpacity onPress={props.action}>
         <View style={styles.walletBottom}>
           <Text style={styles.walletBottomText}>Minha Carteira</Text>
-          <Text style={styles.icon}>
+          <View style={styles.icon}>
             <ArrowRight
               size={moderateScale(25)}
               color={MStyles.colors.blackColor}
               strokeWidth={3}
             />
-          </Text>
+          </View>
         </View>
       </TouchableOpacity>
     </ImageBackground>

@@ -9,6 +9,7 @@ import {ResumeCard} from './components/ResumeCard/ResumeCard.tsx';
 import {UserModel} from '../../services/core/models/UserModel.ts';
 import {MoneyHelper} from '../../helpers/MoneyHelper.ts';
 import {MStyles} from '../style';
+import {SafeAreaView} from '../../components/SafeAreaView/SafeAreaView.tsx';
 
 type Props = {
   user?: UserModel;
@@ -57,22 +58,24 @@ export default function Layout({
         backgroundColor={MStyles.colors.whiteColor}
         barStyle={'dark-content'}
       />
-      <View style={styles.container}>
-        <SectionList
-          refreshing={true}
-          refreshControl={refreshControl}
-          sections={DATA}
-          keyExtractor={(item, index) => index + index.toString()}
-          renderItem={({item}) => <>{item}</>}
-          renderSectionHeader={({section: {title}}) => {
-            return title ? (
-              <Text style={styles.sessionTitle}>{title}</Text>
-            ) : (
-              <></>
-            );
-          }}
-        />
-      </View>
+      <SafeAreaView>
+        <View style={styles.container}>
+          <SectionList
+            refreshing={true}
+            refreshControl={refreshControl}
+            sections={DATA}
+            keyExtractor={(item, index) => index + index.toString()}
+            renderItem={({item}) => <>{item}</>}
+            renderSectionHeader={({section: {title}}) => {
+              return title ? (
+                <Text style={styles.sessionTitle}>{title}</Text>
+              ) : (
+                <></>
+              );
+            }}
+          />
+        </View>
+      </SafeAreaView>
     </>
   );
 }

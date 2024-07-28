@@ -28,26 +28,24 @@ export const styles = StyleSheet.create({
     borderColor: MStyles.colors.greyColor,
   },
   selectItemText: {
+    flex: 1,
     color: MStyles.colors.blackColor,
     fontFamily: MStyles.fontFamilyInterSemiBold,
   },
   selectItemTag: {
-    flex: 1,
-    alignItems: 'flex-end',
+    alignSelf: 'center',
     fontFamily: MStyles.fontFamilyInterSemiBold,
+    borderRadius: 20,
+    backgroundColor: '#d5d1d1',
   },
   selectItemTagText: {
     color: MStyles.colors.blackColor,
     fontFamily: MStyles.fontFamilyInterSemiBold,
     paddingHorizontal: horizontalScale(15),
     paddingVertical: horizontalScale(8),
-    borderRadius: 20,
-    backgroundColor: '#d5d1d1',
   },
   // Option Elment
-  selectOptionItemContainer: {
-    paddingHorizontal: MStyles.padding.horizontal,
-  },
+  selectOptionItemContainer: {},
   selectOptionItem: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -107,18 +105,18 @@ export const disabledStyles = StyleSheet.create({
     fontSize: moderateScale(12, 0.5),
     color: '#a0a0a0',
     fontFamily: MStyles.fontFamilyInterSemiBold,
+    flex: 1,
   },
   selectItemTag: {
-    flex: 1,
-    alignItems: 'flex-end',
+    alignSelf: 'center',
     fontFamily: MStyles.fontFamilyInterSemiBold,
+    backgroundColor: '#d5d1d1',
+    borderRadius: 20,
   },
   selectItemTagText: {
     color: MStyles.colors.blackColor,
     fontFamily: MStyles.fontFamilyInterSemiBold,
     paddingHorizontal: horizontalScale(15),
     paddingVertical: horizontalScale(8),
-    borderRadius: 20,
-    backgroundColor: '#d5d1d1',
   },
 });

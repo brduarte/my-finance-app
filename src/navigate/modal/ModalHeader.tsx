@@ -6,10 +6,10 @@ import {useNavigation} from '@react-navigation/native';
 import {styles} from './styles';
 
 type ModalHeaderProps = {
-  children?: React.ReactNode;
+  title?: string;
 };
 
-export function ModalHeader({children}: ModalHeaderProps): React.JSX.Element {
+export function ModalHeader({title}: ModalHeaderProps): React.JSX.Element {
   const navigation = useNavigation();
 
   return (
@@ -17,7 +17,7 @@ export function ModalHeader({children}: ModalHeaderProps): React.JSX.Element {
       <TouchableOpacity style={styles.backButton} onPress={navigation.goBack}>
         <X color={MStyles.colors.greyColor} strokeWidth={2.5} />
       </TouchableOpacity>
-      {children ? <Text style={styles.title}>{children}</Text> : <></>}
+      {title ? <Text style={styles.title}>{title}</Text> : <></>}
     </View>
   );
 }

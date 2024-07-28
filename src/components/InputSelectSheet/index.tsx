@@ -17,7 +17,7 @@ type SelectSheetProps = {
 };
 
 export type RootStackParamList = {
-  InputSelectModal: {component: React.JSX.Element};
+  InputSelectModal: {component: React.JSX.Element; title: string};
 };
 
 export function SelectSheet({
@@ -31,6 +31,7 @@ export function SelectSheet({
 
   function onPress() {
     navigation.navigate('InputSelectModal', {
+      title: 'Escolha o tipo de conta?',
       component: (
         <LayoutOptionsList optionsList={optionsList} onSelect={onSelect} />
       ),

@@ -7,6 +7,8 @@ import {MoneyHelper} from '../../helpers/MoneyHelper.ts';
 import {SelectSheet} from '../../components/InputSelectSheet';
 import {BookDown, BookUp, X} from 'lucide-react-native';
 import {InputDateSheet} from '../../components/InputDateSheet';
+import {ModalHeader} from '../../navigate/modal/ModalHeader.tsx';
+import {SafeAreaView} from '../../components/SafeAreaView/SafeAreaView.tsx';
 
 type LayoutProps = {
   inputValue: {
@@ -58,66 +60,72 @@ export default function Layout({
   ];
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.session}>
-        <Text style={styles.label}>Valor da conta:</Text>
-        <Input
-          keyboardType={'numeric'}
-          style={styles.inputMoney}
-          placeholder={'0'}
-          onChangeText={inputValue.handleInputValueChange}
-          value={inputValue.value}
-        />
-      </View>
+    <SafeAreaView>
+      <View style={styles.container}>
+        <ModalHeader title={'Novo registro de conta'} />
 
-      <View style={styles.session}>
-        <Text style={styles.label}>Nome:</Text>
-        <Input
-          placeholder={'Conta de Luz'}
-          value={inputName.value}
-          onChangeText={inputName.handleInputNameChange}
-        />
-      </View>
+        <ScrollView>
+          <View style={styles.session}>
+            <Text style={styles.label}>Valor da conta:</Text>
+            <Input
+              keyboardType={'numeric'}
+              style={styles.inputMoney}
+              placeholder={'0'}
+              onChangeText={inputValue.handleInputValueChange}
+              value={inputValue.value}
+            />
+          </View>
 
-      <View style={styles.session}>
-        <Text style={styles.label}>Tipo de conta:</Text>
-        <SelectSheet
-          optionsList={optionsTypeAccount}
-          value={inputTypeAccount.value}
-          onSelect={inputTypeAccount.handleInputTypeAccountChange}
-          noSelectedValue={{
-            text: 'Escolha uma opção',
-            icon: X,
-          }}
-        />
-      </View>
+          <View style={styles.session}>
+            <Text style={styles.label}>Nome:</Text>
+            <Input
+              placeholder={'Conta de Luz'}
+              value={inputName.value}
+              onChangeText={inputName.handleInputNameChange}
+            />
+          </View>
 
-      <View style={styles.sessionColum}>
-        <View style={{flex: 1}}>
-          <Text style={styles.label}>Parcelas:</Text>
-          <Input
-            maxLength={4}
-            keyboardType="numeric"
-            placeholder={'1'}
-            value={inputInstallment.value}
-            onChangeText={inputInstallment.handleInputInstallmentChange}
-          />
-        </View>
-        <View style={{flex: 3, marginLeft: 5}}>
-          <Text style={styles.label}>Primeiro pagamento em:</Text>
-          <InputDateSheet
-            placeholder={new Date()}
-            value={inputDate.value}
-            onChange={inputDate.handleInputDateChange}
-          />
-        </View>
-      </View>
+          <View style={styles.session}>
+            <Text style={styles.label}>Tipo de conta:</Text>
+            <SelectSheet
+              optionsList={optionsTypeAccount}
+              value={inputTypeAccount.value}
+              onSelect={inputTypeAccount.handleInputTypeAccountChange}
+              noSelectedValue={{
+                text: 'Escolha uma opção',
+                icon: X,
+              }}
+            />
+          </View>
 
-      <TouchableOpacity onPress={handleSummit}>
-        <View style={styles.buttonConfirm}>
-          <Text style={styles.buttonText}>Confirmar</Text>
-        </View>
-      </TouchableOpacity>
-    </ScrollView>
+          <View style={styles.sessionColum}>
+            <View style={{flex: 1}}>
+              <Text style={styles.label}>Parcelas:</Text>
+              <Input
+                maxLength={4}
+                keyboardType="numeric"
+                placeholder={'1'}
+                value={inputInstallment.value}
+                onChangeText={inputInstallment.handleInputInstallmentChange}
+              />
+            </View>
+            <View style={{flex: 3, marginLeft: 5}}>
+              <Text style={styles.label}>Primeiro pagamento em:</Text>
+              <InputDateSheet
+                placeholder={new Date()}
+                value={inputDate.value}
+                onChange={inputDate.handleInputDateChange}
+              />
+            </View>
+          </View>
+
+          <TouchableOpacity onPress={handleSummit}>
+            <View style={styles.buttonConfirm}>
+              <Text style={styles.buttonText}>Confirmar</Text>
+            </View>
+          </TouchableOpacity>
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   );
 }

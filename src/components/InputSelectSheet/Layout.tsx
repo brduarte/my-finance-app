@@ -69,9 +69,6 @@ export function LayoutOptionsList({
   onSelect,
 }: LayoutOptionsListProps) {
   const navigation = useNavigation();
-  navigation.setOptions({
-    title: 'Escolha o tipo de conta?',
-  });
 
   return (
     <View style={styles.selectOptionItemContainer}>
