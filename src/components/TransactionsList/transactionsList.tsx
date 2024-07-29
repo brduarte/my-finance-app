@@ -64,7 +64,7 @@ export function TransactionsList({
           id={item.id}
         />
       )}
-      keyExtractor={item => item.name}
+      keyExtractor={(item, index) => (item.id ? item.id : index.toString())}
     />
   );
 }
