@@ -29,6 +29,11 @@ import {
   useAuthProfileContext,
 } from './src/contexts/AuthProfileContext.tsx';
 import CreateAccountForm from './src/modals/CreateAccountForm';
+import {ActivityIndicator} from './src/components/ActivityIndicator/ActivityIndicator.tsx';
+import {
+  ActiveIndicatorProvider,
+  useActiveIndicator,
+} from './src/contexts/ActiveIndicatorContext.tsx';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -104,17 +109,20 @@ function LoggedArea() {
 
 export function Main(): React.JSX.Element {
   return (
-    <AuthProfileProvider>
-      <NavigationContainer theme={MyTheme}>
-        <App />
-      </NavigationContainer>
-      <FlashMessage accessible={true} position="top" />
-    </AuthProfileProvider>
+    <ActiveIndicatorProvider>
+      <AuthProfileProvider>
+        <NavigationContainer theme={MyTheme}>
+          <App />
+        </NavigationContainer>
+        <FlashMessage accessible={true} position="top" />
+      </AuthProfileProvider>
+    </ActiveIndicatorProvider>
   );
 }
 
 function App(): React.JSX.Element {
   const useAuth = useAuthProfileContext();
+  const activeIndicator = useActiveIndicator();
 
   return (
     <GestureHandlerRootView
@@ -122,6 +130,8 @@ function App(): React.JSX.Element {
         flex: 1,
       }}>
       <BottomSheetProvider>
+        {activeIndicator.isActive() ? <ActivityIndicator /> : <></>}
+
         <Stack.Navigator
           initialRouteName="Onboarding"
           screenOptions={{

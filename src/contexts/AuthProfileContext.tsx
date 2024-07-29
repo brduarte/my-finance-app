@@ -13,6 +13,7 @@ import {TokenModel} from '../services/core/models/TokenModel.ts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ProfileService} from '../services/core/services/ProfileService.ts';
 import {IProfileService} from '../services/core/interfaces/ProfileServiceInterface.ts';
+import {useActiveIndicator} from './ActiveIndicatorContext.tsx';
 
 type IAuthProfileContext = {
   getProfile: () => Promise<UserModel>;
@@ -30,19 +31,22 @@ const AuthProfileContext = createContext<IAuthProfileContext>(
 
 export function AuthProfileProvider({children}: AuthProfileContextProps) {
   const [logged, setIsLogged] = useState(false);
+  const activeIndicator = useActiveIndicator();
 
   useEffect(() => {
+    activeIndicator.active();
+
     AsyncStorage.getItem('jwt-key')
       .then(response => {
         if (response) {
           getProfile().then(() => {
+            activeIndicator.disabled();
             setIsLogged(true);
           });
-        } else {
-          setIsLogged(false);
         }
       })
-      .catch(() => {
+      .finally(() => {
+        activeIndicator.disabled();
         setIsLogged(false);
       });
   }, []);
