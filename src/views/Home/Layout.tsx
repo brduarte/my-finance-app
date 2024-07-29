@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SectionList, StatusBar, Text, View} from 'react-native';
 import BalanceCard from './components/BalanceCard/BalanceCard.tsx';
 import {styles} from './styles';
@@ -15,6 +15,7 @@ type Props = {
   refreshControl?: React.JSX.Element;
   transactions: TransactionsModel[];
   actionBtnCardTotalBalance: () => void;
+  navigation?: any;
 };
 
 export default function Layout({

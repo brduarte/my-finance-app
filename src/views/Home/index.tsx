@@ -7,6 +7,7 @@ import {useAuthProfileContext} from '../../contexts/AuthProfileContext.tsx';
 import {RefreshControl} from 'react-native';
 import {ITransactionService} from '../../services/core/interfaces/TransactionServiceInterface.ts';
 import {TransactionService} from '../../services/core/services/TransactionService.ts';
+import {useFocusEffect} from '@react-navigation/native';
 
 export default function Home(): React.JSX.Element {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -18,15 +19,15 @@ export default function Home(): React.JSX.Element {
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
-
     await Promise.all([loadProfile(), loadTransactions()]);
-
     setRefreshing(false);
   }, []);
 
-  useEffect(() => {
-    Promise.all([loadTransactions(), loadProfile()]).finally(() => {});
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      Promise.all([loadTransactions(), loadProfile()]).finally(() => {});
+    }, []),
+  );
 
   function redirectToWalletPage() {
     bottomSheet.open();
@@ -34,7 +35,7 @@ export default function Home(): React.JSX.Element {
 
   async function loadTransactions() {
     const transactionService: ITransactionService = new TransactionService();
-    const transactions = await transactionService.getAll();
+    const transactions: TransactionsModel[] = await transactionService.getAll();
 
     setTransactions(transactions);
   }
