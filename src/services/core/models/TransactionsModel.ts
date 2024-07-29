@@ -1,5 +1,6 @@
 import {TransactionStatusEnum} from '../enums/TransactionStatusEnum.ts';
 import {TransactionTypeEnum} from '../enums/TransactionTypeEnum.ts';
+import {AccountModel} from './AccountModel.ts';
 
 export interface TransactionsModel {
   id?: string;
@@ -8,4 +9,6 @@ export interface TransactionsModel {
   type: TransactionTypeEnum;
   dueDate: string;
   status?: TransactionStatusEnum;
+
+  account?: AccountModel;
 }

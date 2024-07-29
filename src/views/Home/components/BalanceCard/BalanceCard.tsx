@@ -7,7 +7,7 @@ import {MoneyHelper} from '../../../../helpers/MoneyHelper.ts';
 import {moderateScale} from '../../../../helpers/MetricsHelper.ts';
 
 type BalanceCardProps = {
-  total: number;
+  total?: number;
   action?: () => void;
 };
 
@@ -22,11 +22,7 @@ export default function BalanceCard(
       style={styles.container}>
       <Text style={styles.cardTitle}>Saldo Total</Text>
 
-      <Text style={styles.value}>
-        {props.total
-          ? MoneyHelper.intToReal(props.total)
-          : MoneyHelper.intToReal(0)}
-      </Text>
+      <Text style={styles.value}>{MoneyHelper.intToReal(props.total)}</Text>
 
       <TouchableOpacity onPress={props.action}>
         <View style={styles.walletBottom}>

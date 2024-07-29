@@ -6,6 +6,7 @@ import {MStyles} from '../../views/style';
 import React from 'react';
 import {ArrowDown, ArrowUp} from 'lucide-react-native';
 import {DateHelper} from '../../helpers/DateHelper.ts';
+import {MoneyHelper} from '../../helpers/MoneyHelper.ts';
 
 type TransactionsListProps = {
   transactions: TransactionsModel[];
@@ -14,10 +15,7 @@ type TransactionsListProps = {
 const Item = (transaction: TransactionsModel): React.JSX.Element => {
   let valueStyle = {...styles.valueText, color: MStyles.colors.greenColor};
   let subText = 'Recebe em:';
-  let value = transaction.amount.toLocaleString('pt-br', {
-    style: 'currency',
-    currency: 'BRL',
-  });
+  let value = MoneyHelper.intToReal(transaction.amount);
 
   let icon: React.JSX.Element = (
     <ArrowUp strokeWidth={2.5} size={24} color={MStyles.colors.blackColor} />
@@ -60,7 +58,7 @@ export function TransactionsList({
       renderItem={({item}) => (
         <Item
           type={item.type}
-          name={item.name}
+          name={item.account ? item.account.name : ''}
           amount={item.amount}
           dueDate={item.dueDate}
           id={item.id}

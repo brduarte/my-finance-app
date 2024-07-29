@@ -9,7 +9,7 @@ export class MoneyHelper {
   }
 
   static intToReal(value: number = 0) {
-    return value.toLocaleString('pt-br', {
+    return (value !== 0 ? value / 100 : value).toLocaleString('pt-br', {
       style: 'currency',
       currency: 'BRL',
     });

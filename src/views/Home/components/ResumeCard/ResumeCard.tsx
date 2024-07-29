@@ -3,10 +3,11 @@ import {ImageBackground, Text, View} from 'react-native';
 import {styles} from './styles';
 import {MStyles} from '../../../style';
 import {ArrowDown, ArrowUp} from 'lucide-react-native';
+import {MoneyHelper} from '../../../../helpers/MoneyHelper.ts';
 
 type ResumeCardProps = {
-  revenue: number;
-  expenditure: number;
+  revenue?: number;
+  expenditure?: number;
 };
 
 export function ResumeCard({
@@ -28,12 +29,7 @@ export function ResumeCard({
         />
         <View>
           <Text style={styles.title}>Receita</Text>
-          <Text style={styles.text}>
-            {revenue.toLocaleString('pt-br', {
-              style: 'currency',
-              currency: 'BRL',
-            })}
-          </Text>
+          <Text style={styles.text}>{MoneyHelper.intToReal(revenue)}</Text>
         </View>
       </View>
       <Text style={styles.line} />
@@ -46,12 +42,7 @@ export function ResumeCard({
         />
         <View>
           <Text style={styles.title}>Despesa</Text>
-          <Text style={styles.text}>
-            {expenditure.toLocaleString('pt-br', {
-              style: 'currency',
-              currency: 'BRL',
-            })}
-          </Text>
+          <Text style={styles.text}>{MoneyHelper.intToReal(expenditure)}</Text>
         </View>
       </View>
     </ImageBackground>

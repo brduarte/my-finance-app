@@ -7,7 +7,6 @@ import {TransactionsList} from '../../components/TransactionsList/transactionsLi
 import {TransactionsModel} from '../../services/core/models/TransactionsModel.ts';
 import {ResumeCard} from './components/ResumeCard/ResumeCard.tsx';
 import {UserModel} from '../../services/core/models/UserModel.ts';
-import {MoneyHelper} from '../../helpers/MoneyHelper.ts';
 import {MStyles} from '../style';
 import {SafeAreaView} from '../../components/SafeAreaView/SafeAreaView.tsx';
 
@@ -32,12 +31,12 @@ export default function Layout({
       data: [
         <View style={styles.session}>
           <BalanceCard
-            total={MoneyHelper.intToDecimal(user?.resume.balance)}
+            total={user?.resume.balance}
             action={actionBtnCardTotalBalance}
           />
           <ResumeCard
-            revenue={MoneyHelper.intToDecimal(user?.resume.revenue)}
-            expenditure={MoneyHelper.intToDecimal(user?.resume.expenses)}
+            revenue={user?.resume.revenue}
+            expenditure={user?.resume.expenses}
           />
         </View>,
       ],
