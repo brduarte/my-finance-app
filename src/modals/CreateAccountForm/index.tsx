@@ -6,6 +6,7 @@ import {AccountTypeEnum} from '../../services/core/enums/AccountTypeEnum.ts';
 import {MoneyHelper} from '../../helpers/MoneyHelper.ts';
 import {DateHelper} from '../../helpers/DateHelper.ts';
 import {useNavigation} from '@react-navigation/native';
+import {useActiveIndicator} from '../../contexts/ActiveIndicatorContext.tsx';
 
 export default function CreateAccountForm(): React.JSX.Element {
   const navigate = useNavigation();
@@ -15,6 +16,8 @@ export default function CreateAccountForm(): React.JSX.Element {
   const [firstDate, setFistDate] = useState<Date>(new Date());
   const [installments, setInstallments] = useState<number>(1);
   const [name, setName] = useState<string>();
+
+  const activeIndicator = useActiveIndicator();
 
   function handleInputValueChange(value: string) {
     setAmount(MoneyHelper.stringToReal(value));
@@ -37,6 +40,8 @@ export default function CreateAccountForm(): React.JSX.Element {
   }
 
   async function handleSummit() {
+    activeIndicator.active();
+
     const accountService: IAccountService = new AccountService();
 
     if (!amount || !name || !typeAccountId) {
@@ -55,6 +60,8 @@ export default function CreateAccountForm(): React.JSX.Element {
       navigate.goBack();
     } catch (e) {
       console.log(e);
+    } finally {
+      activeIndicator.disabled();
     }
   }
 

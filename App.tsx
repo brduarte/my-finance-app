@@ -125,19 +125,13 @@ function App(): React.JSX.Element {
   const useAuth = useAuthProfileContext();
   const activeIndicator = useActiveIndicator();
 
-  const [active, setActive] = useState<boolean>(false);
-
-  useEffect(() => {
-    setActive(activeIndicator.isActive());
-  }, [activeIndicator]);
-
   return (
     <GestureHandlerRootView
       style={{
         flex: 1,
       }}>
       <BottomSheetProvider>
-        {active ? <ActivityIndicator /> : <></>}
+        {activeIndicator.isActive() ? <ActivityIndicator /> : <></>}
 
         <Stack.Navigator
           initialRouteName="Onboarding"
