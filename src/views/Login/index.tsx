@@ -5,6 +5,7 @@ import {EmailHelper} from '../../helpers/EmailHelper.ts';
 import {showMessage} from 'react-native-flash-message';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useAuthProfileContext} from '../../contexts/AuthProfileContext.tsx';
+import {useActiveIndicator} from '../../contexts/ActiveIndicatorContext.tsx';
 
 export default function Login({
   navigation,
@@ -15,6 +16,7 @@ export default function Login({
   });
 
   const useAuthProfile = useAuthProfileContext();
+  const activeIndicator = useActiveIndicator();
 
   function handleForm(text: string, key: string) {
     setAuthModel({...authModel, [key]: text});
@@ -33,6 +35,7 @@ export default function Login({
   }
 
   async function handleOnFormSubmit() {
+    activeIndicator.active();
     if (!authModel.email || !authModel.password) {
       return showMessage({
         message: 'Falha ao entrar',
@@ -42,6 +45,7 @@ export default function Login({
     }
 
     await useAuthProfile.signIn(authModel);
+    activeIndicator.disabled();
     navigation.navigate('Main');
   }
 
