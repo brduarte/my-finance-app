@@ -11,7 +11,7 @@
     "test": "jest",
     "install:device": "adb install -r .\\android\\app\\build\\outputs\\apk\\release\\app-release.apk",
     "build:android": "npx react-native build-android --mode=release",
-    "build:android:apk": " ./gradlew assembleRelease",
+    "build:android:apk": " cd android && ./gradlew assembleRelease && cd ..",
     "install:ios": "cd ios && pod install && cd .."
   },
   "dependencies": {
