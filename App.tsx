@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {MStyles} from './src/views/style';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import Onboarding from './src/views/Onboarding';
@@ -34,6 +34,7 @@ import {
   ActiveIndicatorProvider,
   useActiveIndicator,
 } from './src/contexts/ActiveIndicatorContext.tsx';
+import AuthModel from './src/services/core/models/AuthModel.ts';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -124,13 +125,19 @@ function App(): React.JSX.Element {
   const useAuth = useAuthProfileContext();
   const activeIndicator = useActiveIndicator();
 
+  const [active, setActive] = useState<boolean>(false);
+
+  useEffect(() => {
+    setActive(activeIndicator.isActive());
+  }, [activeIndicator]);
+
   return (
     <GestureHandlerRootView
       style={{
         flex: 1,
       }}>
       <BottomSheetProvider>
-        {activeIndicator.isActive() ? <ActivityIndicator /> : <></>}
+        {active ? <ActivityIndicator /> : <></>}
 
         <Stack.Navigator
           initialRouteName="Onboarding"
