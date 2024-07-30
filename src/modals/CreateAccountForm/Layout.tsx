@@ -62,7 +62,7 @@ export default function Layout({
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <ModalHeader title={'Novo registro de conta'} />
+        <ModalHeader title={'Novo registro de conta'} icon={'arrow-back'} />
 
         <ScrollView>
           <View style={styles.session}>

@@ -12,7 +12,7 @@ export default function InputSelectModal({
 }: InputSelectModal): React.JSX.Element {
   return (
     <View style={styles.container}>
-      <ModalHeader title={route.params.title} />
+      <ModalHeader title={route.params.title} icon={'exit'} />
       {route.params.component ? route.params.component : <></>}
     </View>
   );
