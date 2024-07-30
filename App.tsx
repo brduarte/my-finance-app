@@ -14,7 +14,7 @@ import Login from './src/views/Login';
 import FlashMessage from 'react-native-flash-message';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from './src/views/Home';
-import {HomeIcon, PlusIcon} from 'lucide-react-native';
+import {HomeIcon, ListChecks, PlusIcon} from 'lucide-react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {BottomSheetProvider} from './src/contexts/BottomSheetContext.tsx';
 import {ModalSheet} from './src/components/ModalSheet';
@@ -34,7 +34,7 @@ import {
   ActiveIndicatorProvider,
   useActiveIndicator,
 } from './src/contexts/ActiveIndicatorContext.tsx';
-import AuthModel from './src/services/core/models/AuthModel.ts';
+import {Transaction} from './src/views/Transaction';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -55,6 +55,7 @@ function LoggedArea() {
         tabBarLabelStyle: {
           fontSize: moderateScale(13),
           color: '#585858',
+          display: 'none',
         },
         tabBarStyle: {
           paddingVertical: verticalScale(5),
@@ -64,7 +65,7 @@ function LoggedArea() {
         name="Home"
         component={Home}
         options={{
-          tabBarItemStyle: {display: 'none'},
+          title: 'Inicio',
           tabBarIcon: () => (
             <HomeIcon
               strokeWidth={2.5}
@@ -100,6 +101,20 @@ function LoggedArea() {
               strokeWidth={3}
               color={MStyles.colors.whiteColor}
               size={moderateScale(25)}
+            />
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name="Transaction"
+        component={Transaction}
+        options={{
+          tabBarIcon: () => (
+            <ListChecks
+              strokeWidth={3}
+              color={MStyles.colors.blackColor}
+              size={20}
             />
           ),
         }}
