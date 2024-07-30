@@ -35,7 +35,9 @@ export default function Home(): React.JSX.Element {
 
   async function loadTransactions() {
     const transactionService: ITransactionService = new TransactionService();
-    const transactions: TransactionsModel[] = await transactionService.getAll();
+    const transactions: TransactionsModel[] = await transactionService.getAll(
+      3,
+    );
 
     setTransactions(transactions);
   }

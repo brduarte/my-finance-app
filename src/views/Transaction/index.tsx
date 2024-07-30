@@ -24,7 +24,7 @@ export function Transaction(): React.JSX.Element {
   async function loadTransactions(): Promise<void> {
     const transactionService: ITransactionService = new TransactionService();
 
-    setTransactions(await transactionService.getAll());
+    setTransactions(await transactionService.getAll(30));
   }
 
   return <Layout transactions={transactions} />;

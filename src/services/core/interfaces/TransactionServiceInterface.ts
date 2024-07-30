@@ -1,5 +1,5 @@
 import {TransactionsModel} from '../models/TransactionsModel.ts';
 
 export interface ITransactionService {
-  getAll(): Promise<TransactionsModel[]>;
+  getAll(limit?: number): Promise<TransactionsModel[]>;
 }
