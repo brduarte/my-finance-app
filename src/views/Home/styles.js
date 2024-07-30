@@ -11,11 +11,22 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   sessionTitle: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    marginBottom: verticalScale(16),
+    paddingHorizontal: horizontalScale(21),
+  },
+  sessionTitleText: {
+    flex: 1,
     fontFamily: MStyles.fontFamilyPrimarySemiBold,
     fontSize: moderateScale(20),
     color: MStyles.colors.blackColor,
-    marginBottom: verticalScale(16),
-    paddingHorizontal: horizontalScale(21),
+  },
+
+  sessionSessionTitleTag: {
+    fontFamily: MStyles.fontFamilyInterSemiBold,
+    fontSize: moderateScale(14),
+    color: MStyles.colors.blueColor,
   },
 
   session: {

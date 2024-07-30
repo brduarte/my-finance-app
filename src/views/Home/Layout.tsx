@@ -1,5 +1,11 @@
 import React, {useEffect} from 'react';
-import {SectionList, StatusBar, Text, View} from 'react-native';
+import {
+  SectionList,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import BalanceCard from './components/BalanceCard/BalanceCard.tsx';
 import {styles} from './styles';
 import {HeaderProfile} from '../../components/HeaderProfile';
@@ -68,7 +74,13 @@ export default function Layout({
             renderItem={({item}) => <>{item}</>}
             renderSectionHeader={({section: {title}}) => {
               return title ? (
-                <Text style={styles.sessionTitle}>{title}</Text>
+                <View style={styles.sessionTitle}>
+                  <Text style={styles.sessionTitleText}>{title}</Text>
+
+                  <TouchableOpacity>
+                    <Text style={styles.sessionSessionTitleTag}>Ver Mais</Text>
+                  </TouchableOpacity>
+                </View>
               ) : (
                 <></>
               );

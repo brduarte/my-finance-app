@@ -11,6 +11,7 @@ export const MStyles = {
     greyColor: '#4a4f53',
     greyColorBackground: '#F2F2F2',
     defaultBackgroundColor: '#ffff',
+    blueColor: '#489FCD',
   },
   border: {
     defaultRadius: 8,
