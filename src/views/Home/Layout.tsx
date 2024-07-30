@@ -15,6 +15,8 @@ import {ResumeCard} from './components/ResumeCard/ResumeCard.tsx';
 import {UserModel} from '../../services/core/models/UserModel.ts';
 import {MStyles} from '../style';
 import {SafeAreaView} from '../../components/SafeAreaView/SafeAreaView.tsx';
+import {ParamListBase, useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 type Props = {
   user?: UserModel;
@@ -30,6 +32,8 @@ export default function Layout({
   refreshControl,
   actionBtnCardTotalBalance,
 }: Props): React.JSX.Element {
+  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+
   const DATA = [
     {
       data: [<HeaderProfile name={user?.name || ''} />],
@@ -50,6 +54,9 @@ export default function Layout({
     },
     {
       title: 'Transações',
+      action: () => {
+        navigation.navigate('Transaction');
+      },
       data: [
         <View style={styles.session}>
           <TransactionsList transactions={transactions} />
@@ -72,14 +79,20 @@ export default function Layout({
             sections={DATA}
             keyExtractor={(item, index) => index + index.toString()}
             renderItem={({item}) => <>{item}</>}
-            renderSectionHeader={({section: {title}}) => {
+            renderSectionHeader={({section: {title, action}}) => {
               return title ? (
                 <View style={styles.sessionTitle}>
                   <Text style={styles.sessionTitleText}>{title}</Text>
 
-                  <TouchableOpacity>
-                    <Text style={styles.sessionSessionTitleTag}>Ver Mais</Text>
-                  </TouchableOpacity>
+                  {action ? (
+                    <TouchableOpacity onPress={action}>
+                      <Text style={styles.sessionSessionTitleTag}>
+                        Ver Mais
+                      </Text>
+                    </TouchableOpacity>
+                  ) : (
+                    <></>
+                  )}
                 </View>
               ) : (
                 <></>
