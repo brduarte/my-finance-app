@@ -1,12 +1,5 @@
 import {FlatList, Text, TouchableOpacity, View} from 'react-native';
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, {useCallback, useMemo, useRef, useState} from 'react';
 import {styles} from './styles';
 
 import {DateHelper} from '../../helpers/DateHelper.ts';
@@ -38,20 +31,18 @@ export function MonthSelect() {
   const flatListRef = useRef<FlatList>(null);
 
   const [selectedId, setSelectedId] = useState<number>(
-    DateHelper.getCurrentMonthNumber(),
+    DateHelper.getCurrentMonthNumber() - 1,
   );
 
-  useFocusEffect(
-    useCallback(() => {
-      if (flatListRef.current) {
-        flatListRef.current.scrollToIndex({
-          animated: true,
-          index: selectedId,
-          viewPosition: 0.5,
-        });
-      }
-    }, [selectedId]),
-  );
+  useMemo(() => {
+    if (flatListRef.current) {
+      flatListRef.current.scrollToIndex({
+        animated: true,
+        index: selectedId,
+        viewPosition: 0.5,
+      });
+    }
+  }, [selectedId]);
 
   function handleOnPress(month: number) {
     setSelectedId(month);
@@ -71,8 +62,8 @@ export function MonthSelect() {
 
   const getItemLayout = (data: any, index: number) => {
     return {
-      length: 100,
-      offset: 100 * index,
+      length: 95,
+      offset: 95 * index,
       index,
     };
   };

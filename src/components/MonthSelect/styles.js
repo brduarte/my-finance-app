@@ -14,8 +14,7 @@ export const styles = StyleSheet.create({
     backgroundColor: MStyles.colors.greyColorBackground,
   },
   itemText: {
-    width: 100,
-    paddingHorizontal: horizontalScale(5),
+    width: 95,
     textAlign: 'center',
     fontFamily: MStyles.fontFamilyInterSemiBold,
     fontSize: moderateScale(14),
