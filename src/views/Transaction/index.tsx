@@ -14,7 +14,6 @@ export function Transaction(): React.JSX.Element {
   useFocusEffect(
     useCallback(() => {
       activeIndicator.active();
-
       Promise.all([loadTransactions()]).finally(() => {
         activeIndicator.disabled();
       });
@@ -23,7 +22,6 @@ export function Transaction(): React.JSX.Element {
 
   async function loadTransactions(): Promise<void> {
     const transactionService: ITransactionService = new TransactionService();
-
     setTransactions(await transactionService.getAll(30));
   }
 

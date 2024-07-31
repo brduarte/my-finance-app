@@ -5,7 +5,6 @@ import {styles} from './styles';
 import {DateHelper} from '../../helpers/DateHelper.ts';
 import {CircleArrowLeft, CircleArrowRight} from 'lucide-react-native';
 import {MStyles} from '../../views/style';
-import {useFocusEffect} from '@react-navigation/native';
 
 type ItemProps = {
   id: number;

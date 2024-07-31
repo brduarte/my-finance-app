@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
-import {horizontalScale} from '../../helpers/MetricsHelper';
+import {horizontalScale, verticalScale} from '../../helpers/MetricsHelper';
+import {MStyles} from "../style";
 
 export const styles = StyleSheet.create({
   container: {
@@ -7,7 +8,17 @@ export const styles = StyleSheet.create({
     paddingHorizontal: horizontalScale(21),
   },
   filterContainer: {
-    marginVertical: 15,
-    marginTop: 5,
+    backgroundColor: MStyles.colors.whiteColor,
+    shadowColor: MStyles.colors.blackColor,
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.44,
+    shadowRadius: 10.32,
+
+    elevation: 16,
+    paddingVertical: verticalScale(10),
+    paddingHorizontal: horizontalScale(21),
   },
 });
