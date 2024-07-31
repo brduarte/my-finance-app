@@ -4,6 +4,7 @@ import {MStyles} from '../../views/style';
 
 export const styles = StyleSheet.create({
   container: {
+    borderWidth: 0.1,
     paddingHorizontal: horizontalScale(MStyles.padding.horizontal),
     shadowColor: '#000',
     shadowOffset: {
