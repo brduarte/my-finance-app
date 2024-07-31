@@ -55,6 +55,7 @@ export function TransactionsList({
   return (
     <FlatList
       data={transactions}
+      showsVerticalScrollIndicator={false}
       renderItem={({item}) => (
         <Item
           type={item.type}

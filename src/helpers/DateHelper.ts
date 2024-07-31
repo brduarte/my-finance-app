@@ -1,4 +1,5 @@
 import {format} from 'date-fns';
+import {ptBR} from 'date-fns/locale';
 
 export class DateHelper {
   static toBr(date: Date) {
@@ -7,5 +8,13 @@ export class DateHelper {
 
   static toUsa(date: Date) {
     return format(date, 'yyyy-MM-dd');
+  }
+
+  static getCurrentMonth() {
+    return format(new Date(), 'LLLL', {locale: ptBR});
+  }
+
+  static getCurrentMonthNumber() {
+    return format(new Date(), 'L', {locale: ptBR});
   }
 }
