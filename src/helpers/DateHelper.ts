@@ -14,7 +14,7 @@ export class DateHelper {
     return format(new Date(), 'LLLL', {locale: ptBR});
   }
 
-  static getCurrentMonthNumber() {
-    return format(new Date(), 'L', {locale: ptBR});
+  static getCurrentMonthNumber(): number {
+    return Number(format(new Date(), 'L', {locale: ptBR}));
   }
 }

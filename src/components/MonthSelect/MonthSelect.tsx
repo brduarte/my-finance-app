@@ -1,10 +1,18 @@
 import {FlatList, Text, TouchableOpacity, View} from 'react-native';
-import React, {useEffect, useMemo, useRef, useState} from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {styles} from './styles';
 
 import {DateHelper} from '../../helpers/DateHelper.ts';
 import {CircleArrowLeft, CircleArrowRight} from 'lucide-react-native';
 import {MStyles} from '../../views/style';
+import {useFocusEffect} from '@react-navigation/native';
 
 type ItemProps = {
   id: number;
@@ -14,7 +22,7 @@ type ItemProps = {
 };
 
 const Item = ({title, selected, onPress, id}: ItemProps) => (
-  <TouchableOpacity style={{marginHorizontal: 10}} onPress={() => onPress(id)}>
+  <TouchableOpacity onPress={() => onPress(id)}>
     <Text
       style={
         selected
@@ -30,18 +38,20 @@ export function MonthSelect() {
   const flatListRef = useRef<FlatList>(null);
 
   const [selectedId, setSelectedId] = useState<number>(
-    +DateHelper.getCurrentMonthNumber(),
+    DateHelper.getCurrentMonthNumber(),
   );
 
-  useMemo(() => {
-    if (flatListRef.current) {
-      flatListRef.current.scrollToIndex({
-        animated: true,
-        index: selectedId,
-        viewPosition: 0.5,
-      });
-    }
-  }, [selectedId]);
+  useFocusEffect(
+    useCallback(() => {
+      if (flatListRef.current) {
+        flatListRef.current.scrollToIndex({
+          animated: true,
+          index: selectedId,
+          viewPosition: 0.5,
+        });
+      }
+    }, [selectedId]),
+  );
 
   function handleOnPress(month: number) {
     setSelectedId(month);
@@ -58,6 +68,14 @@ export function MonthSelect() {
       setSelectedId(selectedId - 1);
     }
   }
+
+  const getItemLayout = (data: any, index: number) => {
+    return {
+      length: 100,
+      offset: 100 * index,
+      index,
+    };
+  };
 
   const months = [
     {id: 0, name: 'Janeiro'},
@@ -84,8 +102,10 @@ export function MonthSelect() {
         ref={flatListRef}
         horizontal={true}
         scrollEnabled={false}
+        getItemLayout={getItemLayout}
         showsHorizontalScrollIndicator={false}
         snapToAlignment={'center'}
+        initialScrollIndex={selectedId}
         renderItem={({item}) => {
           if (item.id === selectedId) {
             return (

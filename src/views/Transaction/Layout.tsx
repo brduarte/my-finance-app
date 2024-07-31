@@ -5,9 +5,8 @@ import {styles} from './styles';
 import {FlatList, Text, TouchableOpacity, View} from 'react-native';
 import {TransactionsList} from '../../components/TransactionsList/transactionsList.tsx';
 import {TransactionsModel} from '../../services/core/models/TransactionsModel.ts';
-import {MStyles} from '../style';
-import {moderateScale} from '../../helpers/MetricsHelper.ts';
 import {MonthSelect} from '../../components/MonthSelect/MonthSelect.tsx';
+import {ResumeCard} from '../Home/components/ResumeCard/ResumeCard.tsx';
 
 type LayoutProps = {
   transactions: TransactionsModel[];
@@ -18,10 +17,14 @@ export function Layout({transactions}: LayoutProps): React.JSX.Element {
     <SafeAreaView>
       <View style={styles.container}>
         <ModalHeader title={'Lançamentos'} />
+
+        <TransactionsList transactions={transactions} />
+
+        <ResumeCard expenditure={1000} revenue={2000} />
+
         <View style={styles.filterContainer}>
           <MonthSelect />
         </View>
-        <TransactionsList transactions={transactions} />
       </View>
     </SafeAreaView>
   );
