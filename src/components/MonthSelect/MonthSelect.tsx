@@ -26,36 +26,37 @@ const Item = ({title, selected, onPress, id}: ItemProps) => (
   </TouchableOpacity>
 );
 
-export function MonthSelect() {
-  const flatListRef = useRef<FlatList>(null);
+type MonthSelectProps = {
+  value: number;
+  onChange: (month: number) => void;
+};
 
-  const [selectedId, setSelectedId] = useState<number>(
-    DateHelper.getCurrentMonthNumber() - 1,
-  );
+export function MonthSelect({value, onChange}: MonthSelectProps) {
+  const flatListRef = useRef<FlatList>(null);
 
   useMemo(() => {
     if (flatListRef.current) {
       flatListRef.current.scrollToIndex({
         animated: true,
-        index: selectedId,
+        index: value,
         viewPosition: 0.5,
       });
     }
-  }, [selectedId]);
+  }, [value]);
 
   function handleOnPress(month: number) {
-    setSelectedId(month);
+    onChange(month);
   }
 
   function nextMonth() {
-    if (selectedId < 11) {
-      setSelectedId(selectedId + 1);
+    if (value < 11) {
+      onChange(value + 1);
     }
   }
 
   function backMonth() {
-    if (selectedId > 0) {
-      setSelectedId(selectedId - 1);
+    if (value > 0) {
+      onChange(value - 1);
     }
   }
 
@@ -95,9 +96,9 @@ export function MonthSelect() {
         getItemLayout={getItemLayout}
         showsHorizontalScrollIndicator={false}
         snapToAlignment={'center'}
-        initialScrollIndex={selectedId}
+        initialScrollIndex={value}
         renderItem={({item}) => {
-          if (item.id === selectedId) {
+          if (item.id === value) {
             return (
               <Item
                 id={item.id}

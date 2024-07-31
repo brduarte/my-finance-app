@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {MStyles} from './src/views/style';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import Onboarding from './src/views/Onboarding';

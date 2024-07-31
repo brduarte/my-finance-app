@@ -6,8 +6,13 @@ export class TransactionService
   extends BaseService
   implements ITransactionService
 {
-  public async getAll(limit?: number): Promise<TransactionsModel[]> {
-    const {data} = await this.request().get(`/transactions/?limit=${limit}`);
+  public async getAll(
+    limit?: number,
+    month?: number,
+  ): Promise<TransactionsModel[]> {
+    const {data} = await this.request().get(
+      `/transactions/?limit=${limit}&month=${month}`,
+    );
     return data;
   }
 }

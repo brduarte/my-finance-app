@@ -2,26 +2,30 @@ import React from 'react';
 import {SafeAreaView} from '../../components/SafeAreaView/SafeAreaView.tsx';
 import {ModalHeader} from '../../navigate/modal/ModalHeader.tsx';
 import {styles} from './styles';
-import {FlatList, Text, TouchableOpacity, View} from 'react-native';
+import {View} from 'react-native';
 import {TransactionsList} from '../../components/TransactionsList/transactionsList.tsx';
 import {TransactionsModel} from '../../services/core/models/TransactionsModel.ts';
 import {MonthSelect} from '../../components/MonthSelect/MonthSelect.tsx';
 import {ResumeCard} from '../Home/components/ResumeCard/ResumeCard.tsx';
-import {horizontalScale} from "../../helpers/MetricsHelper.ts";
+import {horizontalScale} from '../../helpers/MetricsHelper.ts';
 
 type LayoutProps = {
   transactions: TransactionsModel[];
+  monthSelect: number;
+  onChangedMonthFilter: (value: number) => void;
 };
 
-export function Layout({transactions}: LayoutProps): React.JSX.Element {
+export function Layout({
+  transactions,
+  monthSelect,
+  onChangedMonthFilter,
+}: LayoutProps): React.JSX.Element {
   return (
     <SafeAreaView>
       <>
         <View style={styles.container}>
           <ModalHeader title={'Lançamentos'} />
-
           <TransactionsList transactions={transactions} />
-
         </View>
 
         <View style={styles.filterContainer}>
@@ -29,7 +33,7 @@ export function Layout({transactions}: LayoutProps): React.JSX.Element {
             <ResumeCard expenditure={1000} revenue={2000} />
           </View>
 
-          <MonthSelect />
+          <MonthSelect value={monthSelect} onChange={onChangedMonthFilter} />
         </View>
       </>
     </SafeAreaView>
