@@ -18,6 +18,7 @@ import {SafeAreaView} from '../../components/SafeAreaView/SafeAreaView.tsx';
 import {MonthSelect} from '../../components/MonthSelect/MonthSelect.tsx';
 import {ChevronDown, ChevronUp} from 'lucide-react-native';
 import Animated, {SharedValue} from 'react-native-reanimated';
+import {DateHelper} from '../../helpers/DateHelper.ts';
 
 type Props = {
   user?: UserModel;
@@ -28,6 +29,8 @@ type Props = {
   isFilterMonthOpen: boolean;
   animatedFilterMonth: SharedValue<number>;
   openFilterMonth: () => void;
+  selectMonth: (month: number) => void;
+  monthSelected: number;
 };
 
 export default function Layout({
@@ -39,6 +42,8 @@ export default function Layout({
   animatedFilterMonth,
   openFilterMonth,
   navigation,
+  selectMonth,
+  monthSelected,
 }: Props): React.JSX.Element {
   const DATA = [
     {
@@ -50,7 +55,9 @@ export default function Layout({
           <TouchableOpacity
             style={styles.activeFilter}
             onPress={openFilterMonth}>
-            <Text style={styles.activeFilterText}>Junho</Text>
+            <Text style={styles.activeFilterText}>
+              {DateHelper.getNameMonth(monthSelected)}
+            </Text>
 
             {isFilterMonthOpen ? (
               <ChevronUp color={MStyles.colors.blackColor} />
@@ -66,7 +73,7 @@ export default function Layout({
           <Animated.View
             style={[styles.filterMonth, {height: animatedFilterMonth}]}>
             {isFilterMonthOpen ? (
-              <MonthSelect value={4} onChange={number => console.log(number)} />
+              <MonthSelect value={monthSelected} onChange={selectMonth} />
             ) : (
               <></>
             )}

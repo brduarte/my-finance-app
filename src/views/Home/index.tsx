@@ -17,6 +17,9 @@ import {useSharedValue, withSpring} from 'react-native-reanimated';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 export default function Home(): React.JSX.Element {
+  const bottomSheet = useBottomSheet();
+  const authSession = useAuthProfileContext();
+
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   const [refreshing, setRefreshing] = React.useState(false);
@@ -25,16 +28,15 @@ export default function Home(): React.JSX.Element {
 
   const [transactions, setTransactions] = useState<TransactionsModel[]>([]);
   const [user, setUser] = useState<UserModel>();
-  const bottomSheet = useBottomSheet();
-  const authSession = useAuthProfileContext();
+  const [month, setMonth] = useState<number>(
+    DateHelper.getCurrentMonthNumber() - 1,
+  );
 
   function redirectToWalletPage() {
     bottomSheet.open();
   }
 
   function openOrCloseFilterMonth() {
-    console.log(isFilterMonthOpen);
-
     setFilterMonthOpen(!isFilterMonthOpen);
   }
 
@@ -50,7 +52,7 @@ export default function Home(): React.JSX.Element {
     const transactionService: ITransactionService = new TransactionService();
     const transactions: TransactionsModel[] = await transactionService.getAll(
       3,
-      DateHelper.getCurrentMonthNumber(),
+      month + 1,
     );
 
     setTransactions(transactions);
@@ -59,6 +61,10 @@ export default function Home(): React.JSX.Element {
   async function loadProfile() {
     const response = await authSession.getProfile();
     setUser(response);
+  }
+
+  async function selectMonth(month: number) {
+    setMonth(month);
   }
 
   useMemo(() => {
@@ -77,9 +83,15 @@ export default function Home(): React.JSX.Element {
 
   useFocusEffect(
     useCallback(() => {
-      Promise.all([loadTransactions(), loadProfile()]).finally(() => {});
+      setMonth(DateHelper.getCurrentMonthNumber() - 1);
+      Promise.all([loadTransactions(), loadProfile()]).then();
+      setFilterMonthOpen(false);
     }, []),
   );
+
+  useEffect(() => {
+    Promise.all([loadTransactions(), loadProfile()]).then();
+  }, [month]);
 
   return (
     <Layout
@@ -90,6 +102,8 @@ export default function Home(): React.JSX.Element {
       isFilterMonthOpen={isFilterMonthOpen}
       animatedFilterMonth={heightFilterMonth}
       navigation={navigation}
+      selectMonth={selectMonth}
+      monthSelected={month}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
