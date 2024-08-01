@@ -15,16 +15,9 @@ import {ResumeCard} from './components/ResumeCard/ResumeCard.tsx';
 import {UserModel} from '../../services/core/models/UserModel.ts';
 import {MStyles} from '../style';
 import {SafeAreaView} from '../../components/SafeAreaView/SafeAreaView.tsx';
-import {ParamListBase, useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {MonthSelect} from '../../components/MonthSelect/MonthSelect.tsx';
-import {
-  ChevronDown,
-  ChevronUp,
-  CircleArrowDown,
-  CircleArrowUp,
-} from 'lucide-react-native';
-import Animated, {useSharedValue, withSpring} from 'react-native-reanimated';
+import {ChevronDown, ChevronUp} from 'lucide-react-native';
+import Animated, {SharedValue} from 'react-native-reanimated';
 
 type Props = {
   user?: UserModel;
@@ -32,6 +25,9 @@ type Props = {
   transactions: TransactionsModel[];
   actionBtnCardTotalBalance: () => void;
   navigation?: any;
+  isFilterMonthOpen: boolean;
+  animatedFilterMonth: SharedValue<number>;
+  openFilterMonth: () => void;
 };
 
 export default function Layout({
@@ -39,20 +35,11 @@ export default function Layout({
   transactions,
   refreshControl,
   actionBtnCardTotalBalance,
+  isFilterMonthOpen,
+  animatedFilterMonth,
+  openFilterMonth,
+  navigation,
 }: Props): React.JSX.Element {
-  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
-  const [filterOpen, setFilterOpen] = useState(false);
-  const width = useSharedValue(100);
-
-  const fadeIn = () => {
-    // Will change fadeAnim value to 1 in 5 seconds
-    width.value = withSpring(50);
-  };
-
-  const fadeOut = () => {
-    width.value = withSpring(0);
-  };
-
   const DATA = [
     {
       data: [<HeaderProfile name={user?.name || ''} />],
@@ -62,18 +49,10 @@ export default function Layout({
         <View style={styles.session}>
           <TouchableOpacity
             style={styles.activeFilter}
-            onPress={() => {
-              if (filterOpen) {
-                fadeOut();
-                setFilterOpen(!filterOpen);
-              } else {
-                fadeIn();
-                setFilterOpen(!filterOpen);
-              }
-            }}>
+            onPress={openFilterMonth}>
             <Text style={styles.activeFilterText}>Junho</Text>
 
-            {filterOpen ? (
+            {isFilterMonthOpen ? (
               <ChevronUp color={MStyles.colors.blackColor} />
             ) : (
               <ChevronDown color={MStyles.colors.blackColor} />
@@ -84,8 +63,9 @@ export default function Layout({
             action={actionBtnCardTotalBalance}
           />
 
-          <Animated.View style={[styles.filterMonth, {height: width}]}>
-            {filterOpen ? (
+          <Animated.View
+            style={[styles.filterMonth, {height: animatedFilterMonth}]}>
+            {isFilterMonthOpen ? (
               <MonthSelect value={4} onChange={number => console.log(number)} />
             ) : (
               <></>
