@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {PropsWithChildren, useEffect, useRef, useState} from 'react';
 import {
   SectionList,
   StatusBar,
@@ -17,6 +17,14 @@ import {MStyles} from '../style';
 import {SafeAreaView} from '../../components/SafeAreaView/SafeAreaView.tsx';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {MonthSelect} from '../../components/MonthSelect/MonthSelect.tsx';
+import {
+  ChevronDown,
+  ChevronUp,
+  CircleArrowDown,
+  CircleArrowUp,
+} from 'lucide-react-native';
+import Animated, {useSharedValue, withSpring} from 'react-native-reanimated';
 
 type Props = {
   user?: UserModel;
@@ -33,6 +41,17 @@ export default function Layout({
   actionBtnCardTotalBalance,
 }: Props): React.JSX.Element {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+  const [filterOpen, setFilterOpen] = useState(false);
+  const width = useSharedValue(100);
+
+  const fadeIn = () => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    width.value = withSpring(50);
+  };
+
+  const fadeOut = () => {
+    width.value = withSpring(0);
+  };
 
   const DATA = [
     {
@@ -41,10 +60,38 @@ export default function Layout({
     {
       data: [
         <View style={styles.session}>
+          <TouchableOpacity
+            style={styles.activeFilter}
+            onPress={() => {
+              if (filterOpen) {
+                fadeOut();
+                setFilterOpen(!filterOpen);
+              } else {
+                fadeIn();
+                setFilterOpen(!filterOpen);
+              }
+            }}>
+            <Text style={styles.activeFilterText}>Junho</Text>
+
+            {filterOpen ? (
+              <ChevronUp color={MStyles.colors.blackColor} />
+            ) : (
+              <ChevronDown color={MStyles.colors.blackColor} />
+            )}
+          </TouchableOpacity>
           <BalanceCard
             total={user?.resume.balance}
             action={actionBtnCardTotalBalance}
           />
+
+          <Animated.View style={[styles.filterMonth, {height: width}]}>
+            {filterOpen ? (
+              <MonthSelect value={4} onChange={number => console.log(number)} />
+            ) : (
+              <></>
+            )}
+          </Animated.View>
+
           <ResumeCard
             revenue={user?.resume.revenue}
             expenditure={user?.resume.expenses}

@@ -33,4 +33,21 @@ export const styles = StyleSheet.create({
     marginBottom: verticalScale(32),
     paddingHorizontal: horizontalScale(21),
   },
+
+  activeFilter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: verticalScale(5),
+  },
+
+  activeFilterText: {
+    fontSize: moderateScale(16),
+    marginRight: verticalScale(2),
+    fontFamily: MStyles.fontFamilyInterBold,
+    color: MStyles.colors.blackColor,
+  },
+
+  filterMonth: {
+    marginBottom: verticalScale(5),
+  },
 });
