@@ -8,6 +8,7 @@ import {RefreshControl} from 'react-native';
 import {ITransactionService} from '../../services/core/interfaces/TransactionServiceInterface.ts';
 import {TransactionService} from '../../services/core/services/TransactionService.ts';
 import {useFocusEffect} from '@react-navigation/native';
+import {DateHelper} from '../../helpers/DateHelper.ts';
 
 export default function Home(): React.JSX.Element {
   const [refreshing, setRefreshing] = React.useState(false);
@@ -37,6 +38,7 @@ export default function Home(): React.JSX.Element {
     const transactionService: ITransactionService = new TransactionService();
     const transactions: TransactionsModel[] = await transactionService.getAll(
       3,
+      DateHelper.getCurrentMonthNumber(),
     );
 
     setTransactions(transactions);

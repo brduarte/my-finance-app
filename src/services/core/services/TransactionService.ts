@@ -1,6 +1,7 @@
 import {ITransactionService} from '../interfaces/TransactionServiceInterface.ts';
 import {BaseService} from './BaseService.ts';
 import {TransactionsModel} from '../models/TransactionsModel.ts';
+import {DateHelper} from '../../../helpers/DateHelper.ts';
 
 export class TransactionService
   extends BaseService

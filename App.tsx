@@ -146,7 +146,11 @@ function App(): React.JSX.Element {
         flex: 1,
       }}>
       <BottomSheetProvider>
-        {activeIndicator.isActive() ? <ActivityIndicator /> : <></>}
+        {activeIndicator.isActive() ? (
+          <ActivityIndicator typeRender={'modal'} />
+        ) : (
+          <></>
+        )}
 
         <Stack.Navigator
           initialRouteName="Onboarding"
