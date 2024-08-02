@@ -2,7 +2,7 @@ import React from 'react';
 import {SafeAreaView} from '../../components/SafeAreaView/SafeAreaView.tsx';
 import {ModalHeader} from '../../navigate/modal/ModalHeader.tsx';
 import {styles} from './styles';
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
 import {TransactionsList} from '../../components/TransactionsList/transactionsList.tsx';
 import {TransactionsModel} from '../../services/core/models/TransactionsModel.ts';
 import {MonthSelect} from '../../components/MonthSelect/MonthSelect.tsx';
@@ -10,6 +10,7 @@ import {ResumeCard} from '../Home/components/ResumeCard/ResumeCard.tsx';
 import {horizontalScale} from '../../helpers/MetricsHelper.ts';
 import {ActivityIndicator} from '../../components/ActivityIndicator/ActivityIndicator.tsx';
 import {ResumeModel} from '../../services/core/models/ResumeModel.ts';
+import {EmptyState} from '../../components/EmptyState/EmptyState.tsx';
 
 type LayoutProps = {
   transactions: TransactionsModel[];
@@ -33,6 +34,16 @@ export function Layout({
           <ModalHeader title={'Lançamentos'} />
           {isLoading ? (
             <ActivityIndicator />
+          ) : !transactions.length ? (
+            <EmptyState>
+              <Text style={styles.textEmpty}>
+                <Text style={{fontWeight: 'bold'}}>nenhum</Text> lançamento
+                encontrado
+              </Text>
+              <Text style={styles.subTextEmpty}>
+                cadastre lançamentos para visualizar as transações filtradas
+              </Text>
+            </EmptyState>
           ) : (
             <TransactionsList transactions={transactions} />
           )}

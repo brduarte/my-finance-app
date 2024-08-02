@@ -1,6 +1,10 @@
 import {StyleSheet} from 'react-native';
-import {horizontalScale, verticalScale} from '../../helpers/MetricsHelper';
-import {MStyles} from "../style";
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from '../../helpers/MetricsHelper';
+import {MStyles} from '../style';
 
 export const styles = StyleSheet.create({
   container: {
@@ -20,5 +24,17 @@ export const styles = StyleSheet.create({
     elevation: 16,
     paddingVertical: verticalScale(10),
     paddingHorizontal: horizontalScale(21),
+  },
+
+  textEmpty: {
+    textAlign: 'center',
+    fontSize: moderateScale(16),
+    color: MStyles.colors.blackColor,
+    marginBottom: verticalScale(2),
+    fontFamily: MStyles.fontFamilyInterRegular,
+  },
+
+  subTextEmpty: {
+    textAlign: 'center',
   },
 });
