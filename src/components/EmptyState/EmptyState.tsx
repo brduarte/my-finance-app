@@ -1,5 +1,6 @@
 import {Image, View} from 'react-native';
 import React from 'react';
+import {horizontalScale, verticalScale} from '../../helpers/MetricsHelper.ts';
 
 type EmptyStateProps = {
   children?: React.ReactNode;
@@ -14,7 +15,12 @@ export function EmptyState({children}: EmptyStateProps): React.ReactElement {
         alignItems: 'center',
       }}>
       <Image
-        resizeMode={'center'}
+        style={{
+          width: horizontalScale(125),
+          height: verticalScale(125),
+          marginBottom: verticalScale(2.5),
+          resizeMode: 'contain',
+        }}
         source={require('../../assets/imgs/empty.png')}
       />
 
