@@ -1,17 +1,18 @@
-import {format} from 'date-fns';
+import {formatInTimeZone} from 'date-fns-tz';
 import {ptBR} from 'date-fns/locale';
+import {format} from 'date-fns';
 
 export class DateHelper {
-  static toBr(date: Date) {
-    return format(date, 'dd/MM/yyyy');
+  static toBr(date: Date | string) {
+    if (date instanceof Date) {
+      return formatInTimeZone(date, 'UTC', 'dd/MM/yyyy');
+    }
+
+    return formatInTimeZone(date, 'UTC', 'dd/MM/yyyy');
   }
 
   static toUsa(date: Date) {
-    return format(date, 'yyyy-MM-dd');
-  }
-
-  static getCurrentMonth() {
-    return format(new Date(), 'LLLL', {locale: ptBR});
+    return formatInTimeZone(date, 'UTC', 'dd/MM/yyyy');
   }
 
   static getNameMonth(month: number) {

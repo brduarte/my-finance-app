@@ -19,11 +19,13 @@ import {MonthSelect} from '../../components/MonthSelect/MonthSelect.tsx';
 import {ChevronDown, ChevronUp} from 'lucide-react-native';
 import Animated, {SharedValue} from 'react-native-reanimated';
 import {DateHelper} from '../../helpers/DateHelper.ts';
+import {ResumeModel} from '../../services/core/models/ResumeModel.ts';
 
 type Props = {
   user?: UserModel;
   refreshControl?: React.JSX.Element;
   transactions: TransactionsModel[];
+  resume: ResumeModel;
   actionBtnCardTotalBalance: () => void;
   navigation?: any;
   isFilterMonthOpen: boolean;
@@ -44,6 +46,7 @@ export default function Layout({
   navigation,
   selectMonth,
   monthSelected,
+  resume,
 }: Props): React.JSX.Element {
   const DATA = [
     {
@@ -66,7 +69,7 @@ export default function Layout({
             )}
           </TouchableOpacity>
           <BalanceCard
-            total={user?.resume.balance}
+            total={resume.balance}
             action={actionBtnCardTotalBalance}
           />
 
@@ -79,10 +82,7 @@ export default function Layout({
             )}
           </Animated.View>
 
-          <ResumeCard
-            revenue={user?.resume.revenue}
-            expenditure={user?.resume.expenses}
-          />
+          <ResumeCard revenue={resume.revenue} expenditure={resume.expenses} />
         </View>,
       ],
     },

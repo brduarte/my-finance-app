@@ -38,9 +38,7 @@ const Item = (transaction: TransactionsModel): React.JSX.Element => {
       <View style={styles.iconSession}>{icon}</View>
       <View style={styles.text}>
         <Text style={styles.itemTile}>{transaction.name}</Text>
-        <Text>{`${subText} ${DateHelper.toBr(
-          new Date(transaction.dueDate),
-        )}`}</Text>
+        <Text>{`${subText} ${DateHelper.toBr(transaction.dueDate)}`}</Text>
       </View>
       <View style={styles.value}>
         <Text style={valueStyle}>{value}</Text>

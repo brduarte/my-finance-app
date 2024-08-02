@@ -15,6 +15,9 @@ import {
 import {DateHelper} from '../../helpers/DateHelper.ts';
 import {useSharedValue, withSpring} from 'react-native-reanimated';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {IResumeService} from '../../services/core/interfaces/ResumeServiceInterface.ts';
+import {ResumeService} from '../../services/core/services/ResumeService.ts';
+import {ResumeModel} from '../../services/core/models/ResumeModel.ts';
 
 export default function Home(): React.JSX.Element {
   const bottomSheet = useBottomSheet();
@@ -27,6 +30,12 @@ export default function Home(): React.JSX.Element {
   const [isFilterMonthOpen, setFilterMonthOpen] = useState(false);
 
   const [transactions, setTransactions] = useState<TransactionsModel[]>([]);
+  const [resume, setResume] = useState<ResumeModel>({
+    balance: 0,
+    revenue: 0,
+    expenses: 0,
+  });
+
   const [user, setUser] = useState<UserModel>();
   const [month, setMonth] = useState<number>(
     DateHelper.getCurrentMonthNumber() - 1,
@@ -58,6 +67,11 @@ export default function Home(): React.JSX.Element {
     setTransactions(transactions);
   }
 
+  async function loadResume(): Promise<void> {
+    const resumeService: IResumeService = new ResumeService();
+    setResume(await resumeService.getResume(month + 1));
+  }
+
   async function loadProfile() {
     const response = await authSession.getProfile();
     setUser(response);
@@ -77,25 +91,26 @@ export default function Home(): React.JSX.Element {
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
-    await Promise.all([loadProfile(), loadTransactions()]);
+    await Promise.all([loadTransactions(), loadResume()]);
     setRefreshing(false);
   }, []);
 
   useFocusEffect(
     useCallback(() => {
       setMonth(DateHelper.getCurrentMonthNumber() - 1);
-      Promise.all([loadTransactions(), loadProfile()]).then();
+      Promise.all([loadProfile(), loadTransactions(), loadResume()]).then();
       setFilterMonthOpen(false);
     }, []),
   );
 
   useEffect(() => {
-    Promise.all([loadTransactions(), loadProfile()]).then();
+    Promise.all([loadTransactions(), loadResume()]).then();
   }, [month]);
 
   return (
     <Layout
       user={user}
+      resume={resume}
       transactions={transactions}
       actionBtnCardTotalBalance={redirectToWalletPage}
       openFilterMonth={openOrCloseFilterMonth}
