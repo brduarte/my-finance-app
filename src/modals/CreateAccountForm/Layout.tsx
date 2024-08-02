@@ -44,17 +44,17 @@ export default function Layout({
 }: LayoutProps): React.JSX.Element {
   const optionsTypeAccount = [
     {
-      name: 'A pagar',
+      name: 'Débito',
       value: 'PAYABLE',
       description:
-        "Contas 'A pagar' irão criar uma ou mais transações de débito no seu extrato.",
+        "Lamçamentos de 'Débito' irão criar uma ou mais transações de débito no seu extrato.",
       icon: BookDown,
     },
     {
-      name: 'A receber',
+      name: 'Crédito',
       value: 'RECEIVABLE',
       description:
-        "Contas 'A receber' irão criar uma ou mais transações de crédito.",
+        "Lançamentos de 'Crédito' irão criar uma ou mais transações de crédito.",
       icon: BookUp,
     },
   ];
@@ -62,7 +62,7 @@ export default function Layout({
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <ModalHeader title={'Novo registro de conta'} icon={'arrow-back'} />
+        <ModalHeader title={'Crie um novo lançamento'} icon={'arrow-back'} />
 
         <ScrollView>
           <View style={styles.session}>
@@ -86,7 +86,7 @@ export default function Layout({
           </View>
 
           <View style={styles.session}>
-            <Text style={styles.label}>Tipo de conta:</Text>
+            <Text style={styles.label}>Tipo de lançamento:</Text>
             <SelectSheet
               optionsList={optionsTypeAccount}
               value={inputTypeAccount.value}

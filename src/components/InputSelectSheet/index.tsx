@@ -31,7 +31,7 @@ export function SelectSheet({
 
   function onPress() {
     navigation.navigate('InputSelectModal', {
-      title: 'Escolha o tipo de conta?',
+      title: 'Escolha o tipo de lançamento?',
       component: (
         <LayoutOptionsList optionsList={optionsList} onSelect={onSelect} />
       ),
