@@ -1,5 +1,5 @@
 import {FlatList, Text, TouchableOpacity, View} from 'react-native';
-import React, {useMemo, useRef, useState} from 'react';
+import React, {useMemo, useRef} from 'react';
 import {styles} from './styles';
 
 import {CircleArrowLeft, CircleArrowRight} from 'lucide-react-native';
@@ -32,6 +32,21 @@ type MonthSelectProps = {
 
 export function MonthSelect({value, onChange}: MonthSelectProps) {
   const flatListRef = useRef<FlatList>(null);
+
+  const months = [
+    {id: 0, name: 'Janeiro'},
+    {id: 1, name: 'Fevereiro'},
+    {id: 2, name: 'Março'},
+    {id: 3, name: 'Abril'},
+    {id: 4, name: 'Maio'},
+    {id: 5, name: 'Junho'},
+    {id: 6, name: 'Julho'},
+    {id: 7, name: 'Agosto'},
+    {id: 8, name: 'Setembro'},
+    {id: 9, name: 'Outubro'},
+    {id: 10, name: 'Novembro'},
+    {id: 11, name: 'Dezembro'},
+  ];
 
   useMemo(() => {
     if (flatListRef.current) {
@@ -66,21 +81,6 @@ export function MonthSelect({value, onChange}: MonthSelectProps) {
       index,
     };
   };
-
-  const months = [
-    {id: 0, name: 'Janeiro'},
-    {id: 1, name: 'Fevereiro'},
-    {id: 2, name: 'Março'},
-    {id: 3, name: 'Abril'},
-    {id: 4, name: 'Maio'},
-    {id: 5, name: 'Junho'},
-    {id: 6, name: 'Julho'},
-    {id: 7, name: 'Agosto'},
-    {id: 8, name: 'Setembro'},
-    {id: 9, name: 'Outubro'},
-    {id: 10, name: 'Novembro'},
-    {id: 11, name: 'Dezembro'},
-  ];
 
   return (
     <View style={styles.container}>

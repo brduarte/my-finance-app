@@ -11,7 +11,6 @@ import {IResumeService} from '../../services/core/interfaces/ResumeServiceInterf
 import {ResumeService} from '../../services/core/services/ResumeService.ts';
 
 export function Transaction(): React.JSX.Element {
-  const activeIndicator = useActiveIndicator();
   const [loading, setLoading] = useState<boolean>(false);
 
   const [resume, setResume] = useState<ResumeModel>({
@@ -26,20 +25,12 @@ export function Transaction(): React.JSX.Element {
 
   useFocusEffect(
     useCallback(() => {
-      activeIndicator.active();
+      setLoading(true);
       Promise.all([loadTransactions(), loadResume()]).finally(() => {
-        activeIndicator.disabled();
+        setLoading(false);
       });
-    }, []),
+    }, [filterMonth]),
   );
-
-  useEffect(() => {
-    setLoading(true);
-    Promise.all([loadTransactions(), loadResume()]).finally(() => {
-      setLoading(false);
-    });
-    loadTransactions().finally(() => {});
-  }, [filterMonth]);
 
   async function loadTransactions(): Promise<void> {
     const transactionService: ITransactionService = new TransactionService();
