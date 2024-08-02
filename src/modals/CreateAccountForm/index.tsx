@@ -8,6 +8,11 @@ import {DateHelper} from '../../helpers/DateHelper.ts';
 import {useNavigation} from '@react-navigation/native';
 import {useActiveIndicator} from '../../contexts/ActiveIndicatorContext.tsx';
 
+type Error = {
+  isError: boolean;
+  text?: string;
+};
+
 export default function CreateAccountForm(): React.JSX.Element {
   const navigate = useNavigation();
 
@@ -17,9 +22,13 @@ export default function CreateAccountForm(): React.JSX.Element {
   const [installments, setInstallments] = useState<number>(1);
   const [name, setName] = useState<string>();
 
+  const [errorInputName, setErrorInputName] = useState<Error>();
+  const [errorInputAmount, setErrorInputAmount] = useState<Error>();
+
   const activeIndicator = useActiveIndicator();
 
   function handleInputValueChange(value: string) {
+    setErrorInputAmount({isError: false});
     setAmount(MoneyHelper.stringToReal(value));
   }
 
@@ -36,19 +45,35 @@ export default function CreateAccountForm(): React.JSX.Element {
   }
 
   function handleInputNameChange(value: string) {
+    setErrorInputName({isError: false});
     setName(value);
   }
 
   async function handleSummit() {
-    activeIndicator.active();
-
     const accountService: IAccountService = new AccountService();
+    const value = MoneyHelper.brToInt(amount);
+
+    if (!name) {
+      setErrorInputName({
+        isError: true,
+        text: 'Por favor, informe o nome da transação.',
+      });
+    }
+
+    if (value <= 0) {
+      setErrorInputAmount({
+        isError: true,
+        text: 'Por favor, insira um valor válido para a transação.',
+      });
+    }
 
     if (!amount || !name || !typeAccountId) {
       return;
     }
 
     try {
+      activeIndicator.active();
+
       await accountService.create({
         name: name,
         amount: MoneyHelper.brToInt(amount),
@@ -68,7 +93,12 @@ export default function CreateAccountForm(): React.JSX.Element {
   return (
     <Layout
       handleSummit={handleSummit}
-      inputValue={{value: amount, handleInputValueChange}}
+      inputValue={{
+        value: amount,
+        handleInputValueChange,
+        errorMessage: errorInputAmount?.text,
+        isError: errorInputAmount?.isError,
+      }}
       inputDate={{
         value: firstDate,
         handleInputDateChange: handleInputFirstDate,
@@ -84,6 +114,8 @@ export default function CreateAccountForm(): React.JSX.Element {
       inputName={{
         value: name,
         handleInputNameChange,
+        isError: errorInputName?.isError,
+        errorMessage: errorInputName?.text,
       }}
     />
   );

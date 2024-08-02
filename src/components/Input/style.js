@@ -23,4 +23,10 @@ export const styles = StyleSheet.create({
   error: {
     borderColor: '#cb0000',
   },
+  errorText: {
+    fontSize: moderateScale(12),
+    marginTop: verticalScale(2),
+    fontFamily: MStyles.fontFamilyInterRegular,
+    color: '#cb0000',
+  },
 });

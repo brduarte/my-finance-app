@@ -2,7 +2,6 @@ import React from 'react';
 import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './styles';
 import Input from '../../components/Input';
-import {MoneyHelper} from '../../helpers/MoneyHelper.ts';
 
 import {SelectSheet} from '../../components/InputSelectSheet';
 import {BookDown, BookUp, X} from 'lucide-react-native';
@@ -14,14 +13,20 @@ type LayoutProps = {
   inputValue: {
     handleInputValueChange: (value: string) => void;
     value?: string;
+    isError?: boolean;
+    errorMessage?: string;
   };
   inputName: {
     handleInputNameChange: (value: any) => void;
     value?: string;
+    isError?: boolean;
+    errorMessage?: string;
   };
   inputTypeAccount: {
     handleInputTypeAccountChange: (value: any) => void;
     value?: string;
+    isError?: boolean;
+    errorMessage?: string;
   };
   inputDate: {
     handleInputDateChange: (value: any) => void;
@@ -30,6 +35,8 @@ type LayoutProps = {
   inputInstallment: {
     handleInputInstallmentChange: (value: string) => void;
     value?: string;
+    isError?: boolean;
+    errorMessage?: string;
   };
   handleSummit: () => void;
 };
@@ -71,8 +78,11 @@ export default function Layout({
               keyboardType={'numeric'}
               style={styles.inputMoney}
               placeholder={'0'}
+              caretHidden={true}
               onChangeText={inputValue.handleInputValueChange}
               value={inputValue.value}
+              isError={inputValue.isError}
+              errorText={inputValue.errorMessage}
             />
           </View>
 
@@ -82,6 +92,8 @@ export default function Layout({
               placeholder={'Conta de Luz'}
               value={inputName.value}
               onChangeText={inputName.handleInputNameChange}
+              errorText={inputName.errorMessage}
+              isError={inputName.isError}
             />
           </View>
 

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {NativeSyntheticEvent, StyleProp, TextInput} from 'react-native';
+import {NativeSyntheticEvent, StyleProp, Text, TextInput} from 'react-native';
 import {
   KeyboardTypeOptions,
   TextInputChangeEventData,
@@ -18,6 +18,7 @@ type Props = {
   errorText?: string;
   onChangeText?: (text: string) => void;
   style?: StyleProp<TextStyle>;
+  caretHidden?: boolean;
   onFocus?: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
   onBlur?: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
   onChanged?: (e: NativeSyntheticEvent<TextInputChangeEventData>) => void;
@@ -32,6 +33,9 @@ export default function Input({
   style,
   keyboardType,
   maxLength,
+  caretHidden,
+  isError,
+  errorText,
 }: Props): React.JSX.Element {
   const [isFocus, setFocus] = useState<boolean>(false);
 
@@ -65,16 +69,25 @@ export default function Input({
   }
 
   return (
-    <TextInput
-      keyboardType={keyboardType}
-      placeholder={placeholder}
-      onChangeText={onChangeText}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-      value={value?.toString()}
-      secureTextEntry={secureTextEntry}
-      style={handleStyleChange()}
-      maxLength={maxLength}
-    />
+    <>
+      <TextInput
+        keyboardType={keyboardType}
+        placeholder={placeholder}
+        onChangeText={onChangeText}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        caretHidden={caretHidden}
+        value={value?.toString()}
+        secureTextEntry={secureTextEntry}
+        style={
+          isError
+            ? {...handleStyleChange(), ...styles.error}
+            : handleStyleChange()
+        }
+        maxLength={maxLength}
+      />
+
+      {isError ? <Text style={styles.errorText}>{errorText}</Text> : <></>}
+    </>
   );
 }
