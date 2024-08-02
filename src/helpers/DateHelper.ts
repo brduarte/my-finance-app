@@ -12,7 +12,7 @@ export class DateHelper {
   }
 
   static toUsa(date: Date) {
-    return formatInTimeZone(date, 'UTC', 'dd/MM/yyyy');
+    return formatInTimeZone(date, 'UTC', 'yyyy-MM-dd');
   }
 
   static getNameMonth(month: number) {

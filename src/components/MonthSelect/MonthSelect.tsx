@@ -2,7 +2,6 @@ import {FlatList, Text, TouchableOpacity, View} from 'react-native';
 import React, {useMemo, useRef, useState} from 'react';
 import {styles} from './styles';
 
-import {DateHelper} from '../../helpers/DateHelper.ts';
 import {CircleArrowLeft, CircleArrowRight} from 'lucide-react-native';
 import {MStyles} from '../../views/style';
 
