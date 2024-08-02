@@ -23,8 +23,6 @@ export function InputDateSheet({
   const modal = useBottomSheet();
   const currentDate = DateHelper.toUsa(value || new Date());
 
-  console.log(currentDate);
-
   useEffect(() => {
     modal.setChildren(<DataPickerContentModal />);
   }, [value]);
