@@ -98,6 +98,7 @@ export default function Login({
       activeIndicator.active();
       await useAuthProfile.signIn(authModel);
       navigation.navigate('Main');
+    } catch (e) {
     } finally {
       activeIndicator.disabled();
     }

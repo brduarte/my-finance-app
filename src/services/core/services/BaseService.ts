@@ -24,6 +24,7 @@ export abstract class BaseService {
         return config;
       },
       function (error) {
+        console.log(error);
         // Do something with request error
         return Promise.reject(error);
       },
@@ -46,6 +47,16 @@ export abstract class BaseService {
               message: 'Verifique Suas Credenciais',
               description: 'Ative sua conta. Verifique seu e-mail.',
               type: 'danger',
+              duration: 5000,
+            });
+            break;
+          case 'Invalid user. Please check your credentials and try again.':
+            showMessage({
+              message: 'Acesso inválido',
+              description:
+                'Verifique sua senha ou endereço de e-mail e tente novamente.',
+              type: 'danger',
+              duration: 5000,
             });
             break;
         }
