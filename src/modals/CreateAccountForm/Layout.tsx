@@ -119,6 +119,8 @@ export default function Layout({
                 placeholder={'1'}
                 value={inputInstallment.value}
                 onChangeText={inputInstallment.handleInputInstallmentChange}
+                isError={inputInstallment.isError}
+                errorText={inputInstallment.errorMessage}
               />
             </View>
             <View style={{flex: 3, marginLeft: 5}}>

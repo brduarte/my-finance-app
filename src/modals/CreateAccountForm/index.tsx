@@ -24,6 +24,7 @@ export default function CreateAccountForm(): React.JSX.Element {
 
   const [errorInputName, setErrorInputName] = useState<Error>();
   const [errorInputAmount, setErrorInputAmount] = useState<Error>();
+  const [errorInstallment, setErrorInstallment] = useState<Error>();
 
   const activeIndicator = useActiveIndicator();
 
@@ -41,7 +42,18 @@ export default function CreateAccountForm(): React.JSX.Element {
   }
 
   function handleInputInstallmentChange(value: string) {
-    setInstallments(+value);
+    const installment = +value;
+
+    if (installment <= 0) {
+      setErrorInstallment({
+        isError: true,
+        text: 'Valor deve ser maior que 0.',
+      });
+    } else {
+      setErrorInstallment({isError: false});
+    }
+
+    setInstallments(installment);
   }
 
   function handleInputNameChange(value: string) {
@@ -57,6 +69,11 @@ export default function CreateAccountForm(): React.JSX.Element {
       setErrorInputName({
         isError: true,
         text: 'Por favor, informe o nome da transação.',
+      });
+    } else if (name.length <= 3) {
+      setErrorInputName({
+        isError: true,
+        text: 'Por favor, o nome precisa ter pelo menos 4 letras.',
       });
     }
 
@@ -106,6 +123,8 @@ export default function CreateAccountForm(): React.JSX.Element {
       inputInstallment={{
         handleInputInstallmentChange,
         value: installments?.toString(),
+        errorMessage: errorInstallment?.text,
+        isError: errorInstallment?.isError,
       }}
       inputTypeAccount={{
         value: typeAccountId,
