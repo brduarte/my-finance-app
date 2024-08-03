@@ -22,6 +22,8 @@ export default function CreateAccountForm(): React.JSX.Element {
   const [installments, setInstallments] = useState<number>(1);
   const [name, setName] = useState<string>();
 
+  const [enableSubmit, setEnableSubmit] = useState<boolean>(false);
+
   const [errorInputName, setErrorInputName] = useState<Error>();
   const [errorInputAmount, setErrorInputAmount] = useState<Error>();
   const [errorInstallment, setErrorInstallment] = useState<Error>();
@@ -34,6 +36,10 @@ export default function CreateAccountForm(): React.JSX.Element {
   }
 
   function handleInputTypeAccountChange(value: string) {
+    if (value) {
+      setEnableSubmit(true);
+    }
+
     setTypeAccountId(value);
   }
 
@@ -110,6 +116,7 @@ export default function CreateAccountForm(): React.JSX.Element {
   return (
     <Layout
       handleSummit={handleSummit}
+      enableSubmit={enableSubmit}
       inputValue={{
         value: amount,
         handleInputValueChange,

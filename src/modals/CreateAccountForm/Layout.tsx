@@ -39,6 +39,7 @@ type LayoutProps = {
     errorMessage?: string;
   };
   handleSummit: () => void;
+  enableSubmit: boolean;
 };
 
 export default function Layout({
@@ -48,6 +49,7 @@ export default function Layout({
   inputInstallment,
   inputName,
   handleSummit,
+  enableSubmit,
 }: LayoutProps): React.JSX.Element {
   const optionsTypeAccount = [
     {
@@ -133,8 +135,13 @@ export default function Layout({
             </View>
           </View>
 
-          <TouchableOpacity onPress={handleSummit}>
-            <View style={styles.buttonConfirm}>
+          <TouchableOpacity onPress={handleSummit} disabled={!enableSubmit}>
+            <View
+              style={
+                enableSubmit
+                  ? styles.buttonConfirm
+                  : {...styles.buttonConfirm, opacity: 0.5}
+              }>
               <Text style={styles.buttonText}>Confirmar</Text>
             </View>
           </TouchableOpacity>
