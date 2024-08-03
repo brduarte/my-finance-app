@@ -1,5 +1,5 @@
 import Layout from './Layout.tsx';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AuthModel from '../../services/core/models/AuthModel.ts';
 import {EmailHelper} from '../../helpers/EmailHelper.ts';
 import {showMessage} from 'react-native-flash-message';
@@ -17,6 +17,7 @@ export default function Login({
 }: NativeStackScreenProps<any>): React.JSX.Element {
   const [errorInputEmail, setErrorInputEmail] = useState<Error>();
   const [errorInputPassword, setErrorInputPassword] = useState<Error>();
+  const [isEnabledSubmit, setIsEnabledSubmit] = useState(false);
 
   const [authModel, setAuthModel] = useState<AuthModel>({
     email: '',
@@ -25,6 +26,14 @@ export default function Login({
 
   const useAuthProfile = useAuthProfileContext();
   const activeIndicator = useActiveIndicator();
+
+  useEffect(() => {
+    if (authModel.email && authModel.password) {
+      setIsEnabledSubmit(true);
+    } else {
+      setIsEnabledSubmit(false);
+    }
+  }, [authModel]);
 
   function handleForm(text: string, key: string) {
     if (key === 'email') {
@@ -98,6 +107,7 @@ export default function Login({
     <Layout
       handleForm={handleForm}
       onFormSubmit={handleOnFormSubmit}
+      isEnabledSubmit={isEnabledSubmit}
       inputEmail={{
         isError: errorInputEmail?.isError,
         errorMessage: errorInputEmail?.text,

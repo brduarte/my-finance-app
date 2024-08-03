@@ -6,6 +6,7 @@ import {MStyles} from '../style';
 
 type LoginProps = {
   handleForm: (text: string, key: string) => void;
+  isEnabledSubmit: boolean;
   onFormSubmit: () => void;
   inputEmail: {
     isError?: boolean;
@@ -23,6 +24,7 @@ export default function Layout({
   onFormSubmit,
   inputEmail,
   inputPassword,
+  isEnabledSubmit,
 }: LoginProps): React.JSX.Element {
   return (
     <View style={styles.container}>
@@ -57,8 +59,13 @@ export default function Layout({
       </View>
 
       <View style={styles.sections}>
-        <TouchableOpacity onPress={onFormSubmit}>
-          <View style={styles.buttonLogin}>
+        <TouchableOpacity onPress={onFormSubmit} disabled={!isEnabledSubmit}>
+          <View
+            style={
+              isEnabledSubmit
+                ? styles.buttonLogin
+                : {...styles.buttonLogin, opacity: 0.6}
+            }>
             <Text style={styles.buttonText}>Entrar</Text>
           </View>
         </TouchableOpacity>
