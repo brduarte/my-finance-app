@@ -11,12 +11,18 @@ type LoginProps = {
     isError?: boolean;
     errorMessage?: string;
   };
+
+  inputPassword: {
+    isError?: boolean;
+    errorMessage?: string;
+  };
 };
 
 export default function Layout({
   handleForm,
   onFormSubmit,
   inputEmail,
+  inputPassword,
 }: LoginProps): React.JSX.Element {
   return (
     <View style={styles.container}>
@@ -44,6 +50,8 @@ export default function Layout({
           placeholder={'*****'}
           keyboardType={'number-pad'}
           maxLength={8}
+          isError={inputPassword.isError}
+          errorText={inputPassword.errorMessage}
           onChangeText={text => handleForm(text, 'password')}
         />
       </View>

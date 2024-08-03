@@ -29,6 +29,8 @@ export default function Login({
   function handleForm(text: string, key: string) {
     if (key === 'email') {
       setErrorInputEmail({isError: false});
+    } else if (key === 'password') {
+      setErrorInputPassword({isError: false});
     }
 
     setAuthModel({...authModel, [key]: text});
@@ -37,9 +39,14 @@ export default function Login({
   function validateEmail() {
     let result = true;
 
-    const emailIsValid = EmailHelper.validate(authModel.email);
+    if (!authModel.email) {
+      setErrorInputEmail({
+        isError: true,
+        text: 'Por favor, insira um endereço de e-mail.',
+      });
 
-    if (!emailIsValid) {
+      result = false;
+    } else if (!EmailHelper.validate(authModel.email)) {
       setErrorInputEmail({
         isError: true,
         text: 'Por favor, insira um endereço de e-mail válido.',
@@ -51,8 +58,30 @@ export default function Login({
     return result;
   }
 
+  function validatePassword() {
+    let result = true;
+
+    if (!authModel.password) {
+      setErrorInputPassword({
+        isError: true,
+        text: 'Por favor, insira uma senha valida.',
+      });
+
+      result = false;
+    } else if (authModel.password.length < 4) {
+      setErrorInputPassword({
+        isError: true,
+        text: 'A senha deve ter pelo menos 4 dígitos.',
+      });
+
+      result = false;
+    }
+
+    return result;
+  }
+
   async function handleOnFormSubmit() {
-    if (!validateEmail()) {
+    if (!validateEmail() || !validatePassword()) {
       return;
     }
 
@@ -72,6 +101,10 @@ export default function Login({
       inputEmail={{
         isError: errorInputEmail?.isError,
         errorMessage: errorInputEmail?.text,
+      }}
+      inputPassword={{
+        isError: errorInputPassword?.isError,
+        errorMessage: errorInputPassword?.text,
       }}
     />
   );
