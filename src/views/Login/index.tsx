@@ -7,9 +7,17 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useAuthProfileContext} from '../../contexts/AuthProfileContext.tsx';
 import {useActiveIndicator} from '../../contexts/ActiveIndicatorContext.tsx';
 
+type Error = {
+  isError: boolean;
+  text?: string;
+};
+
 export default function Login({
   navigation,
 }: NativeStackScreenProps<any>): React.JSX.Element {
+  const [errorInputEmail, setErrorInputEmail] = useState<Error>();
+  const [errorInputPassword, setErrorInputPassword] = useState<Error>();
+
   const [authModel, setAuthModel] = useState<AuthModel>({
     email: '',
     password: '',
@@ -19,41 +27,52 @@ export default function Login({
   const activeIndicator = useActiveIndicator();
 
   function handleForm(text: string, key: string) {
+    if (key === 'email') {
+      setErrorInputEmail({isError: false});
+    }
+
     setAuthModel({...authModel, [key]: text});
   }
 
   function validateEmail() {
+    let result = true;
+
     const emailIsValid = EmailHelper.validate(authModel.email);
 
     if (!emailIsValid) {
-      showMessage({
-        message: 'E-mail Inválido',
-        description: 'Por favor, insira um e-mail válido para continuar.',
-        type: 'danger',
+      setErrorInputEmail({
+        isError: true,
+        text: 'Por favor, insira um endereço de e-mail válido.',
       });
+
+      result = false;
     }
+
+    return result;
   }
 
   async function handleOnFormSubmit() {
-    activeIndicator.active();
-    if (!authModel.email || !authModel.password) {
-      return showMessage({
-        message: 'Falha ao entrar',
-        description: 'Verifique se seu usuário ou senha estão corretos.',
-        type: 'danger',
-      });
+    if (!validateEmail()) {
+      return;
     }
 
-    await useAuthProfile.signIn(authModel);
-    activeIndicator.disabled();
-    navigation.navigate('Main');
+    try {
+      activeIndicator.active();
+      await useAuthProfile.signIn(authModel);
+      navigation.navigate('Main');
+    } finally {
+      activeIndicator.disabled();
+    }
   }
 
   return (
     <Layout
       handleForm={handleForm}
-      onBlurEmail={validateEmail}
       onFormSubmit={handleOnFormSubmit}
+      inputEmail={{
+        isError: errorInputEmail?.isError,
+        errorMessage: errorInputEmail?.text,
+      }}
     />
   );
 }
