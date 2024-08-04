@@ -161,13 +161,6 @@ function App(): React.JSX.Element {
             {useAuth.isLogged() ? (
               <>
                 <Stack.Screen name="Main" component={LoggedArea} />
-                <Stack.Screen
-                  options={{
-                    animation: 'slide_from_bottom',
-                  }}
-                  name="CreateAccountForm"
-                  component={CreateAccountForm}
-                />
               </>
             ) : (
               <>
@@ -176,6 +169,14 @@ function App(): React.JSX.Element {
                 <Stack.Screen name="Main" component={LoggedArea} />
               </>
             )}
+
+            <Stack.Screen
+              options={{
+                animation: 'slide_from_bottom',
+              }}
+              name="CreateAccountForm"
+              component={CreateAccountForm}
+            />
           </Stack.Group>
           <Stack.Group
             screenOptions={{

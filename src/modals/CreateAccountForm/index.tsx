@@ -90,7 +90,7 @@ export default function CreateAccountForm(): React.JSX.Element {
       });
     }
 
-    if (!amount || !name || !typeAccountId) {
+    if (!amount || !name || !typeAccountId || name.length <= 3) {
       return;
     }
 

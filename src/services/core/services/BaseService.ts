@@ -41,6 +41,16 @@ export abstract class BaseService {
         // Any status codes that falls outside the range of 2xx cause this function to trigger
         // Do something with response error
 
+        if (error.code === 'ERR_NETWORK') {
+          showMessage({
+            message: 'Sem conexão com a internet.',
+            description:
+              'Parece que você está sem internet. Verifique sua conexão e tente de novo.',
+            type: 'danger',
+            duration: 5000,
+          });
+        }
+
         switch (error.response.data.message) {
           case 'Active your account. Check your email.':
             showMessage({
