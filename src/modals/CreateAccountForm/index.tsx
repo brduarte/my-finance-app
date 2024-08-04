@@ -74,23 +74,23 @@ export default function CreateAccountForm(): React.JSX.Element {
     if (!name) {
       setErrorInputName({
         isError: true,
-        text: 'Por favor, informe o nome da transação.',
+        text: 'Por favor, informe um nome para o lançamento.',
       });
-    } else if (name.length <= 3) {
+    } else if (name.length <= 4) {
       setErrorInputName({
         isError: true,
-        text: 'Por favor, o nome precisa ter pelo menos 4 letras.',
+        text: 'Por favor, o nome precisa ter pelo menos 5 letras.',
       });
     }
 
     if (value <= 0) {
       setErrorInputAmount({
         isError: true,
-        text: 'Por favor, insira um valor válido para a transação.',
+        text: 'Por favor, insira um valor válido para o lançamento.',
       });
     }
 
-    if (!amount || !name || !typeAccountId || name.length <= 3) {
+    if (!amount || !name || !typeAccountId || name.length <= 4) {
       return;
     }
 
