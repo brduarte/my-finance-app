@@ -1,9 +1,10 @@
 import {FlatList} from 'react-native';
 import {TransactionsModel} from '../../services/core/models/TransactionsModel.ts';
 
-import React from 'react';
+import React, {useState} from 'react';
 
 import {ListItemComponent} from './components/ListItemComponent/ListItemComponent.tsx';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 type TransactionsListProps = {
   transactions: TransactionsModel[];
@@ -12,11 +13,29 @@ type TransactionsListProps = {
 export function TransactionsList({
   transactions,
 }: TransactionsListProps): React.JSX.Element {
+  const [currentSwipeableOpen, setCurrentSwipeableOpen] = useState<Swipeable>();
+
+  function onSwipeableOpen(direction: 'left' | 'right', swipeable: Swipeable) {
+    setCurrentSwipeableOpen(swipeable);
+  }
+
+  function onSwipeableWillOpen(direction: 'left' | 'right') {
+    if (currentSwipeableOpen) {
+      currentSwipeableOpen.close();
+    }
+  }
+
   return (
     <FlatList
       data={transactions}
       showsVerticalScrollIndicator={false}
-      renderItem={({item}) => <ListItemComponent transaction={item} />}
+      renderItem={({item}) => (
+        <ListItemComponent
+          transaction={item}
+          onSwipeableOpen={onSwipeableOpen}
+          onSwipeableWillOpen={onSwipeableWillOpen}
+        />
+      )}
       keyExtractor={(item, index) => (item.id ? item.id : index.toString())}
     />
   );
