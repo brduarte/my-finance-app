@@ -1,4 +1,4 @@
-import React, {PropsWithChildren, useEffect, useRef, useState} from 'react';
+import React from 'react';
 import {
   SectionList,
   StatusBar,
@@ -92,7 +92,7 @@ export default function Layout({
         navigation.navigate('Transaction');
       },
       data: [
-        <View style={styles.session}>
+        <View style={styles.sessionNoPadding}>
           <TransactionsList transactions={transactions} />
         </View>,
       ],

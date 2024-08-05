@@ -8,10 +8,10 @@ import {
 
 export const styleItemList = StyleSheet.create({
   container: {
+    backgroundColor: MStyles.colors.whiteColor,
     flexDirection: 'row',
     paddingVertical: verticalScale(8),
-    marginBottom: verticalScale(5),
-    borderRadius: 8,
+    paddingHorizontal: MStyles.padding.horizontal,
   },
   value: {
     alignSelf: 'center',

@@ -31,7 +31,10 @@ export function Layout({
     <SafeAreaView>
       <>
         <View style={styles.container}>
-          <ModalHeader title={'Lançamentos'} />
+          <View style={styles.sessionTitle}>
+            <ModalHeader title={'Lançamentos'} />
+          </View>
+
           {isLoading ? (
             <ActivityIndicator />
           ) : !transactions.length ? (

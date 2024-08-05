@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {styleItemList} from '../../styles';
 import {MStyles} from '../../../../views/style';
@@ -10,6 +10,8 @@ import {Text, View} from 'react-native';
 import {DateHelper} from '../../../../helpers/DateHelper.ts';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {LeftActions} from '../LeftActions/LeftActions.tsx';
+import {useSharedValue, withTiming} from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 
 type TransactionsListProps = {
   transaction: TransactionsModel;
@@ -18,12 +20,32 @@ type TransactionsListProps = {
 export function ListItemComponent({
   transaction,
 }: TransactionsListProps): React.JSX.Element {
+  const borderRadio = useSharedValue(0);
+  const [swipeableBackGroundColor, setSwipeableBackGroundColor] = useState(
+    MStyles.colors.whiteColor,
+  );
+
   let valueStyle = {
     ...styleItemList.valueText,
     color: MStyles.colors.greenColor,
   };
+
   let subText = 'Recebe em:';
   let value = MoneyHelper.intToReal(transaction.amount);
+
+  const onSwipeableWillOpen = (direction: 'left' | 'right') => {
+    if (direction === 'left') {
+      setSwipeableBackGroundColor(MStyles.colors.redColor);
+      borderRadio.value = withTiming(100, {});
+    }
+  };
+
+  const onSwipeableWillClose = (direction: 'left' | 'right') => {
+    if (direction === 'left') {
+      setSwipeableBackGroundColor(MStyles.colors.whiteColor);
+      borderRadio.value = withTiming(0, {});
+    }
+  };
 
   let icon: React.JSX.Element = (
     <ArrowUp strokeWidth={2.5} size={24} color={MStyles.colors.blackColor} />
@@ -42,8 +64,19 @@ export function ListItemComponent({
   }
 
   return (
-    <Swipeable renderLeftActions={LeftActions}>
-      <View style={styleItemList.container}>
+    <Swipeable
+      renderLeftActions={LeftActions}
+      containerStyle={{
+        backgroundColor: swipeableBackGroundColor,
+      }}
+      onSwipeableWillOpen={onSwipeableWillOpen}
+      onSwipeableWillClose={onSwipeableWillClose}>
+      <Animated.View
+        style={{
+          ...styleItemList.container,
+          borderBottomLeftRadius: borderRadio,
+          borderTopLeftRadius: borderRadio,
+        }}>
         <View style={styleItemList.iconSession}>{icon}</View>
         <View style={styleItemList.text}>
           <Text style={styleItemList.itemTile}>
@@ -54,7 +87,7 @@ export function ListItemComponent({
         <View style={styleItemList.value}>
           <Text style={valueStyle}>{value}</Text>
         </View>
-      </View>
+      </Animated.View>
     </Swipeable>
   );
 }

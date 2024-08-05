@@ -9,6 +9,8 @@ import {MStyles} from '../style';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  sessionTitle: {
     paddingHorizontal: horizontalScale(21),
   },
   filterContainer: {

@@ -10,12 +10,14 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+
   sessionTitle: {
     flexDirection: 'row',
     alignItems: 'flex-end',
     marginBottom: verticalScale(16),
     paddingHorizontal: horizontalScale(21),
   },
+
   sessionTitleText: {
     flex: 1,
     fontFamily: MStyles.fontFamilyPrimarySemiBold,
@@ -32,6 +34,10 @@ export const styles = StyleSheet.create({
   session: {
     marginBottom: verticalScale(32),
     paddingHorizontal: horizontalScale(21),
+  },
+
+  sessionNoPadding: {
+    paddingHorizontal: 0,
   },
 
   activeFilter: {
