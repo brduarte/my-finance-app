@@ -6,7 +6,7 @@ import {
   verticalScale,
 } from '../../helpers/MetricsHelper';
 
-export const styles = StyleSheet.create({
+export const styleItemList = StyleSheet.create({
   container: {
     flexDirection: 'row',
     paddingVertical: verticalScale(8),
