@@ -8,7 +8,7 @@ export interface TransactionsModel {
   amount: number;
   type: TransactionTypeEnum;
   dueDate: string;
+  installment: number;
   status?: TransactionStatusEnum;
-
   account?: AccountModel;
 }

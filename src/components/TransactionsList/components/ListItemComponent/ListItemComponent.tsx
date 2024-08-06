@@ -1,4 +1,4 @@
-import React, {RefObject, useEffect, useRef, useState} from 'react';
+import React, {useState} from 'react';
 
 import {styleItemList} from '../../styles';
 import {MStyles} from '../../../../views/style';
@@ -19,6 +19,7 @@ type TransactionsListProps = {
   transaction: TransactionsModel;
   onSwipeableWillOpen?: (direction: 'left' | 'right') => void;
   onSwipeableOpen?: (direction: 'left' | 'right', swipeable: Swipeable) => void;
+  onDeleteAction?: (transaction: TransactionsModel) => void;
   onSwipeableClose?: (
     direction: 'left' | 'right',
     swipeable: Swipeable,
@@ -30,6 +31,7 @@ export function ListItemComponent({
   onSwipeableOpen,
   onSwipeableClose,
   onSwipeableWillOpen,
+  onDeleteAction,
 }: TransactionsListProps): React.JSX.Element {
   const borderRadio = useSharedValue(0);
   const [swipeableBackGroundColor, setSwipeableBackGroundColor] = useState(
@@ -71,7 +73,7 @@ export function ListItemComponent({
     }
   }
 
-  function handleOnSwipeableWillClose(direction: 'left' | 'right') {
+  function handleOnSwipeableWillClose() {
     setSwipeableBackGroundColor(MStyles.colors.whiteColor);
     borderRadio.value = withTiming(0, {
       duration: 300,
@@ -84,6 +86,10 @@ export function ListItemComponent({
     swipeable: Swipeable,
   ) {
     function deleteAction() {
+      if (onDeleteAction) {
+        onDeleteAction(transaction);
+      }
+
       swipeable.close();
     }
 

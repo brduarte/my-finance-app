@@ -1,16 +1,17 @@
 import {Layout} from './Layout.tsx';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {TransactionsModel} from '../../services/core/models/TransactionsModel.ts';
 import {useFocusEffect} from '@react-navigation/native';
 import {ITransactionService} from '../../services/core/interfaces/TransactionServiceInterface.ts';
 import {TransactionService} from '../../services/core/services/TransactionService.ts';
-import {useActiveIndicator} from '../../contexts/ActiveIndicatorContext.tsx';
 import {DateHelper} from '../../helpers/DateHelper.ts';
 import {ResumeModel} from '../../services/core/models/ResumeModel.ts';
 import {IResumeService} from '../../services/core/interfaces/ResumeServiceInterface.ts';
 import {ResumeService} from '../../services/core/services/ResumeService.ts';
 
 export function Transaction(): React.JSX.Element {
+  const transactionService: ITransactionService = new TransactionService();
+
   const [loading, setLoading] = useState<boolean>(false);
 
   const [resume, setResume] = useState<ResumeModel>({
@@ -18,6 +19,7 @@ export function Transaction(): React.JSX.Element {
     revenue: 0,
     expenses: 0,
   });
+
   const [transactions, setTransactions] = useState<TransactionsModel[]>([]);
   const [filterMonth, setFilterMonth] = useState<number>(
     DateHelper.getCurrentMonthNumber() - 1,
@@ -33,7 +35,6 @@ export function Transaction(): React.JSX.Element {
   );
 
   async function loadTransactions(): Promise<void> {
-    const transactionService: ITransactionService = new TransactionService();
     setTransactions(await transactionService.getAll(30, filterMonth + 1));
   }
 
@@ -46,6 +47,15 @@ export function Transaction(): React.JSX.Element {
     setFilterMonth(value);
   }
 
+  async function onDeleteTransaction(transaction: TransactionsModel) {
+    if (transaction.id) {
+      console.log(transaction);
+      transactionService
+        .delete(transaction.id)
+        .catch(error => console.error(error));
+    }
+  }
+
   return (
     <Layout
       transactions={transactions}
@@ -53,6 +63,7 @@ export function Transaction(): React.JSX.Element {
       isLoading={loading}
       resume={resume}
       onChangedMonthFilter={onChangedMonthFilter}
+      onDeleteTransaction={onDeleteTransaction}
     />
   );
 }

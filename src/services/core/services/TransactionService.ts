@@ -17,6 +17,6 @@ export class TransactionService
   }
 
   public async delete(id: string) {
-    await this.request().delete(`/transactions/?${id}`);
+    await this.request().delete(`/transactions/${id}`);
   }
 }
