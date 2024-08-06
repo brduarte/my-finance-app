@@ -10,4 +10,8 @@ export class AccountService extends BaseService implements IAccountService {
     });
     return data;
   }
+
+  async delete(id: string): Promise<void> {
+    await this.request().delete(`/accounts/${id}`);
+  }
 }
