@@ -20,7 +20,9 @@ export function TransactionsList({
   }
 
   function onSwipeableClose(direction: 'left' | 'right', swipeable: Swipeable) {
-    setCurrentSwipeableOpen(undefined);
+    if (swipeable === currentSwipeableOpen) {
+      setCurrentSwipeableOpen(undefined);
+    }
   }
 
   function onSwipeableWillOpen(direction: 'left' | 'right') {
