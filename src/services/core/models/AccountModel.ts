@@ -9,6 +9,7 @@ export interface AccountModel {
   amount: number;
   recurrence: number;
   type: AccountTypeEnum;
+  installments: number;
   status?: AccountStatusEnum;
   transaction?: TransactionsModel[];
 }

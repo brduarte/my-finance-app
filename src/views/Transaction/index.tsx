@@ -8,11 +8,14 @@ import {DateHelper} from '../../helpers/DateHelper.ts';
 import {ResumeModel} from '../../services/core/models/ResumeModel.ts';
 import {IResumeService} from '../../services/core/interfaces/ResumeServiceInterface.ts';
 import {ResumeService} from '../../services/core/services/ResumeService.ts';
+import {useBottomSheet} from '../../contexts/BottomSheetContext.tsx';
+import {AlertDelete} from './components/AlertDelete/AlertDelete.tsx';
 
 export function Transaction(): React.JSX.Element {
   const transactionService: ITransactionService = new TransactionService();
 
   const [loading, setLoading] = useState<boolean>(false);
+  const bottomSheet = useBottomSheet();
 
   const [resume, setResume] = useState<ResumeModel>({
     balance: 0,
@@ -48,12 +51,19 @@ export function Transaction(): React.JSX.Element {
   }
 
   async function onDeleteTransaction(transaction: TransactionsModel) {
-    if (transaction.id) {
-      console.log(transaction);
-      transactionService
-        .delete(transaction.id)
-        .catch(error => console.error(error));
+    console.log(transaction);
+
+    bottomSheet.setChildren(<AlertDelete transaction={transaction} />);
+    if (transaction.installment == 1) {
+      bottomSheet.open();
     }
+
+    // if (transaction.id) {
+    //   console.log(transaction);
+    //   transactionService
+    //     .delete(transaction.id)
+    //     .catch(error => console.error(error));
+    // }
   }
 
   return (
