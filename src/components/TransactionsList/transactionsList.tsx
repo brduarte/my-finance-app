@@ -19,6 +19,10 @@ export function TransactionsList({
     setCurrentSwipeableOpen(swipeable);
   }
 
+  function onSwipeableClose(direction: 'left' | 'right', swipeable: Swipeable) {
+    setCurrentSwipeableOpen(undefined);
+  }
+
   function onSwipeableWillOpen(direction: 'left' | 'right') {
     if (currentSwipeableOpen) {
       currentSwipeableOpen.close();
@@ -33,6 +37,7 @@ export function TransactionsList({
         <ListItemComponent
           transaction={item}
           onSwipeableOpen={onSwipeableOpen}
+          onSwipeableClose={onSwipeableClose}
           onSwipeableWillOpen={onSwipeableWillOpen}
         />
       )}
