@@ -68,6 +68,8 @@ export const styles = StyleSheet.create({
   },
   selectOptionItemText: {
     flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   selectOptionItemTextTitle: {
     fontFamily: MStyles.fontFamilyInterSemiBold,

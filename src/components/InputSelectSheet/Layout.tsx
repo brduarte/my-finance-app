@@ -1,7 +1,7 @@
 import React from 'react';
 import {disabledStyles, styles} from './styles';
 import {FlatList, Text, TouchableOpacity, View} from 'react-native';
-import {LucideIcon, X} from 'lucide-react-native';
+import {ChevronRight, LucideIcon, X} from 'lucide-react-native';
 import {MStyles} from '../../views/style';
 import {ListRenderItemInfo} from '@react-native/virtualized-lists/Lists/VirtualizedList';
 import {useNavigation} from '@react-navigation/native';
@@ -101,10 +101,16 @@ function LayoutItem({item, onPress, navigate}: LayoutOptionsListItemProps) {
         <></>
       )}
       <View style={styles.selectOptionItemText}>
-        <Text style={styles.selectOptionItemTextTitle}>{item.name}</Text>
-        <Text style={styles.selectOptionItemTextDescription}>
-          {item.description}
-        </Text>
+        <View style={{flex: 1}}>
+          <Text style={styles.selectOptionItemTextTitle}>{item.name}</Text>
+          <Text style={styles.selectOptionItemTextDescription}>
+            {item.description}
+          </Text>
+        </View>
+
+        <View style={{marginLeft: 5}}>
+          <ChevronRight color={MStyles.colors.greyColor} strokeWidth={1.5} />
+        </View>
       </View>
     </TouchableOpacity>
   );
