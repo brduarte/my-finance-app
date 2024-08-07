@@ -71,6 +71,11 @@ export default function Layout({
             "Lançamentos de 'Crédito' irão criar uma ou mais transações de crédito.",
           icon: BookUp,
         },
+      ],
+    },
+    {
+      title: 'Contratos',
+      data: [
         {
           name: 'Assinatura',
           value: 'SUBSCRIPTION',

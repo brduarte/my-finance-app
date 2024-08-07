@@ -4,7 +4,7 @@ import {
   moderateScale,
   verticalScale,
 } from '../../helpers/MetricsHelper';
-import {MStyles} from '../../views/style';
+import {MStyles as MsStyles, MStyles} from '../../views/style';
 
 export const styles = StyleSheet.create({
   selectType: {
@@ -79,6 +79,19 @@ export const styles = StyleSheet.create({
   selectOptionItemTextDescription: {
     fontFamily: MStyles.fontFamilyInterRegular,
     fontSize: moderateScale(12),
+  },
+
+  borderSectionTitle: {
+    borderBottomWidth: 1.2,
+    borderColor: '#b2b2b2',
+    marginBottom: verticalScale(20),
+  },
+
+  sectionTitle: {
+    marginTop: verticalScale(20),
+    marginBottom: verticalScale(10),
+    color: MStyles.colors.blackColor,
+    fontFamily: MStyles.fontFamilyInterSemiBold,
   },
 });
 

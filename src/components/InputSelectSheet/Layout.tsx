@@ -85,7 +85,12 @@ export function LayoutOptionsList({
     <View style={styles.selectOptionItemContainer}>
       <SectionList
         sections={optionsList}
-        renderSectionHeader={({section: {title}}) => <Text>{title}</Text>}
+        renderSectionHeader={({section: {title}}) => (
+          <>
+            <Text style={styles.sectionTitle}>{title}</Text>
+            <View style={styles.borderSectionTitle} />
+          </>
+        )}
         renderItem={({item}: ListRenderItemInfo<ItemProps>) => (
           <LayoutItem
             item={item}
