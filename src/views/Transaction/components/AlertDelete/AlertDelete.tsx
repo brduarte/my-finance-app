@@ -4,6 +4,10 @@ import {styles} from './style';
 import {TransactionsModel} from '../../../../services/core/models/TransactionsModel.ts';
 import {MStyles} from '../../../style';
 import {RectButton} from 'react-native-gesture-handler';
+import {
+  horizontalScale,
+  verticalScale,
+} from '../../../../helpers/MetricsHelper.ts';
 
 type AlertDeleteProps = {
   transaction: TransactionsModel;
@@ -18,11 +22,16 @@ export function AlertDelete({
   onDeleteOnly,
   onCancel,
 }: AlertDeleteProps): React.JSX.Element {
+  const delayLongPress = 500;
+
   return (
     <View style={styles.container}>
       <Image
-        style={styles.icon}
-        borderRadius={8}
+        style={{
+          marginBottom: verticalScale(18),
+          width: horizontalScale(62),
+          height: verticalScale(62),
+        }}
         resizeMode={'contain'}
         source={require('../../../../assets/icons/alert-installment.png')}
       />
@@ -50,7 +59,7 @@ export function AlertDelete({
         <View style={styles.sessionButtons}>
           <RectButton
             style={[styles.buttonDefault, styles.buttonDefault]}
-            delayLongPress={1000}
+            delayLongPress={delayLongPress}
             rippleColor={MStyles.colors.redColor}
             underlayColor={MStyles.colors.redColor}
             onLongPress={onDeleteAll}>
@@ -59,7 +68,7 @@ export function AlertDelete({
 
           <RectButton
             style={[styles.buttonDefault, styles.buttonDefault]}
-            delayLongPress={1000}
+            delayLongPress={delayLongPress}
             rippleColor={MStyles.colors.redColor}
             underlayColor={MStyles.colors.redColor}
             onLongPress={onDeleteOnly}>

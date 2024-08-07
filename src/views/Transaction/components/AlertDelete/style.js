@@ -28,15 +28,8 @@ export const styles = StyleSheet.create({
   iconContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: horizontalScale(80),
-    height: horizontalScale(80),
-    borderRadius: moderateScale(10),
-  },
 
-  icon: {
-    marginBottom: verticalScale(18),
-    width: horizontalScale(62),
-    height: verticalScale(62),
+    borderRadius: moderateScale(10),
   },
 
   containerButtons: {
