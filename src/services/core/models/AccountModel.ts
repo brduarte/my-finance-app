@@ -7,7 +7,6 @@ export interface AccountModel {
   name: string;
   dueDate: string;
   amount: number;
-  recurrence: number;
   type: AccountTypeEnum;
   installments: number;
   status?: AccountStatusEnum;

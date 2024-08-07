@@ -47,7 +47,6 @@ export function AlertDeleteWithInstallment({
           {' '}
           {transaction.account?.name}
         </Text>
-        .
       </Text>
 
       <Text style={styles.subtext}>

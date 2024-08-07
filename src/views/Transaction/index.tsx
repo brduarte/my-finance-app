@@ -13,6 +13,7 @@ import {AlertDeleteWithInstallment} from './components/AlertDelete/AlertDeleteWi
 import {IAccountService} from '../../services/core/interfaces/AccountServiceInterface.ts';
 import {AccountService} from '../../services/core/services/AccountService.ts';
 import {AlertDeleteNoInstallment} from './components/AlertDelete/AlertDeleteNoInstallment.tsx';
+import {TransactionTypeEnum} from '../../services/core/enums/TransactionTypeEnum.ts';
 
 export function Transaction(): React.JSX.Element {
   const transactionService: ITransactionService = new TransactionService();
@@ -57,6 +58,23 @@ export function Transaction(): React.JSX.Element {
       }
     }
 
+    function recallResume() {
+      switch (transaction.type) {
+        case TransactionTypeEnum.CREDIT:
+          setResume({
+            ...resume,
+            expenses: resume.revenue - transaction.amount,
+          });
+          break;
+        case TransactionTypeEnum.DEBIT:
+          setResume({
+            ...resume,
+            expenses: resume.expenses - transaction.amount,
+          });
+          break;
+      }
+    }
+
     async function onDeleteTransaction() {
       try {
         if (transaction.id) {
@@ -64,6 +82,7 @@ export function Transaction(): React.JSX.Element {
         }
 
         setTransactions(transactions.filter(t => t.id !== transaction.id));
+        recallResume();
       } finally {
         bottomSheet.close();
       }

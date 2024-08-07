@@ -102,7 +102,7 @@ export default function CreateAccountForm(): React.JSX.Element {
         amount: MoneyHelper.brToInt(amount),
         dueDate: DateHelper.toUsa(firstDate),
         type: typeAccountId as AccountTypeEnum,
-        recurrence: Number(installments),
+        installments: Number(installments),
       });
 
       navigate.goBack();
