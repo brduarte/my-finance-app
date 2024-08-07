@@ -93,7 +93,10 @@ export default function Layout({
       },
       data: [
         <View style={styles.sessionNoPadding}>
-          <TransactionsList transactions={transactions} />
+          <TransactionsList
+            transactions={transactions}
+            swipeableActionEnable={false}
+          />
         </View>,
       ],
     },

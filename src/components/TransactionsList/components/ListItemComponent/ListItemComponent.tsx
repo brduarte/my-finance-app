@@ -17,6 +17,7 @@ type AnimatedInterpolation = ReturnType<AnimatedNative.Value['interpolate']>;
 
 type TransactionsListProps = {
   transaction: TransactionsModel;
+  enabled?: boolean;
   onSwipeableWillOpen?: (direction: 'left' | 'right') => void;
   onSwipeableOpen?: (direction: 'left' | 'right', swipeable: Swipeable) => void;
   onDeleteAction?: (transaction: TransactionsModel) => void;
@@ -32,6 +33,7 @@ export function ListItemComponent({
   onSwipeableClose,
   onSwipeableWillOpen,
   onDeleteAction,
+  enabled,
 }: TransactionsListProps): React.JSX.Element {
   const borderRadio = useSharedValue(0);
   const [swipeableBackGroundColor, setSwipeableBackGroundColor] = useState(
@@ -98,6 +100,7 @@ export function ListItemComponent({
 
   return (
     <Swipeable
+      enabled={enabled}
       renderLeftActions={renderLeftActions}
       friction={3}
       containerStyle={{

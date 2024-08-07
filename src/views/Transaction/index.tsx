@@ -106,7 +106,7 @@ export function Transaction(): React.JSX.Element {
         bottomSheet.setChildren(
           <AlertDeleteNoInstallment
             transaction={transaction}
-            onDeleteConfirm={onDeleteTransaction}
+            onDeleteConfirm={onDeleteAccount}
             onCancel={onCancelAction}
           />,
         );

@@ -8,12 +8,14 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 type TransactionsListProps = {
   transactions: TransactionsModel[];
+  swipeableActionEnable?: boolean;
   onDeleteAction?: (transaction: TransactionsModel) => void;
 };
 
 export function TransactionsList({
   transactions,
   onDeleteAction,
+  swipeableActionEnable,
 }: TransactionsListProps): React.JSX.Element {
   const [currentSwipeableOpen, setCurrentSwipeableOpen] = useState<Swipeable>();
 
@@ -40,6 +42,7 @@ export function TransactionsList({
       renderItem={({item}) => (
         <ListItemComponent
           transaction={item}
+          enabled={swipeableActionEnable}
           onSwipeableOpen={onSwipeableOpen}
           onSwipeableClose={onSwipeableClose}
           onSwipeableWillOpen={onSwipeableWillOpen}
