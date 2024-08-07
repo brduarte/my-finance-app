@@ -10,9 +10,12 @@ import {IResumeService} from '../../services/core/interfaces/ResumeServiceInterf
 import {ResumeService} from '../../services/core/services/ResumeService.ts';
 import {useBottomSheet} from '../../contexts/BottomSheetContext.tsx';
 import {AlertDelete} from './components/AlertDelete/AlertDelete.tsx';
+import {IAccountService} from '../../services/core/interfaces/AccountServiceInterface.ts';
+import {AccountService} from '../../services/core/services/AccountService.ts';
 
 export function Transaction(): React.JSX.Element {
   const transactionService: ITransactionService = new TransactionService();
+  const accountService: IAccountService = new AccountService();
 
   const [loading, setLoading] = useState<boolean>(false);
   const bottomSheet = useBottomSheet();
@@ -28,15 +31,6 @@ export function Transaction(): React.JSX.Element {
     DateHelper.getCurrentMonthNumber() - 1,
   );
 
-  useFocusEffect(
-    useCallback(() => {
-      setLoading(true);
-      Promise.all([loadTransactions(), loadResume()]).finally(() => {
-        setLoading(false);
-      });
-    }, [filterMonth]),
-  );
-
   async function loadTransactions(): Promise<void> {
     setTransactions(await transactionService.getAll(30, filterMonth + 1));
   }
@@ -50,21 +44,56 @@ export function Transaction(): React.JSX.Element {
     setFilterMonth(value);
   }
 
-  async function onDeleteTransaction(transaction: TransactionsModel) {
-    console.log(transaction);
-
-    bottomSheet.setChildren(<AlertDelete transaction={transaction} />);
-    if (transaction.installment == 1) {
-      bottomSheet.open();
+  async function onDeleteAction(transaction: TransactionsModel) {
+    async function onDeleteAccount() {
+      try {
+        if (transaction.account && transaction.account.id) {
+          await accountService.delete(transaction.account.id);
+        }
+        setTransactions(transactions.filter(t => t.id !== transaction.id));
+      } finally {
+        bottomSheet.close();
+      }
     }
 
-    // if (transaction.id) {
-    //   console.log(transaction);
-    //   transactionService
-    //     .delete(transaction.id)
-    //     .catch(error => console.error(error));
-    // }
+    async function onDeleteTransaction() {
+      try {
+        if (transaction.id) {
+          await transactionService.delete(transaction.id);
+        }
+
+        setTransactions(transactions.filter(t => t.id !== transaction.id));
+      } finally {
+        bottomSheet.close();
+      }
+    }
+
+    function onCancelAction() {
+      bottomSheet.close();
+    }
+
+    if (transaction.account && transaction.account.installments === 1) {
+      bottomSheet.setChildren(
+        <AlertDelete
+          transaction={transaction}
+          onDeleteAll={onDeleteAccount}
+          onDeleteOnly={onDeleteTransaction}
+          onCancel={onCancelAction}
+        />,
+      );
+
+      bottomSheet.open();
+    }
   }
+
+  const loadCallback = useCallback(() => {
+    setLoading(true);
+    Promise.all([loadTransactions(), loadResume()]).finally(() => {
+      setLoading(false);
+    });
+  }, [filterMonth]);
+
+  useFocusEffect(loadCallback);
 
   return (
     <Layout
@@ -73,7 +102,7 @@ export function Transaction(): React.JSX.Element {
       isLoading={loading}
       resume={resume}
       onChangedMonthFilter={onChangedMonthFilter}
-      onDeleteTransaction={onDeleteTransaction}
+      onDeleteAction={onDeleteAction}
     />
   );
 }

@@ -1,15 +1,22 @@
 import React from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Text, View} from 'react-native';
 import {styles} from './style';
 import {TransactionsModel} from '../../../../services/core/models/TransactionsModel.ts';
 import {MStyles} from '../../../style';
+import {RectButton} from 'react-native-gesture-handler';
 
 type AlertDeleteProps = {
   transaction: TransactionsModel;
+  onDeleteAll: () => void;
+  onDeleteOnly: () => void;
+  onCancel: () => void;
 };
 
 export function AlertDelete({
   transaction,
+  onDeleteAll,
+  onDeleteOnly,
+  onCancel,
 }: AlertDeleteProps): React.JSX.Element {
   return (
     <View style={styles.container}>
@@ -17,11 +24,11 @@ export function AlertDelete({
         style={styles.icon}
         borderRadius={8}
         resizeMode={'contain'}
-        source={require('../../../../assets/icons/alert-money.png')}
+        source={require('../../../../assets/icons/alert-installment.png')}
       />
 
       <Text style={styles.title}>
-        Esta é a parcela {transaction.installment} de
+        Esta é a parcela {transaction.installment} de{' '}
         {transaction.account?.installments} do lançamento
         <Text
           style={{
@@ -41,27 +48,33 @@ export function AlertDelete({
 
       <View style={styles.containerButtons}>
         <View style={styles.sessionButtons}>
-          <TouchableOpacity style={{flex: 1}}>
-            <View style={[styles.buttonDefault]}>
-              <Text style={[styles.buttonDefaultText]}>Remover todas</Text>
-            </View>
-          </TouchableOpacity>
+          <RectButton
+            style={[styles.buttonDefault, styles.buttonDefault]}
+            delayLongPress={1000}
+            rippleColor={MStyles.colors.redColor}
+            underlayColor={MStyles.colors.redColor}
+            onLongPress={onDeleteAll}>
+            <Text style={[styles.buttonDefaultText]}>Remover todas</Text>
+          </RectButton>
 
-          <TouchableOpacity style={{flex: 1}}>
-            <View style={[styles.buttonDefault, styles.buttonDefault]}>
-              <Text style={styles.buttonDefaultText}>Remover esta</Text>
-            </View>
-          </TouchableOpacity>
+          <RectButton
+            style={[styles.buttonDefault, styles.buttonDefault]}
+            delayLongPress={1000}
+            rippleColor={MStyles.colors.redColor}
+            underlayColor={MStyles.colors.redColor}
+            onLongPress={onDeleteOnly}>
+            <Text style={styles.buttonDefaultText}>Remover esta</Text>
+          </RectButton>
         </View>
 
-        <TouchableOpacity>
-          <View style={[styles.buttonDefault, styles.buttonCancelAction]}>
-            <Text
-              style={[styles.buttonDefaultText, styles.buttonCancelActionText]}>
-              Cancelar
-            </Text>
-          </View>
-        </TouchableOpacity>
+        <RectButton
+          style={[styles.buttonDefault, styles.buttonCancelAction]}
+          onPress={onCancel}>
+          <Text
+            style={[styles.buttonDefaultText, styles.buttonCancelActionText]}>
+            Cancelar
+          </Text>
+        </RectButton>
       </View>
     </View>
   );

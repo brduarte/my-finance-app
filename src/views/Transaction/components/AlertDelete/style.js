@@ -32,6 +32,7 @@ export const styles = StyleSheet.create({
     height: horizontalScale(80),
     borderRadius: moderateScale(10),
   },
+
   icon: {
     marginBottom: verticalScale(18),
     width: horizontalScale(62),
@@ -47,6 +48,7 @@ export const styles = StyleSheet.create({
   },
 
   buttonDefault: {
+    flex: 1,
     borderRadius: 8,
     marginHorizontal: horizontalScale(2.5),
     paddingVertical: verticalScale(14),
@@ -66,6 +68,7 @@ export const styles = StyleSheet.create({
   },
 
   buttonCancelAction: {
+    flex: null,
     backgroundColor: MStyles.colors.greenColor,
   },
 

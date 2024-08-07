@@ -18,7 +18,7 @@ type LayoutProps = {
   onChangedMonthFilter: (value: number) => void;
   isLoading: boolean;
   resume: ResumeModel;
-  onDeleteTransaction?: (transaction: TransactionsModel) => void;
+  onDeleteAction?: (transaction: TransactionsModel) => void;
 };
 
 export function Layout({
@@ -27,7 +27,7 @@ export function Layout({
   onChangedMonthFilter,
   isLoading,
   resume,
-  onDeleteTransaction,
+  onDeleteAction,
 }: LayoutProps): React.JSX.Element {
   return (
     <SafeAreaView>
@@ -52,7 +52,7 @@ export function Layout({
           ) : (
             <TransactionsList
               transactions={transactions}
-              onDeleteAction={onDeleteTransaction}
+              onDeleteAction={onDeleteAction}
             />
           )}
         </View>
