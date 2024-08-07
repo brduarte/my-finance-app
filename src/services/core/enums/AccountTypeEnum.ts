@@ -1,4 +1,5 @@
 export enum AccountTypeEnum {
   PAYABLE = 'PAYABLE',
   RECEIVABLE = 'RECEIVABLE',
+  SUBSCRIPTION = 'SUBSCRIPTION',
 }

@@ -4,11 +4,12 @@ import {styles} from './styles';
 import Input from '../../components/Input';
 
 import {SelectSheet} from '../../components/InputSelectSheet';
-import {BookDown, BookUp, X} from 'lucide-react-native';
+import {BookDown, BookUp, CalendarRange, X} from 'lucide-react-native';
 import {InputDateSheet} from '../../components/InputDateSheet';
 import {ModalHeader} from '../../navigate/modal/ModalHeader.tsx';
 import {SafeAreaView} from '../../components/SafeAreaView/SafeAreaView.tsx';
 import {ItemProps} from '../../components/InputSelectSheet/Layout.tsx';
+import {AccountTypeEnum} from '../../services/core/enums/AccountTypeEnum.ts';
 
 type LayoutProps = {
   inputValue: {
@@ -75,7 +76,7 @@ export default function Layout({
           value: 'SUBSCRIPTION',
           description:
             "Lançamentos de 'Crédito' irão criar uma ou mais transações de crédito.",
-          icon: BookUp,
+          icon: CalendarRange,
         },
       ],
     },
@@ -88,7 +89,7 @@ export default function Layout({
 
         <ScrollView>
           <View style={styles.session}>
-            <Text style={styles.label}>Valor da conta:</Text>
+            <Text style={styles.label}>Valor do lançamento:</Text>
             <Input
               keyboardType={'numeric'}
               style={styles.inputMoney}
@@ -127,7 +128,12 @@ export default function Layout({
 
           <View style={styles.sessionColum}>
             <View style={{flex: 1}}>
-              <Text style={styles.label}>Parcelas:</Text>
+              <Text style={styles.label}>
+                {inputTransactionType.value?.value ===
+                AccountTypeEnum.SUBSCRIPTION
+                  ? 'Recorrência:'
+                  : 'Parcelas:'}
+              </Text>
               <Input
                 maxLength={4}
                 keyboardType="numeric"
