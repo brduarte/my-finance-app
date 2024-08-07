@@ -5,7 +5,6 @@ import {MStyles} from '../../../../views/style';
 import {Animated, Text} from 'react-native';
 import {styles} from './styles';
 import {moderateScale} from '../../../../helpers/MetricsHelper.ts';
-import Swipeable from 'react-native-gesture-handler/src/components/Swipeable.tsx';
 
 type LeftActionsProps = {
   deleteAction: () => void;
