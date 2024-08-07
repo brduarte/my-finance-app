@@ -8,6 +8,7 @@ import {DateHelper} from '../../helpers/DateHelper.ts';
 import {useNavigation} from '@react-navigation/native';
 import {useActiveIndicator} from '../../contexts/ActiveIndicatorContext.tsx';
 import {ItemProps} from '../../components/InputSelectSheet/Layout.tsx';
+import {showMessage} from 'react-native-flash-message';
 
 type Error = {
   isError: boolean;
@@ -108,7 +109,13 @@ export default function CreateAccountForm(): React.JSX.Element {
 
       navigate.goBack();
     } catch (e) {
-      console.log(e);
+      showMessage({
+        message: 'Erro ao salvar lançamento',
+        description:
+          'Ocorreu um problema ao salvar seu lançamento. Por favor, tente novamente mais tarde.',
+        type: 'danger',
+        duration: 5000,
+      });
     } finally {
       activeIndicator.disabled();
     }
