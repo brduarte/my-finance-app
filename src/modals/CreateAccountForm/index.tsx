@@ -7,6 +7,7 @@ import {MoneyHelper} from '../../helpers/MoneyHelper.ts';
 import {DateHelper} from '../../helpers/DateHelper.ts';
 import {useNavigation} from '@react-navigation/native';
 import {useActiveIndicator} from '../../contexts/ActiveIndicatorContext.tsx';
+import {ItemProps} from '../../components/InputSelectSheet/Layout.tsx';
 
 type Error = {
   isError: boolean;
@@ -17,7 +18,7 @@ export default function CreateAccountForm(): React.JSX.Element {
   const navigate = useNavigation();
 
   const [amount, setAmount] = useState<string>('R$ 0,00');
-  const [typeAccountId, setTypeAccountId] = useState<string>();
+  const [transactionType, setTransactionType] = useState<ItemProps>();
   const [firstDate, setFistDate] = useState<Date>(new Date());
   const [installments, setInstallments] = useState<number>(1);
   const [name, setName] = useState<string>();
@@ -35,12 +36,12 @@ export default function CreateAccountForm(): React.JSX.Element {
     setAmount(MoneyHelper.stringToReal(value));
   }
 
-  function handleInputTypeAccountChange(value: string) {
-    if (value) {
+  function handleInputTypeAccountChange(item: ItemProps) {
+    if (item) {
       setEnableSubmit(true);
     }
 
-    setTypeAccountId(value);
+    setTransactionType(item);
   }
 
   function handleInputFirstDate(value: Date) {
@@ -90,7 +91,7 @@ export default function CreateAccountForm(): React.JSX.Element {
       });
     }
 
-    if (!amount || !name || !typeAccountId || name.length <= 4) {
+    if (!amount || !name || !transactionType || name.length <= 4) {
       return;
     }
 
@@ -101,7 +102,7 @@ export default function CreateAccountForm(): React.JSX.Element {
         name: name,
         amount: MoneyHelper.brToInt(amount),
         dueDate: DateHelper.toUsa(firstDate),
-        type: typeAccountId as AccountTypeEnum,
+        type: transactionType.value as AccountTypeEnum,
         installments: Number(installments),
       });
 
@@ -133,9 +134,9 @@ export default function CreateAccountForm(): React.JSX.Element {
         errorMessage: errorInstallment?.text,
         isError: errorInstallment?.isError,
       }}
-      inputTypeAccount={{
-        value: typeAccountId,
-        handleInputTypeAccountChange,
+      inputTransactionType={{
+        value: transactionType,
+        handleInputTransactionTypeChange: handleInputTypeAccountChange,
       }}
       inputName={{
         value: name,

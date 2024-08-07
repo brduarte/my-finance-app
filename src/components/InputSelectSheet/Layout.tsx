@@ -1,6 +1,12 @@
 import React from 'react';
 import {disabledStyles, styles} from './styles';
-import {FlatList, Text, TouchableOpacity, View} from 'react-native';
+import {
+  FlatList,
+  SectionList,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {ChevronRight, LucideIcon, X} from 'lucide-react-native';
 import {MStyles} from '../../views/style';
 import {ListRenderItemInfo} from '@react-native/virtualized-lists/Lists/VirtualizedList';
@@ -8,25 +14,30 @@ import {useNavigation} from '@react-navigation/native';
 
 type LayoutProps = {
   onPress?: () => void;
-  value?: number | string;
+  value?: ItemProps;
   selected?: {text: string; icon?: LucideIcon};
 };
 
-export type SelectItemsProps = {
+export type ItemProps = {
   name: string;
   value: string | number;
   description: string;
   icon?: LucideIcon;
 };
 
+export type SelectItemsProps = {
+  title: string;
+  data: ItemProps[];
+};
+
 type LayoutOptionsListProps = {
-  onSelect?: (value: string | number) => void;
+  onSelect: (item: ItemProps) => void;
   optionsList: SelectItemsProps[];
 };
 
 type LayoutOptionsListItemProps = {
   onPress?: (value: string | number) => void;
-  item: SelectItemsProps;
+  item: ItemProps;
   navigate: any;
 };
 
@@ -72,10 +83,17 @@ export function LayoutOptionsList({
 
   return (
     <View style={styles.selectOptionItemContainer}>
-      <FlatList
-        data={optionsList}
-        renderItem={({item}: ListRenderItemInfo<SelectItemsProps>) => (
-          <LayoutItem item={item} onPress={onSelect} navigate={navigation} />
+      <SectionList
+        sections={optionsList}
+        renderSectionHeader={({section: {title}}) => <Text>{title}</Text>}
+        renderItem={({item}: ListRenderItemInfo<ItemProps>) => (
+          <LayoutItem
+            item={item}
+            onPress={() => {
+              onSelect(item);
+            }}
+            navigate={navigation}
+          />
         )}
       />
     </View>

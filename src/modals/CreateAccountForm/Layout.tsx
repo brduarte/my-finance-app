@@ -8,6 +8,7 @@ import {BookDown, BookUp, X} from 'lucide-react-native';
 import {InputDateSheet} from '../../components/InputDateSheet';
 import {ModalHeader} from '../../navigate/modal/ModalHeader.tsx';
 import {SafeAreaView} from '../../components/SafeAreaView/SafeAreaView.tsx';
+import {ItemProps} from '../../components/InputSelectSheet/Layout.tsx';
 
 type LayoutProps = {
   inputValue: {
@@ -22,9 +23,9 @@ type LayoutProps = {
     isError?: boolean;
     errorMessage?: string;
   };
-  inputTypeAccount: {
-    handleInputTypeAccountChange: (value: any) => void;
-    value?: string;
+  inputTransactionType: {
+    handleInputTransactionTypeChange: (item: ItemProps) => void;
+    value?: ItemProps;
     isError?: boolean;
     errorMessage?: string;
   };
@@ -44,7 +45,7 @@ type LayoutProps = {
 
 export default function Layout({
   inputValue,
-  inputTypeAccount,
+  inputTransactionType,
   inputDate,
   inputInstallment,
   inputName,
@@ -53,25 +54,30 @@ export default function Layout({
 }: LayoutProps): React.JSX.Element {
   const optionsTypeAccount = [
     {
-      name: 'Débito',
-      value: 'PAYABLE',
-      description:
-        "Lamçamentos de 'Débito' irão criar uma ou mais transações de débito no seu extrato.",
-      icon: BookDown,
-    },
-    {
-      name: 'Crédito',
-      value: 'RECEIVABLE',
-      description:
-        "Lançamentos de 'Crédito' irão criar uma ou mais transações de crédito.",
-      icon: BookUp,
-    },
-    {
-      name: 'Assinatura',
-      value: 'SUBSCRIPTION',
-      description:
-        "Lançamentos de 'Crédito' irão criar uma ou mais transações de crédito.",
-      icon: BookUp,
+      title: 'Simples',
+      data: [
+        {
+          name: 'Débito',
+          value: 'PAYABLE',
+          description:
+            "Lamçamentos de 'Débito' irão criar uma ou mais transações de débito no seu extrato.",
+          icon: BookDown,
+        },
+        {
+          name: 'Crédito',
+          value: 'RECEIVABLE',
+          description:
+            "Lançamentos de 'Crédito' irão criar uma ou mais transações de crédito.",
+          icon: BookUp,
+        },
+        {
+          name: 'Assinatura',
+          value: 'SUBSCRIPTION',
+          description:
+            "Lançamentos de 'Crédito' irão criar uma ou mais transações de crédito.",
+          icon: BookUp,
+        },
+      ],
     },
   ];
 
@@ -110,8 +116,8 @@ export default function Layout({
             <Text style={styles.label}>Tipo de lançamento:</Text>
             <SelectSheet
               optionsList={optionsTypeAccount}
-              value={inputTypeAccount.value}
-              onSelect={inputTypeAccount.handleInputTypeAccountChange}
+              value={inputTransactionType.value}
+              onSelect={inputTransactionType.handleInputTransactionTypeChange}
               noSelectedValue={{
                 text: 'Escolha uma opção',
                 icon: X,
