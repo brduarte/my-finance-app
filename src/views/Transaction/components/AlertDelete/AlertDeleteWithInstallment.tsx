@@ -16,7 +16,7 @@ type AlertDeleteProps = {
   onCancel: () => void;
 };
 
-export function AlertDelete({
+export function AlertDeleteWithInstallment({
   transaction,
   onDeleteAll,
   onDeleteOnly,

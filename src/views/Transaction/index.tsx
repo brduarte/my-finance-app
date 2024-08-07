@@ -9,9 +9,10 @@ import {ResumeModel} from '../../services/core/models/ResumeModel.ts';
 import {IResumeService} from '../../services/core/interfaces/ResumeServiceInterface.ts';
 import {ResumeService} from '../../services/core/services/ResumeService.ts';
 import {useBottomSheet} from '../../contexts/BottomSheetContext.tsx';
-import {AlertDelete} from './components/AlertDelete/AlertDelete.tsx';
+import {AlertDeleteWithInstallment} from './components/AlertDelete/AlertDeleteWithInstallment.tsx';
 import {IAccountService} from '../../services/core/interfaces/AccountServiceInterface.ts';
 import {AccountService} from '../../services/core/services/AccountService.ts';
+import {AlertDeleteNoInstallment} from './components/AlertDelete/AlertDeleteNoInstallment.tsx';
 
 export function Transaction(): React.JSX.Element {
   const transactionService: ITransactionService = new TransactionService();
@@ -72,15 +73,25 @@ export function Transaction(): React.JSX.Element {
       bottomSheet.close();
     }
 
-    if (transaction.account && transaction.account.installments === 1) {
-      bottomSheet.setChildren(
-        <AlertDelete
-          transaction={transaction}
-          onDeleteAll={onDeleteAccount}
-          onDeleteOnly={onDeleteTransaction}
-          onCancel={onCancelAction}
-        />,
-      );
+    if (transaction.account) {
+      if (transaction.account.installments > 1) {
+        bottomSheet.setChildren(
+          <AlertDeleteWithInstallment
+            transaction={transaction}
+            onDeleteAll={onDeleteAccount}
+            onDeleteOnly={onDeleteTransaction}
+            onCancel={onCancelAction}
+          />,
+        );
+      } else {
+        bottomSheet.setChildren(
+          <AlertDeleteNoInstallment
+            transaction={transaction}
+            onDeleteConfirm={onDeleteTransaction}
+            onCancel={onCancelAction}
+          />,
+        );
+      }
 
       bottomSheet.open();
     }
