@@ -9,6 +9,8 @@ import {useNavigation} from '@react-navigation/native';
 import {useActiveIndicator} from '../../contexts/ActiveIndicatorContext.tsx';
 import {ItemProps} from '../../components/InputSelectSheet/Layout.tsx';
 import {showMessage} from 'react-native-flash-message';
+import {RecurrenceEnum} from '../../services/core/enums/RecurrenceEnum.ts';
+import {TabOptionType} from '../../components/InputTabSelect/InputTabSelect.tsx';
 
 type Error = {
   isError: boolean;
@@ -23,6 +25,7 @@ export default function CreateAccountForm(): React.JSX.Element {
   const [firstDate, setFistDate] = useState<Date>(new Date());
   const [installments, setInstallments] = useState<number>(1);
   const [name, setName] = useState<string>();
+  const [recurrence, setRecurrence] = useState<TabOptionType>();
 
   const [enableSubmit, setEnableSubmit] = useState<boolean>(false);
 
@@ -32,9 +35,20 @@ export default function CreateAccountForm(): React.JSX.Element {
 
   const activeIndicator = useActiveIndicator();
 
+  const recurrenceOptions: TabOptionType[] = [
+    {title: 'Mensal', value: RecurrenceEnum.MONTHLY},
+    {title: 'Semestral', value: RecurrenceEnum.SEMIANNUAL},
+    {title: 'Anual', value: RecurrenceEnum.ANNUAL},
+  ];
+
   function handleInputValueChange(value: string) {
     setErrorInputAmount({isError: false});
     setAmount(MoneyHelper.stringToReal(value));
+  }
+
+  function handleInputRecurrenceChange(value: TabOptionType) {
+    console.log(value);
+    setRecurrence(value);
   }
 
   function handleInputTypeAccountChange(item: ItemProps) {
@@ -150,6 +164,11 @@ export default function CreateAccountForm(): React.JSX.Element {
         handleInputNameChange,
         isError: errorInputName?.isError,
         errorMessage: errorInputName?.text,
+      }}
+      inputRecurrence={{
+        data: recurrenceOptions,
+        value: recurrence,
+        handleInputRecurrenceChange,
       }}
     />
   );

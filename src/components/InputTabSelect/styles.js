@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {moderateScale} from '../../helpers/MetricsHelper';
-import {MStyles} from '../../views/style';
+import {MStyles as Fonts, MStyles} from '../../views/style';
 
 export const styles = StyleSheet.create({
   container: {
@@ -17,8 +17,9 @@ export const styles = StyleSheet.create({
   },
 
   textTab: {
+    color: MStyles.colors.blackColor,
     alignSelf: 'center',
-    fontWeight: 600,
+    fontFamily: Fonts.fontFamilyInterSemiBold,
     fontSize: moderateScale(14),
   },
 

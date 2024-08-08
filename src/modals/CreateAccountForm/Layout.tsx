@@ -10,8 +10,10 @@ import {ModalHeader} from '../../navigate/modal/ModalHeader.tsx';
 import {SafeAreaView} from '../../components/SafeAreaView/SafeAreaView.tsx';
 import {ItemProps} from '../../components/InputSelectSheet/Layout.tsx';
 import {AccountTypeEnum} from '../../services/core/enums/AccountTypeEnum.ts';
-import {InputTabSelect} from '../../components/InputTabSelect/InputTabSelect.tsx';
-import {InputOption} from '../../components/InputTabSelect/InputOption.tsx';
+import {
+  InputTabSelect,
+  TabOptionType,
+} from '../../components/InputTabSelect/InputTabSelect.tsx';
 
 type LayoutProps = {
   inputValue: {
@@ -42,6 +44,11 @@ type LayoutProps = {
     isError?: boolean;
     errorMessage?: string;
   };
+  inputRecurrence: {
+    handleInputRecurrenceChange: (value: TabOptionType) => void;
+    value?: TabOptionType;
+    data: TabOptionType[];
+  };
   handleSummit: () => void;
   enableSubmit: boolean;
 };
@@ -52,6 +59,7 @@ export default function Layout({
   inputDate,
   inputInstallment,
   inputName,
+  inputRecurrence,
   handleSummit,
   enableSubmit,
 }: LayoutProps): React.JSX.Element {
@@ -162,7 +170,11 @@ export default function Layout({
           </View>
 
           <View>
-            <InputOption />
+            <InputTabSelect
+              buttons={inputRecurrence.data}
+              selectedTab={inputRecurrence.value}
+              setSelectedTab={inputRecurrence.handleInputRecurrenceChange}
+            />
           </View>
 
           <TouchableOpacity onPress={handleSummit} disabled={!enableSubmit}>
