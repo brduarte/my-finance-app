@@ -123,6 +123,7 @@ function LayoutItem({item, onPress, navigate}: LayoutOptionsListItemProps) {
       ) : (
         <></>
       )}
+
       <View style={styles.selectOptionItemText}>
         <View style={{flex: 1}}>
           <Text style={styles.selectOptionItemTextTitle}>{item.name}</Text>
