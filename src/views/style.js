@@ -9,7 +9,7 @@ export const MStyles = {
     redColor: '#E25C5C',
     greenColor: '#469B88',
     greyColor: '#4a4f53',
-    greyColorBackground: '#f2f2f7',
+    greyColorBackground: 'rgba(220,219,226,0.56)',
     redColorBackground: '#f7f2f2',
     defaultBackgroundColor: '#ffff',
     blueColor: '#489FCD',

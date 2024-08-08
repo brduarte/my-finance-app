@@ -4,7 +4,7 @@ import {
   moderateScale,
   verticalScale,
 } from '../../helpers/MetricsHelper';
-import {MStyles as MsStyles, MStyles} from '../../views/style';
+import {MStyles} from '../../views/style';
 
 export const styles = StyleSheet.create({
   selectType: {

@@ -10,6 +10,8 @@ import {ModalHeader} from '../../navigate/modal/ModalHeader.tsx';
 import {SafeAreaView} from '../../components/SafeAreaView/SafeAreaView.tsx';
 import {ItemProps} from '../../components/InputSelectSheet/Layout.tsx';
 import {AccountTypeEnum} from '../../services/core/enums/AccountTypeEnum.ts';
+import {InputTabSelect} from '../../components/InputTabSelect/InputTabSelect.tsx';
+import {InputOption} from '../../components/InputTabSelect/InputOption.tsx';
 
 type LayoutProps = {
   inputValue: {
@@ -80,7 +82,7 @@ export default function Layout({
           name: 'Assinatura',
           value: 'SUBSCRIPTION',
           description:
-            "Lançamentos de 'Crédito' irão criar uma ou mais transações de crédito.",
+            'As cobranças da assinatura serão feitas automaticamente conforme a frequência escolhida, até que você cancele a assinatura.',
           icon: CalendarRange,
         },
       ],
@@ -157,6 +159,10 @@ export default function Layout({
                 onChange={inputDate.handleInputDateChange}
               />
             </View>
+          </View>
+
+          <View>
+            <InputOption />
           </View>
 
           <TouchableOpacity onPress={handleSummit} disabled={!enableSubmit}>
