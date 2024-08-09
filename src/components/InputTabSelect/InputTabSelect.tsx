@@ -46,7 +46,6 @@ const MyTextComponent = Animated.createAnimatedComponent(MyText);
 export function InputTabSelect({
   buttons,
   setSelectedTab,
-  selectedTab,
 }: TabButtonProps): React.JSX.Element {
   const [dimensions, setDimensions] = React.useState({height: 20, width: 100});
   const tabPositionX = useSharedValue(0);
