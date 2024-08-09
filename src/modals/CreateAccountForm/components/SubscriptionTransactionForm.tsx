@@ -54,28 +54,13 @@ export function SubscriptionTransactionForm({
         />
       </View>
 
-      <View style={styles.sessionColum}>
-        <View style={{flex: 1}}>
-          <Text style={styles.label}>Parcelas</Text>
-          <Input
-            maxLength={4}
-            keyboardType="numeric"
-            placeholder={'1'}
-            value={inputInstallment.value}
-            onChangeText={inputInstallment.handleInputInstallmentChange}
-            isError={inputInstallment.isError}
-            errorText={inputInstallment.errorMessage}
-          />
-        </View>
-
-        <View style={{flex: 3, marginLeft: 5}}>
-          <Text style={styles.label}>Data do primeiro pagamento:</Text>
-          <InputDateSheet
-            placeholder={new Date()}
-            value={inputDate.value}
-            onChange={inputDate.handleInputDateChange}
-          />
-        </View>
+      <View style={styles.session}>
+        <Text style={styles.label}>Data do primeiro pagamento:</Text>
+        <InputDateSheet
+          placeholder={new Date()}
+          value={inputDate.value}
+          onChange={inputDate.handleInputDateChange}
+        />
       </View>
 
       <View style={styles.session}>
