@@ -17,6 +17,12 @@ type Error = {
   text?: string;
 };
 
+export const recurrenceOptions: TabOptionType[] = [
+  {title: 'Mensal', value: RecurrenceEnum.MONTHLY},
+  {title: 'Semestral', value: RecurrenceEnum.SEMIANNUAL},
+  {title: 'Anual', value: RecurrenceEnum.ANNUAL},
+];
+
 export default function CreateAccountForm(): React.JSX.Element {
   const navigate = useNavigation();
 
@@ -35,25 +41,28 @@ export default function CreateAccountForm(): React.JSX.Element {
 
   const activeIndicator = useActiveIndicator();
 
-  const recurrenceOptions: TabOptionType[] = [
-    {title: 'Mensal', value: RecurrenceEnum.MONTHLY},
-    {title: 'Semestral', value: RecurrenceEnum.SEMIANNUAL},
-    {title: 'Anual', value: RecurrenceEnum.ANNUAL},
-  ];
-
   function handleInputValueChange(value: string) {
     setErrorInputAmount({isError: false});
     setAmount(MoneyHelper.stringToReal(value));
   }
 
   function handleInputRecurrenceChange(value: TabOptionType) {
-    console.log(value);
     setRecurrence(value);
   }
 
   function handleInputTypeAccountChange(item: ItemProps) {
     if (item) {
       setEnableSubmit(true);
+    }
+
+    switch (item.value) {
+      case AccountTypeEnum.SUBSCRIPTION:
+        setRecurrence(recurrenceOptions[0]);
+        break;
+      default:
+        if (recurrence) {
+          setRecurrence(undefined);
+        }
     }
 
     setTransactionType(item);

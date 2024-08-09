@@ -4,16 +4,15 @@ import {styles} from './styles';
 import Input from '../../components/Input';
 
 import {SelectSheet} from '../../components/InputSelectSheet';
-import {BookDown, BookUp, CalendarRange, X} from 'lucide-react-native';
-import {InputDateSheet} from '../../components/InputDateSheet';
+import {X} from 'lucide-react-native';
 import {ModalHeader} from '../../navigate/modal/ModalHeader.tsx';
 import {SafeAreaView} from '../../components/SafeAreaView/SafeAreaView.tsx';
 import {ItemProps} from '../../components/InputSelectSheet/Layout.tsx';
 import {AccountTypeEnum} from '../../services/core/enums/AccountTypeEnum.ts';
-import {
-  InputTabSelect,
-  TabOptionType,
-} from '../../components/InputTabSelect/InputTabSelect.tsx';
+import {TabOptionType} from '../../components/InputTabSelect/InputTabSelect.tsx';
+import {optionsTypeAccount} from './data.ts';
+import {SimpleTransactionForm} from './components/SimpleTransactionForm.tsx';
+import {SubscriptionTransactionForm} from './components/SubscriptionTransactionForm.tsx';
 
 type LayoutProps = {
   inputValue: {
@@ -63,39 +62,38 @@ export default function Layout({
   handleSummit,
   enableSubmit,
 }: LayoutProps): React.JSX.Element {
-  const optionsTypeAccount = [
-    {
-      title: 'Simples',
-      data: [
-        {
-          name: 'Débito',
-          value: 'PAYABLE',
-          description:
-            "Lamçamentos de 'Débito' irão criar uma ou mais transações de débito no seu extrato.",
-          icon: BookDown,
-        },
-        {
-          name: 'Crédito',
-          value: 'RECEIVABLE',
-          description:
-            "Lançamentos de 'Crédito' irão criar uma ou mais transações de crédito.",
-          icon: BookUp,
-        },
-      ],
-    },
-    {
-      title: 'Contratos',
-      data: [
-        {
-          name: 'Assinatura',
-          value: 'SUBSCRIPTION',
-          description:
-            'As cobranças da assinatura serão feitas automaticamente conforme a frequência escolhida, até que você cancele a assinatura.',
-          icon: CalendarRange,
-        },
-      ],
-    },
-  ];
+  let formRender = <></>;
+
+  switch (inputTransactionType.value?.value) {
+    case AccountTypeEnum.RECEIVABLE:
+      formRender = (
+        <SimpleTransactionForm
+          inputValue={inputValue}
+          inputDate={inputDate}
+          inputInstallment={inputInstallment}
+        />
+      );
+      break;
+    case AccountTypeEnum.PAYABLE:
+      formRender = (
+        <SimpleTransactionForm
+          inputValue={inputValue}
+          inputDate={inputDate}
+          inputInstallment={inputInstallment}
+        />
+      );
+      break;
+    case AccountTypeEnum.SUBSCRIPTION:
+      formRender = (
+        <SubscriptionTransactionForm
+          inputValue={inputValue}
+          inputDate={inputDate}
+          inputInstallment={inputInstallment}
+          inputRecurrence={inputRecurrence}
+        />
+      );
+      break;
+  }
 
   return (
     <SafeAreaView>
@@ -103,20 +101,6 @@ export default function Layout({
         <ModalHeader title={'Crie um novo lançamento'} icon={'arrow-back'} />
 
         <ScrollView>
-          <View style={styles.session}>
-            <Text style={styles.label}>Valor do lançamento:</Text>
-            <Input
-              keyboardType={'numeric'}
-              style={styles.inputMoney}
-              placeholder={'0'}
-              caretHidden={true}
-              onChangeText={inputValue.handleInputValueChange}
-              value={inputValue.value}
-              isError={inputValue.isError}
-              errorText={inputValue.errorMessage}
-            />
-          </View>
-
           <View style={styles.session}>
             <Text style={styles.label}>Nome:</Text>
             <Input
@@ -141,41 +125,7 @@ export default function Layout({
             />
           </View>
 
-          <View style={styles.sessionColum}>
-            <View style={{flex: 1}}>
-              <Text style={styles.label}>
-                {inputTransactionType.value?.value ===
-                AccountTypeEnum.SUBSCRIPTION
-                  ? 'Recorrência:'
-                  : 'Parcelas:'}
-              </Text>
-              <Input
-                maxLength={4}
-                keyboardType="numeric"
-                placeholder={'1'}
-                value={inputInstallment.value}
-                onChangeText={inputInstallment.handleInputInstallmentChange}
-                isError={inputInstallment.isError}
-                errorText={inputInstallment.errorMessage}
-              />
-            </View>
-            <View style={{flex: 3, marginLeft: 5}}>
-              <Text style={styles.label}>Primeiro pagamento em:</Text>
-              <InputDateSheet
-                placeholder={new Date()}
-                value={inputDate.value}
-                onChange={inputDate.handleInputDateChange}
-              />
-            </View>
-          </View>
-
-          <View>
-            <InputTabSelect
-              buttons={inputRecurrence.data}
-              selectedTab={inputRecurrence.value}
-              setSelectedTab={inputRecurrence.handleInputRecurrenceChange}
-            />
-          </View>
+          {formRender}
 
           <TouchableOpacity onPress={handleSummit} disabled={!enableSubmit}>
             <View

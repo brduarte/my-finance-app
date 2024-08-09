@@ -98,6 +98,11 @@ export function InputTabSelect({
       />
       <View onLayout={onTabbarLayout} style={{flexDirection: 'row'}}>
         {buttons.map((button, index) => {
+          const fontFamily =
+            button.value === selectedTab?.value
+              ? MStyles.fontFamilyInterBold
+              : MStyles.fontFamilyPrimarySemiBold;
+
           return (
             <Pressable
               key={index}
@@ -105,7 +110,7 @@ export function InputTabSelect({
               onPress={() => {
                 onTabPress(button, index);
               }}>
-              <MyTextComponent style={[styles.textTab]}>
+              <MyTextComponent style={[styles.textTab, {fontFamily}]}>
                 {button.title}
               </MyTextComponent>
             </Pressable>

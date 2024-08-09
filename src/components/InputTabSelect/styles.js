@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     backgroundColor: MStyles.colors.greyColorBackground,
     borderRadius: 20,
     justifyContent: 'center',
+    paddingVertical: 2,
   },
 
   backgroundSelect: {
